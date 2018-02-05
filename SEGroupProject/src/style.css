@@ -1,0 +1,142 @@
+#logInButton {
+    -fx-background-color: #a9ff00;
+    -fx-background-radius: 10, 8;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+    -fx-padding: 5 10 5 10;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#logInButton:hover{
+	-fx-background-color: #e6ffb7;
+    -fx-background-radius: 10, 8;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#logOutButton {
+    -fx-background-color: #f78888;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#logOutButton:hover{
+    -fx-background-color: #edb4b4;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#deleteButton {
+    -fx-background-color: #f78888;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#deleteButton:hover{
+    -fx-background-color: #edb4b4;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#saveNote {
+    -fx-background-color: #87b5ff;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#saveNote:hover{
+    -fx-background-color: #b5d1ff;
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#settingsButton{
+	-fx-background-color: #d6d6d6;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#settingsButton:hover{
+	-fx-background-color: #efefef;
+    -fx-background-radius: 8,7,6;
+    -fx-background-insets: 0,1,2;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.noteyButtons{
+ 
+  	-fx-background-color: #f7f7f7; 
+ 	-fx-background-insets: 0,1,4,5;
+    -fx-background-radius: 9,8,5,4;
+    -fx-padding: 15 30 15 30;
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
+	
+}
+
+.noteyButtons:hover{
+ 
+  	-fx-background-color: #e0e7ff; 
+ 	-fx-background-insets: 0,1,4,5;
+    -fx-background-radius: 9,8,5,4;
+    -fx-padding: 15 30 15 30;
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
+}
+
+.noteyButtonDeselect{
+	-fx-background-color: #f7f7f7;
+}
+
+.noteyButtonSelect{
+	
+	-fx-background-color: #8da6fc !important;
+	
+}
+
+#footerArea{
+	-fx-background-color: grey;
+}
+
+#leftArea{
+	-fx-background-color: #c6c6c6;
+	-fx-border-bottom: 10;
+	-fx-border-style: solid;
+    -fx-border-color: white;
+}
+
+#headerDashboard{
+	-fx-background-color: #c6c6c6;
+
+}
+
+#yourNotesArea{
+	-fx-background-color: #c6c6c6;
+	-fx-border-bottom: 10;
+	-fx-border-style: solid;
+    -fx-border-color: white;
+}
+
+.button:hover{
+	-fx-cursor:hand;
+}
