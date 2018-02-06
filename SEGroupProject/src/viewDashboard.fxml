@@ -5,7 +5,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
@@ -14,13 +13,12 @@
       <VBox BorderPane.alignment="CENTER">
          <children>
             <MenuBar />
-            <HBox fx:id="headerDashboard" spacing="10.0" styleClass="headerDashboard">
+            <HBox id="headerDashboard" fx:id="headerDashboard" spacing="10.0">
                <children>
-                  <Label prefHeight="24.0" prefWidth="117.0" text="Main Dashboard">
+                  <Label prefHeight="24.0" prefWidth="135.0" text="Dashboard Header">
                      <HBox.margin>
                         <Insets top="1.0" />
                      </HBox.margin></Label>
-                 <Region HBox.hgrow="ALWAYS" />
                </children>
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
@@ -30,18 +28,20 @@
       </VBox>
    </top>
    <bottom>
-      <HBox fx:id="footerArea" BorderPane.alignment="CENTER">
+      <HBox id="footerDashboard" fx:id="footerDashboard" BorderPane.alignment="CENTER">
          <children>
-            <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="615.0" HBox.hgrow="ALWAYS" />
-            <Label fx:id="footerText" text="This is the Footer." />
+            <Label fx:id="footerText" text="Footer" HBox.hgrow="ALWAYS" />
          </children>
          <padding>
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
       </HBox>
    </bottom>
    <left>
-      <VBox fx:id="leftArea" prefHeight="338.0" prefWidth="149.0" BorderPane.alignment="CENTER">
+      <VBox id="leftAreaDashboard" fx:id="leftAreaDashboard" prefHeight="338.0" prefWidth="149.0" BorderPane.alignment="CENTER">
          <children>
             <TextFlow>
                <children>
@@ -53,17 +53,23 @@
                </children>
             </TextFlow>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox id="bodyDashboard" fx:id="bodyDashboard" alignment="CENTER" fillWidth="false" prefHeight="338.0" prefWidth="300.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Application Body" textAlignment="CENTER" wrapText="true">
+            <Label text="Body" textAlignment="CENTER" wrapText="true">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
 </BorderPane>
