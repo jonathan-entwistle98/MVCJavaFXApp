@@ -22,7 +22,7 @@ public class Model extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("viewDashboard.fxml"));
 		primaryStage.setTitle("Dashboard");
-		Scene scene = new Scene(root, 800, 500);
+		Scene scene = new Scene(root, 1200, 600);
 		scene.getStylesheets().add("style.css");
 		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("icon.png")));
 		primaryStage.setScene(scene);
