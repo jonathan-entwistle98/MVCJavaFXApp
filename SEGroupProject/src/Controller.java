@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 
@@ -26,14 +28,28 @@ public class Controller {
 	private VBox leftAreaDashboard;
 	
 	@FXML
+	private TextFlow metricsText;
+	
+	@FXML
 	private VBox bodyDashboard;
 	
 	@FXML
 	private HBox footerDashboard;
 	
+	@FXML
+	private Label sidebarLabel;
 	
-	public void initialize() {
-		System.out.println("check1");
+	private Model model;
+	
+	public void initialize(){
+		System.out.println("intialized check");
 	}
+
+	public void initModel(Model model) {
+		this.model = model;
+		sidebarLabel.setText("Clicks logged: " + Integer.toString(model.clickLogList.size()));
+	}
+	
+	
 
 }
