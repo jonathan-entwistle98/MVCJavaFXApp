@@ -16,21 +16,6 @@ public class Model {
 	
 	private boolean isLoggedIn = false;
 	
-	/* 
-	 * Creates a new Scene, adds this scene to the stage and sets the css and fxml files to be used.
-	 */
-//	@Override
-//	public void start(Stage primaryStage) throws Exception {
-//		loadCSVData();
-//		Parent root = FXMLLoader.load(getClass().getResource("viewDashboard.fxml"));
-//		primaryStage.setTitle("Dashboard");
-//		Scene scene = new Scene(root, 1200, 600);
-//		scene.getStylesheets().add("style.css");
-//		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("icon.png")));
-//		primaryStage.setScene(scene);
-//		primaryStage.show();
-//	}
-	
 	public ArrayList<String> clickLogList = new ArrayList<String>();
 	public ArrayList<String> serverLogList = new ArrayList<String>();
 	public ArrayList<String> impressionLogList = new ArrayList<String>();

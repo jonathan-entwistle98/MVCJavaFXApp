@@ -41,15 +41,24 @@
       </HBox>
    </bottom>
    <left>
-      <VBox id="leftAreaDashboard" fx:id="leftAreaDashboard" prefHeight="338.0" prefWidth="149.0" BorderPane.alignment="CENTER">
+      <VBox id="leftAreaDashboard" fx:id="leftAreaDashboard" prefHeight="306.0" prefWidth="276.0" BorderPane.alignment="CENTER">
          <children>
             <TextFlow id="metricsText" fx:id="metricsText">
                <children>
-                  <Label id="sidebarLabel" fx:id="sidebarLabel" text="Sidebar">
+                  <Label id="sidebarLabel" fx:id="sidebarLabel1" text="Sidebar">
                      <padding>
                         <Insets left="10.0" top="20.0" />
                      </padding>
                   </Label>
+                  <Label fx:id="sidebarLabel2" text="Label" />
+                  <Label fx:id="sidebarLabel3" text="Label" />
+                  <Label fx:id="sidebarLabel4" text="Label" />
+                  <Label fx:id="sidebarLabel5" text="Label" />
+                  <Label fx:id="sidebarLabel6" text="Label" />
+                  <Label fx:id="sidebarLabel7" text="Label" />
+                  <Label fx:id="sidebarLabel8" text="Label" />
+                  <Label fx:id="sidebarLabel9" text="Label" />
+                  <Label fx:id="sidebarLabel10" text="Label" />
                </children>
             </TextFlow>
          </children>

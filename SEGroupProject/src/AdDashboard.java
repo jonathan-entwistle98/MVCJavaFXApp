@@ -16,11 +16,13 @@ public class AdDashboard extends Application{
 		launch(args);
 	}
 
+	
+	/* 
+	 * Creates a new Scene, adds this scene to the stage and sets the css and fxml files to be used.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 			
-		
-		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("viewDashboard.fxml"));
 		
 		Controller controller = new Controller();
@@ -32,8 +34,7 @@ public class AdDashboard extends Application{
 		Model model = new Model();
 		model.loadCSVData();
 		
-		controller.initModel(model);		
-
+		controller.initModel(model);	
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 1000, 600);
