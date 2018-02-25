@@ -1,10 +1,15 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,7 +88,7 @@ public class Controller {
 		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + calculateCPA());
 		sidebarLabel8.setText("Cost-per-click (CPC): " + calculateCPC());
 		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + calculateCPM());
-		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces() );
+		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces());
 	}
 	
 	public int calculateNumUniqueUserClicks(){
@@ -229,18 +234,35 @@ public class Controller {
 			entryDatesMinute.add(dateSplit[1]);
 		}
 		
-		ArrayList<Calendar> entryCalenderDates = new ArrayList<Calendar>();
+//		ArrayList<Calendar> entryCalendarDates = new ArrayList<Calendar>();
+		ArrayList<ArrayList<Integer>> entryCalendarDates = new ArrayList<ArrayList<Integer>>();
 		
 		for(int i=0; i<entryDatesYear.size(); i++){
 			
 			Calendar calendar = Calendar.getInstance();
-			calendar.set(0, Integer.parseInt(entryDatesYear.get(i)));
-			calendar.set(1, Integer.parseInt(entryDatesMonth.get(i)));
-			calendar.set(2, Integer.parseInt(entryDatesDay.get(i)));
-			calendar.set(3, Integer.parseInt(entryDatesHour.get(i)));
-			calendar.set(4, Integer.parseInt(entryDatesMinute.get(i)));
+			ArrayList<Integer> datesAndTimes = new ArrayList<Integer>();
+			calendar.clear();
+			TimeZone tz = TimeZone.getTimeZone("Europe/London") ;
+			calendar.setTimeZone(tz);
+//			calendar.set(Calendar.ERA, GregorianCalendar.AD);
 			
-			entryCalenderDates.add(calendar);
+//			calendar.set(0, Integer.parseInt(entryDatesYear.get(i)));
+//			calendar.set(1, Integer.parseInt(entryDatesMonth.get(i)));
+//			calendar.set(2, Integer.parseInt(entryDatesDay.get(i)));
+//			calendar.set(3, Integer.parseInt(entryDatesHour.get(i)));
+//			calendar.set(4, Integer.parseInt(entryDatesMinute.get(i)));
+			
+			datesAndTimes.add(Integer.parseInt(entryDatesYear.get(i)));
+			datesAndTimes.add(Integer.parseInt(entryDatesMonth.get(i)));
+			datesAndTimes.add(Integer.parseInt(entryDatesDay.get(i)));
+			datesAndTimes.add(Integer.parseInt(entryDatesHour.get(i)));
+			datesAndTimes.add(Integer.parseInt(entryDatesMinute.get(i)));
+			
+			
+			
+//			entryCalendarDates.add(calendar);
+			
+			entryCalendarDates.add(datesAndTimes);
 		}
 		
 		
@@ -251,9 +273,20 @@ public class Controller {
 		ArrayList<String> exitDatesTime = new ArrayList<String>();
 		
 		for(String dateExit : exitDates){
-			String[] dateSplit = dateExit.split(" ");
-			exitDatesDate.add(dateSplit[0]);
-			exitDatesTime.add(dateSplit[1]);
+			
+			String defaultExitDate = "2015-31-01";
+			String defaultExitTime = "23:00";
+			
+			if(dateExit.equals("n/a") || dateExit.equals("n-a")){
+				exitDatesDate.add(defaultExitDate);
+				exitDatesTime.add(defaultExitTime);
+			} else{
+				String[] dateSplit = dateExit.split(" ");
+				exitDatesDate.add(dateSplit[0]);
+				exitDatesTime.add(dateSplit[1]);
+			}
+			
+			
 		}
 		
 		ArrayList<String> exitDatesDay = new ArrayList<String>();
@@ -270,38 +303,86 @@ public class Controller {
 		ArrayList<String> exitDatesMinute = new ArrayList<String>();
 		ArrayList<String> exitDatesHour = new ArrayList<String>();
 		
-		for(String timeExit : exitDates){
+		for(String timeExit : exitDatesTime){
 			String[] dateSplit = timeExit.split(":");
 			exitDatesHour.add(dateSplit[0]);
 			exitDatesMinute.add(dateSplit[1]);
 		}
 		
-		ArrayList<Calendar> exitCalenderDates = new ArrayList<Calendar>();
+//		ArrayList<Calendar> exitCalendarDates = new ArrayList<Calendar>();
+		ArrayList<ArrayList<Integer>> exitCalendarDates = new ArrayList<ArrayList<Integer>>();
 		
 		for(int i=0; i<exitDatesYear.size(); i++){
 			
 			Calendar calendar = Calendar.getInstance();
-			calendar.set(0, Integer.parseInt(exitDatesYear.get(i)));
-			calendar.set(1, Integer.parseInt(exitDatesMonth.get(i)));
-			calendar.set(2, Integer.parseInt(exitDatesDay.get(i)));
-			calendar.set(3, Integer.parseInt(exitDatesHour.get(i)));
-			calendar.set(4, Integer.parseInt(exitDatesMinute.get(i)));
+			ArrayList<Integer> datesAndTimes = new ArrayList<Integer>();
+			calendar.clear();
+			TimeZone tz = TimeZone.getTimeZone("Europe/London") ;
+			calendar.setTimeZone(tz);
+//			calendar.set(Calendar.ERA, GregorianCalendar.AD);
 			
-			exitCalenderDates.add(calendar);
+//			calendar.set(0, Integer.parseInt(exitDatesYear.get(i)));
+//			calendar.set(1, Integer.parseInt(exitDatesMonth.get(i)));
+//			calendar.set(2, Integer.parseInt(exitDatesDay.get(i)));
+//			calendar.set(3, Integer.parseInt(exitDatesHour.get(i)));
+//			calendar.set(4, Integer.parseInt(exitDatesMinute.get(i)));
+			
+			datesAndTimes.add(Integer.parseInt(exitDatesYear.get(i)));
+			datesAndTimes.add(Integer.parseInt(exitDatesMonth.get(i)));
+			datesAndTimes.add(Integer.parseInt(exitDatesDay.get(i)));
+			datesAndTimes.add(Integer.parseInt(exitDatesHour.get(i)));
+			datesAndTimes.add(Integer.parseInt(exitDatesMinute.get(i)));
+			
+			
+//			exitCalendarDates.add(calendar);
+			
+			exitCalendarDates.add(datesAndTimes);
 		}
 		
-//		long difference = exitCalenderDates.get(0).getTime();
-//		String kappa = entryCalenderDates.get(0).toInstant().;
+		int bouncesCount = 0;
+		
+		for(int i=0; i<entryCalendarDates.size(); i++){
+			System.out.println("CP1");
+			
+			int test = entryCalendarDates.get(2).get(0);
+			//int minutes = (int) ChronoUnit.MINUTES.between(entryCalendarDates.get(2).getTime(), exitCalendarDates.get(2).getTime());
+			
+			//Date testDate = entryCalendarDates.get(2).getTime();
+			
+			//long minutes = getDateDiff(entryCalendarDates.get(2).getTime(),exitCalendarDates.get(2).getTime(),TimeUnit.MINUTES);
+	
+			LocalDateTime ldtEntry = LocalDateTime.of(entryCalendarDates.get(i).get(2), entryCalendarDates.get(i).get(0), entryCalendarDates.get(i).get(1), entryCalendarDates.get(i).get(3), entryCalendarDates.get(i).get(4), 00);			
+			LocalDateTime ldtExit = LocalDateTime.of(exitCalendarDates.get(i).get(2), exitCalendarDates.get(i).get(0), exitCalendarDates.get(i).get(1), exitCalendarDates.get(i).get(3), exitCalendarDates.get(i).get(4), 00);
 
-		LocalDateTime fromDateTime = LocalDateTime.of(entryCalenderDates.get(0).YEAR, entryCalenderDates.get(0).MONTH, entryCalenderDates.get(0).DAY_OF_MONTH, entryCalenderDates.get(0).HOUR_OF_DAY, entryCalenderDates.get(0).MINUTE);
-		LocalDateTime toDateTime = LocalDateTime.of(exitCalenderDates.get(0).YEAR,exitCalenderDates.get(0).MONTH, exitCalenderDates.get(0).DAY_OF_MONTH, exitCalenderDates.get(0).HOUR_OF_DAY, exitCalenderDates.get(0).MINUTE);
+			
+			System.out.println("CP2");
+			
+			long minutes = ChronoUnit.MINUTES.between(ldtEntry, ldtExit);
+			
+			
+		//	long seconds = (entryCalendarDates.get(2).getTimeInMillis() - exitCalendarDates.get(2).getTimeInMillis()) / 1000;
+		//	int minutes = (int) (seconds / 60);
+			
+			System.out.println("CP3");
+			if(minutes<2){
+				bouncesCount++;
+			}
+		}
 		
-		int minutes = (int) ChronoUnit.MINUTES.between(fromDateTime, toDateTime);
 		
-//		int hour = calendar.get(Calendar.HOUR);
-		
-		
-		return minutes;
+		return bouncesCount;
+	}
+	
+	/**
+	 * Get a diff between two dates
+	 * @param date1 the oldest date
+	 * @param date2 the newest date
+	 * @param timeUnit the unit in which you want the diff
+	 * @return the diff value, in the provided unit
+	 */
+	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+	    long diffInMillies = date2.getTime() - date1.getTime();
+	    return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
 	}
 	
 
