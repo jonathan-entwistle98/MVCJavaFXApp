@@ -18,6 +18,10 @@ public class Model {
 	public ArrayList<String> serverLogList = new ArrayList<String>();
 	public ArrayList<String> impressionLogList = new ArrayList<String>();
 	
+	/**
+	 * Reads in 3 csv files, splitting each csv file by line and adding these lines to 3 separate arrayLists
+	 * (one arrayList per csv file)
+	 */
 	public void loadCSVData(){
 		
 		try {

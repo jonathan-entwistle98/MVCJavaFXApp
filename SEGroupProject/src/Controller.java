@@ -55,6 +55,10 @@ public class Controller {
 	public void initialize(){
 	}
 
+	/**
+	 * Uses data from model class to set all required metrics to be added to the sidebar in the view
+	 * @param model
+	 */
 	public void initModel(Model model) {
 		this.model = model;
 
@@ -69,7 +73,9 @@ public class Controller {
 		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + calculateCPM());
 		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces());
 	}
-	
+	/**
+	 * @return number of unique user clicks
+	 */
 	public int calculateNumUniqueUserClicks(){
 		int totalClicks = model.clickLogList.size();
 		
@@ -90,6 +96,9 @@ public class Controller {
 		return usersIDList.size();
 	}
 	
+	/**
+	 * @return number of clicks converted
+	 */
 	public int calculateNumClicksConverted(){
 		int totalClicks = model.serverLogList.size();
 		int clicksWithConversions = 0;
@@ -105,6 +114,9 @@ public class Controller {
 	}
 	
 	//Not sure about this - I assume the total cost is the sum of impression costs and click costs
+	/**
+	 * @return total ad campaign cost
+	 */
 	public Float calculateCampaignCost(){
 		int totalClicks = model.clickLogList.size();
 		Float sumClickCost = 0.0f;
@@ -126,6 +138,9 @@ public class Controller {
 		return sumClickCost;
 	}
 	
+	/**
+	 * @return click through rate (CTR)
+	 */
 	public double calculateCTR(){
 		
 		double numImpressions = model.impressionLogList.size()-1;
@@ -134,6 +149,9 @@ public class Controller {
 		return numClicks/numImpressions;
 	}
 	
+	/**
+	 * @return cost per acquisition (CPA)
+	 */
 	public double calculateCPA(){
 		
 		int numClicksConverted = calculateNumClicksConverted();
@@ -142,6 +160,9 @@ public class Controller {
 		return campaignCost/numClicksConverted;
 	}
 	
+	/**
+	 * @return cost per click (CPC)
+	 */
 	public double calculateCPC(){
 		
 		int totalClicks = model.clickLogList.size()-1;
@@ -150,6 +171,9 @@ public class Controller {
 		return campaignCost/totalClicks;
 	}
 	
+	/**
+	 * @return cost per thousand clicks (CPM)
+	 */
 	public double calculateCPM(){
 		
 		int totalImpressions = model.impressionLogList.size()-1;
@@ -162,6 +186,10 @@ public class Controller {
 	//More parameters (e.g. the number of pages visited) could be added to this method later
 	//If exit date is N/A I assign a date 2015-01-31 (in the far future compared to other dates), 
 	//so a bounce is not registered in these N/A cases
+	/**
+	 * Calculates the number of bounces, where a bounce as a user who spends less than 2 minutes on the site
+	 * @return number of bounces
+	 */
 	public int calculateNumberOfBounces(){
 		int numberOfBounces = 0;
 		int totalClicks = model.serverLogList.size();

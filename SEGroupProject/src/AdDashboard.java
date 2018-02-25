@@ -17,7 +17,7 @@ public class AdDashboard extends Application{
 	}
 
 	
-	/* 
+	/**
 	 * Creates a new Scene, adds this scene to the stage and sets the css and fxml files to be used.
 	 * Controller and Model classes instantiated, and reference to model passed to controller
 	 */
