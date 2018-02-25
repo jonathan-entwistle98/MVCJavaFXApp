@@ -231,6 +231,7 @@ public class Controller {
 			entryDatesYear.add(dateSplit[2]);
 		}
 		
+		ArrayList<String> entryDatesSecond = new ArrayList<String>();
 		ArrayList<String> entryDatesMinute = new ArrayList<String>();
 		ArrayList<String> entryDatesHour = new ArrayList<String>();
 		
@@ -238,6 +239,7 @@ public class Controller {
 			String[] dateSplit = timeEntry.split(":");
 			entryDatesHour.add(dateSplit[0]);
 			entryDatesMinute.add(dateSplit[1]);
+			entryDatesSecond.add(dateSplit[2]);
 		}
 		
 		ArrayList<ArrayList<Integer>> entryCalendarDates = new ArrayList<ArrayList<Integer>>();
@@ -251,6 +253,7 @@ public class Controller {
 			datesAndTimes.add(Integer.parseInt(entryDatesDay.get(i)));
 			datesAndTimes.add(Integer.parseInt(entryDatesHour.get(i)));
 			datesAndTimes.add(Integer.parseInt(entryDatesMinute.get(i)));
+			datesAndTimes.add(Integer.parseInt(entryDatesSecond.get(i)));
 			
 			entryCalendarDates.add(datesAndTimes);
 		}
@@ -261,7 +264,7 @@ public class Controller {
 		for(String dateExit : exitDates){
 			
 			String defaultExitDate = "2015-01-31";
-			String defaultExitTime = "23:00";
+			String defaultExitTime = "23:00:00";
 			
 			if(dateExit.equals("n/a") || dateExit.equals("n-a")){
 				exitDatesDate.add(defaultExitDate);
@@ -284,7 +287,7 @@ public class Controller {
 			exitDatesMonth.add(dateSplit[1]);
 			exitDatesYear.add(dateSplit[2]);
 		}
-		
+		ArrayList<String> exitDatesSecond = new ArrayList<String>();
 		ArrayList<String> exitDatesMinute = new ArrayList<String>();
 		ArrayList<String> exitDatesHour = new ArrayList<String>();
 		
@@ -292,6 +295,7 @@ public class Controller {
 			String[] dateSplit = timeExit.split(":");
 			exitDatesHour.add(dateSplit[0]);
 			exitDatesMinute.add(dateSplit[1]);
+			exitDatesSecond.add(dateSplit[2]);
 		}
 		
 		ArrayList<ArrayList<Integer>> exitCalendarDates = new ArrayList<ArrayList<Integer>>();
@@ -305,6 +309,7 @@ public class Controller {
 			datesAndTimes.add(Integer.parseInt(exitDatesDay.get(i)));
 			datesAndTimes.add(Integer.parseInt(exitDatesHour.get(i)));
 			datesAndTimes.add(Integer.parseInt(exitDatesMinute.get(i)));
+			datesAndTimes.add(Integer.parseInt(exitDatesSecond.get(i)));
 			
 			exitCalendarDates.add(datesAndTimes);
 		}
@@ -315,8 +320,8 @@ public class Controller {
 			
 			int test = entryCalendarDates.get(2).get(0);
 	
-			LocalDateTime ldtEntry = LocalDateTime.of(entryCalendarDates.get(i).get(2), entryCalendarDates.get(i).get(1), entryCalendarDates.get(i).get(0), entryCalendarDates.get(i).get(3), entryCalendarDates.get(i).get(4), 00);			
-			LocalDateTime ldtExit = LocalDateTime.of(exitCalendarDates.get(i).get(2), exitCalendarDates.get(i).get(1), exitCalendarDates.get(i).get(0), exitCalendarDates.get(i).get(3), exitCalendarDates.get(i).get(4), 00);
+			LocalDateTime ldtEntry = LocalDateTime.of(entryCalendarDates.get(i).get(2), entryCalendarDates.get(i).get(1), entryCalendarDates.get(i).get(0), entryCalendarDates.get(i).get(3), entryCalendarDates.get(i).get(4), entryCalendarDates.get(i).get(5));			
+			LocalDateTime ldtExit = LocalDateTime.of(exitCalendarDates.get(i).get(2), exitCalendarDates.get(i).get(1), exitCalendarDates.get(i).get(0), exitCalendarDates.get(i).get(3), exitCalendarDates.get(i).get(4), exitCalendarDates.get(i).get(5));
 
 			long minutes = ChronoUnit.MINUTES.between(ldtEntry, ldtExit);
 
