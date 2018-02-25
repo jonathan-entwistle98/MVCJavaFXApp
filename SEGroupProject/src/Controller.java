@@ -15,19 +15,14 @@ public class Controller {
 	
 	@FXML
 	private HBox headerDashboard;
-	
 	@FXML
 	private VBox leftAreaDashboard;
-	
 	@FXML
 	private TextFlow metricsText;
-	
 	@FXML
 	private VBox bodyDashboard;
-	
 	@FXML
 	private HBox footerDashboard;
-	
 	@FXML
 	private Label sidebarLabel1;
 	@FXML
