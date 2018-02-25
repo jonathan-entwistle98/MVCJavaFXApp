@@ -43,6 +43,8 @@ public class Controller {
 	private Label sidebarLabel9;	
 	@FXML
 	private Label sidebarLabel10;
+	@FXML
+	private Label sidebarLabel11;
 	
 	private Model model;
 	
@@ -67,6 +69,7 @@ public class Controller {
 		sidebarLabel8.setText("Cost-per-click (CPC): " + calculateCPC());
 		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + calculateCPM());
 		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces());
+		sidebarLabel11.setText("Bounce rate: " + calculateBounceRate());
 	}
 	/**
 	 * @return number of unique user clicks
@@ -175,7 +178,7 @@ public class Controller {
 		Float campaignCost = calculateCampaignCost();
 		double costPerImpression = campaignCost/totalImpressions;
 		return costPerImpression*1000;
-	}
+	}	
 	
 	//I define a bounce as a user who spends less than 2 minutes on the site
 	//More parameters (e.g. the number of pages visited) could be added to this method later
@@ -326,6 +329,14 @@ public class Controller {
 		}
 		
 		return bouncesCount;
-	}	
+	}
+	
+	public double calculateBounceRate() {
+		
+		int totalClicks = model.clickLogList.size()-1;
+		int totalBounces = calculateNumberOfBounces();
+		
+		return totalBounces*1.0/totalClicks;
+	}
 
 }
