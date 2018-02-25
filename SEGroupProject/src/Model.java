@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 
 public class Model {
 	
-	private boolean isLoggedIn = false;
-	
 	public ArrayList<String> clickLogList = new ArrayList<String>();
 	public ArrayList<String> serverLogList = new ArrayList<String>();
 	public ArrayList<String> impressionLogList = new ArrayList<String>();
