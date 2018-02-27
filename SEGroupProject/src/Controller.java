@@ -14,64 +14,79 @@ import javafx.scene.text.TextFlow;
 
 public class Controller {
 	
-	@FXML
-	private HBox headerDashboard;
-	@FXML
-	private VBox leftAreaDashboard;
-	@FXML
-	private TextFlow metricsText;
-	@FXML
-	private VBox bodyDashboard;
-	@FXML
-	private HBox footerDashboard;
-	@FXML
-	private Label sidebarLabel1;
-	@FXML
-	private Label sidebarLabel2;	
-	@FXML
-	private Label sidebarLabel3;	
-	@FXML
-	private Label sidebarLabel4;	
-	@FXML
-	private Label sidebarLabel5;	
-	@FXML
-	private Label sidebarLabel6;	
-	@FXML
-	private Label sidebarLabel7;	
-	@FXML
-	private Label sidebarLabel8;	
-	@FXML
-	private Label sidebarLabel9;	
-	@FXML
-	private Label sidebarLabel10;
-	@FXML
-	private Label sidebarLabel11;
+//	@FXML
+//	private HBox headerDashboard;
+//	@FXML
+//	private VBox leftAreaDashboard;
+//	@FXML
+//	private TextFlow metricsText;
+//	@FXML
+//	private VBox bodyDashboard;
+//	@FXML
+//	private HBox footerDashboard;
+//	@FXML
+//	private Label sidebarLabel1;
+//	@FXML
+//	private Label sidebarLabel2;	
+//	@FXML
+//	private Label sidebarLabel3;	
+//	@FXML
+//	private Label sidebarLabel4;	
+//	@FXML
+//	private Label sidebarLabel5;	
+//	@FXML
+//	private Label sidebarLabel6;	
+//	@FXML
+//	private Label sidebarLabel7;	
+//	@FXML
+//	private Label sidebarLabel8;	
+//	@FXML
+//	private Label sidebarLabel9;	
+//	@FXML
+//	private Label sidebarLabel10;
+//	@FXML
+//	private Label sidebarLabel11;
 	
 	private Model model;
 	
+	private ArrayList<Object> allMetrics = new ArrayList<Object>();
+	
 	//Not sure if initialise method is needed
-	public void initialize(){
+	public void initialize(){	
 	}
-
-	/**
-	 * Uses data from model class to set all required metrics to be added to the sidebar in the view
-	 * @param model
-	 */
-	public void initModel(Model model) {
+	
+	public void setUp(Model model){
 		this.model = model;
-
-		sidebarLabel1.setText("Number of Clicks: " + (model.clickLogList.size()-1));
-		sidebarLabel2.setText("Number of Impressions: " + (model.impressionLogList.size()-1));
-		sidebarLabel3.setText("Number of unique user clicks: " + calculateNumUniqueUserClicks());
-		sidebarLabel4.setText("Number of conversions: " + calculateNumClicksConverted());
-		sidebarLabel5.setText("Total cost of campaign: " + calculateCampaignCost());
-		sidebarLabel6.setText("Click-through-rate (CTR): " + calculateCTR());
-		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + calculateCPA());
-		sidebarLabel8.setText("Cost-per-click (CPC): " + calculateCPC());
-		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + calculateCPM());
-		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces());
-		sidebarLabel11.setText("Bounce rate: " + calculateBounceRate());
+		allMetrics.add(calculateNumUniqueUserClicks());
+		allMetrics.add(calculateNumClicksConverted());
+		allMetrics.add(calculateCampaignCost());
+		allMetrics.add(calculateCTR());
+		allMetrics.add(calculateCPA());
+		allMetrics.add(calculateCPC());
+		allMetrics.add(calculateCPM());
+		allMetrics.add(calculateNumberOfBounces());
+		allMetrics.add(calculateBounceRate());
 	}
+
+//	/**
+//	 * Uses data from model class to set all required metrics to be added to the sidebar in the view
+//	 * @param model
+//	 */
+//	public void initModel(Model model) {
+//		this.model = model;
+//
+//		sidebarLabel1.setText("Number of Clicks: " + (model.clickLogList.size()-1));
+//		sidebarLabel2.setText("Number of Impressions: " + (model.impressionLogList.size()-1));
+//		sidebarLabel3.setText("Number of unique user clicks: " + calculateNumUniqueUserClicks());
+//		sidebarLabel4.setText("Number of conversions: " + calculateNumClicksConverted());
+//		sidebarLabel5.setText("Total cost of campaign: " + calculateCampaignCost());
+//		sidebarLabel6.setText("Click-through-rate (CTR): " + calculateCTR());
+//		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + calculateCPA());
+//		sidebarLabel8.setText("Cost-per-click (CPC): " + calculateCPC());
+//		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + calculateCPM());
+//		sidebarLabel10.setText("Number of bounces: " + calculateNumberOfBounces());
+//		sidebarLabel11.setText("Bounce rate: " + calculateBounceRate());
+//	}
 	/**
 	 * @return number of unique user clicks
 	 */
@@ -257,5 +272,10 @@ public class Controller {
 		
 		return totalBounces*1.0/totalClicks;
 	}
+	
+	public ArrayList<Object> getAllMetrics(){
+		return allMetrics;
+	}
+	
 
 }
