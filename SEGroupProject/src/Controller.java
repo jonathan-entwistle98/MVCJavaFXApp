@@ -1,6 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
 import javafx.fxml.FXML;
@@ -189,143 +190,61 @@ public class Controller {
 	 * @return number of bounces
 	 */
 	public int calculateNumberOfBounces(){
-		int numberOfBounces = 0;
+//		int numberOfBounces = 0;
+		int bouncesCount = 0;
 		int totalClicks = model.serverLogList.size();
-		ArrayList<String> entryDates = new ArrayList<String>();
-		ArrayList<String> exitDates = new ArrayList<String>();
-		ArrayList<Integer> pagesViewed = new ArrayList<Integer>();
+//		ArrayList<String> entryDates = new ArrayList<String>();
+//		ArrayList<String> exitDates = new ArrayList<String>();
+//		ArrayList<Integer> pagesViewed = new ArrayList<Integer>();
 		
 		for(int i=1; i<totalClicks; i++){
 			String[] splitValues = model.serverLogList.get(i).split(",");
-		
-			if(splitValues[0] != null){
-				entryDates.add(splitValues[0]);	
-			}
-			if(splitValues[2] != null){
-				exitDates.add(splitValues[2]);
-			}
-			if(splitValues[3] != null){
-				pagesViewed.add(Integer.parseInt(splitValues[3]));
-			}
-		}
-
-		ArrayList<String> entryDatesDate = new ArrayList<String>();
-		ArrayList<String> entryDatesTime = new ArrayList<String>();
-		
-		for(String dateEntry : entryDates){
-			String[] dateSplit = dateEntry.split(" ");
-			entryDatesDate.add(dateSplit[0]);
-			entryDatesTime.add(dateSplit[1]);
-		}
-		
-		ArrayList<String> entryDatesDay = new ArrayList<String>();
-		ArrayList<String> entryDatesMonth = new ArrayList<String>();
-		ArrayList<String> entryDatesYear = new ArrayList<String>();
-		
-		for(String pieceOfDate : entryDatesDate){
-			String[] dateSplit = pieceOfDate.split("-");
-			entryDatesDay.add(dateSplit[0]);
-			entryDatesMonth.add(dateSplit[1]);
-			entryDatesYear.add(dateSplit[2]);
-		}
-		
-		ArrayList<String> entryDatesSecond = new ArrayList<String>();
-		ArrayList<String> entryDatesMinute = new ArrayList<String>();
-		ArrayList<String> entryDatesHour = new ArrayList<String>();
-		
-		for(String timeEntry : entryDatesTime){
-			String[] dateSplit = timeEntry.split(":");
-			entryDatesHour.add(dateSplit[0]);
-			entryDatesMinute.add(dateSplit[1]);
-			entryDatesSecond.add(dateSplit[2]);
-		}
-		
-		ArrayList<ArrayList<Integer>> entryCalendarDates = new ArrayList<ArrayList<Integer>>();
-		
-		for(int i=0; i<entryDatesYear.size(); i++){
-			
-			ArrayList<Integer> datesAndTimes = new ArrayList<Integer>();
-
-			datesAndTimes.add(Integer.parseInt(entryDatesYear.get(i)));
-			datesAndTimes.add(Integer.parseInt(entryDatesMonth.get(i)));
-			datesAndTimes.add(Integer.parseInt(entryDatesDay.get(i)));
-			datesAndTimes.add(Integer.parseInt(entryDatesHour.get(i)));
-			datesAndTimes.add(Integer.parseInt(entryDatesMinute.get(i)));
-			datesAndTimes.add(Integer.parseInt(entryDatesSecond.get(i)));
-			
-			entryCalendarDates.add(datesAndTimes);
-		}
-		
-		ArrayList<String> exitDatesDate = new ArrayList<String>();
-		ArrayList<String> exitDatesTime = new ArrayList<String>();
-		
-		for(String dateExit : exitDates){
-			
-			String defaultExitDate = "2015-01-31";
-			String defaultExitTime = "23:00:00";
-			
-			if(dateExit.equals("n/a") || dateExit.equals("n-a")){
-				exitDatesDate.add(defaultExitDate);
-				exitDatesTime.add(defaultExitTime);
-			} else{
-				String[] dateSplit = dateExit.split(" ");
-				exitDatesDate.add(dateSplit[0]);
-				exitDatesTime.add(dateSplit[1]);
-			}
-			
-		}
-		
-		ArrayList<String> exitDatesDay = new ArrayList<String>();
-		ArrayList<String> exitDatesMonth = new ArrayList<String>();
-		ArrayList<String> exitDatesYear = new ArrayList<String>();
-		
-		for(String pieceOfDate : exitDatesDate){
-			String[] dateSplit = pieceOfDate.split("-");
-			exitDatesDay.add(dateSplit[0]);
-			exitDatesMonth.add(dateSplit[1]);
-			exitDatesYear.add(dateSplit[2]);
-		}
-		ArrayList<String> exitDatesSecond = new ArrayList<String>();
-		ArrayList<String> exitDatesMinute = new ArrayList<String>();
-		ArrayList<String> exitDatesHour = new ArrayList<String>();
-		
-		for(String timeExit : exitDatesTime){
-			String[] dateSplit = timeExit.split(":");
-			exitDatesHour.add(dateSplit[0]);
-			exitDatesMinute.add(dateSplit[1]);
-			exitDatesSecond.add(dateSplit[2]);
-		}
-		
-		ArrayList<ArrayList<Integer>> exitCalendarDates = new ArrayList<ArrayList<Integer>>();
-		
-		for(int i=0; i<exitDatesYear.size(); i++){
-			
-			ArrayList<Integer> datesAndTimes = new ArrayList<Integer>();
-			
-			datesAndTimes.add(Integer.parseInt(exitDatesYear.get(i)));
-			datesAndTimes.add(Integer.parseInt(exitDatesMonth.get(i)));
-			datesAndTimes.add(Integer.parseInt(exitDatesDay.get(i)));
-			datesAndTimes.add(Integer.parseInt(exitDatesHour.get(i)));
-			datesAndTimes.add(Integer.parseInt(exitDatesMinute.get(i)));
-			datesAndTimes.add(Integer.parseInt(exitDatesSecond.get(i)));
-			
-			exitCalendarDates.add(datesAndTimes);
-		}
-		
-		int bouncesCount = 0;
-		
-		for(int i=0; i<entryCalendarDates.size(); i++){
-			
-			int test = entryCalendarDates.get(2).get(0);
-	
-			LocalDateTime ldtEntry = LocalDateTime.of(entryCalendarDates.get(i).get(2), entryCalendarDates.get(i).get(1), entryCalendarDates.get(i).get(0), entryCalendarDates.get(i).get(3), entryCalendarDates.get(i).get(4), entryCalendarDates.get(i).get(5));			
-			LocalDateTime ldtExit = LocalDateTime.of(exitCalendarDates.get(i).get(2), exitCalendarDates.get(i).get(1), exitCalendarDates.get(i).get(0), exitCalendarDates.get(i).get(3), exitCalendarDates.get(i).get(4), exitCalendarDates.get(i).get(5));
-
-			long minutes = ChronoUnit.MINUTES.between(ldtEntry, ldtExit);
-
-			if(minutes<2){
+		    
+			if (Integer.parseInt(splitValues[3]) == 1) {
 				bouncesCount++;
+				
+			} else {
+					if(splitValues[0] != null && splitValues[2] != null){
+	
+						String entry = splitValues[0];	
+						String exit_ = splitValues[2];
+						String[] split = entry.split(" ");
+						String entryDate = split[0];
+						String entryTime = split[1];
+						String[] entryDatesplit = entryDate.split("-");
+						String[] entryTimesplit = entryTime.split(":");
+					    int entryYear = Integer.parseInt(entryDatesplit[0]);
+					    int entryMonth = Integer.parseInt(entryDatesplit[1]);
+					    int entryDay = Integer.parseInt(entryDatesplit[2]);
+					    int entryHour = Integer.parseInt(entryTimesplit[0]);
+					    int entryMinute = Integer.parseInt(entryTimesplit[1]);
+					    int entrySecond = Integer.parseInt(entryTimesplit[2]);
+					    @SuppressWarnings("deprecation")
+						int entryDateInt = (int) new Date(entryYear, entryMonth, entryDay, entryHour,entryMinute, entrySecond).getTime();
+					    String[] split_ = exit_.split(" ");
+						String exitDate = split_[0];
+						String exitTime = split_[1];
+						String[] exitDatesplit = exitDate.split("-");
+						String[] exitTimesplit = exitTime.split(":");
+					    int exitYear = Integer.parseInt(exitDatesplit[0]);
+					    int exitMonth = Integer.parseInt(exitDatesplit[1]);
+					    int exitDay = Integer.parseInt(exitDatesplit[2]);
+					    int exitHour = Integer.parseInt(exitTimesplit[0]);
+					    int exitMinute = Integer.parseInt(exitTimesplit[1]);
+					    int exitSecond = Integer.parseInt(exitTimesplit[2]);
+					    @SuppressWarnings("deprecation")
+						int exitDateInt = (int) new Date(exitYear, exitMonth, exitDay, exitHour,exitMinute, exitSecond).getTime();
+					   
+					    if ((exitDateInt-entryDateInt)<12000) {
+					    	bouncesCount++;
+					    }
+					    
+					}
+			
 			}
+			
+		
+			
 		}
 		
 		return bouncesCount;
