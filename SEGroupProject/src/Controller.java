@@ -14,39 +14,6 @@ import javafx.scene.text.TextFlow;
 
 public class Controller {
 	
-//	@FXML
-//	private HBox headerDashboard;
-//	@FXML
-//	private VBox leftAreaDashboard;
-//	@FXML
-//	private TextFlow metricsText;
-//	@FXML
-//	private VBox bodyDashboard;
-//	@FXML
-//	private HBox footerDashboard;
-//	@FXML
-//	private Label sidebarLabel1;
-//	@FXML
-//	private Label sidebarLabel2;	
-//	@FXML
-//	private Label sidebarLabel3;	
-//	@FXML
-//	private Label sidebarLabel4;	
-//	@FXML
-//	private Label sidebarLabel5;	
-//	@FXML
-//	private Label sidebarLabel6;	
-//	@FXML
-//	private Label sidebarLabel7;	
-//	@FXML
-//	private Label sidebarLabel8;	
-//	@FXML
-//	private Label sidebarLabel9;	
-//	@FXML
-//	private Label sidebarLabel10;
-//	@FXML
-//	private Label sidebarLabel11;
-	
 	private Model model;
 	
 	private ArrayList<Object> allMetrics = new ArrayList<Object>();
