@@ -1,3 +1,5 @@
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Model {
 			Scanner scannerImpressionLog = new Scanner(new File("impression_log.csv"));
 			
 			while(scannerClickLog.hasNextLine()){
+			
 				String clickLogLine = scannerClickLog.nextLine();
 				String[] clickLogArray = clickLogLine.split("[\\r\\n]+");
 				clickLogList.add(clickLogArray[0]);
@@ -77,3 +80,4 @@ public class Model {
 
 	
 }
+
