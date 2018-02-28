@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import com.univocity.parsers.csv.CsvParser;
+import com.univocity.parsers.csv.CsvParserSettings;
 
 public abstract class CSVLoader {
 	
@@ -13,31 +17,33 @@ public abstract class CSVLoader {
 	 *  2- ClickLog
 	 *  3- ServerLog
 	 */
-	public static List<Log> loadCSVData(File file, FileType fileType){
-	
-		try {
-			
-			Scanner scanner = new Scanner(file);
-			List<Log> log = new ArrayList<Log>();
-			
-			// Skips the CSV header.
-			if(scanner.hasNextLine()){
-				scanner.nextLine();
-			}
-			
-			//TODO check if correct CSV was loaded.
+
+	public static List<Log> loadCSVData (File file, FileType fileType){
+		
+		List<Log> log = new ArrayList<Log>();
+		
+		CsvParserSettings settings = new CsvParserSettings();
+		//the file used in the example uses '\n' as the line separator sequence.
+		//the line separator sequence is defined here to ensure systems such as MacOS and Windows
+		//are able to process this file correctly (MacOS uses '\r'; and Windows uses '\r\n').
+		settings.getFormat().setLineSeparator("\n");
+		
+		// creates a CSV parser
+		CsvParser parser = new CsvParser(settings);
+		
+		// call beginParsing to read records one by one, iterator-style.
+		parser.beginParsing(file);
+		
+		String[] row;
+		row = parser.parseNext();
+		
 		switch(fileType) {
 			// Impression CSV
 			case IMPRESSION_LOG: {
-				
-				while(scanner.hasNextLine()){
-					String entry = scanner.nextLine();
-					String[] attributes = entry.split(",");
-					
-					
+				while ((row = parser.parseNext()) != null) {
 					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
 					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseImpression(attributes);
+					Object[] a = CSVLoader.parseImpression(row);
 					// Generates log entry.
 					log.add(new ImpressionLog((DateC)a[0], (long)a[1], (Gender)a[2], (Age)a[3],
 							                  (Income)a[4], (Context)a[5], (float)a[6]));
@@ -46,12 +52,10 @@ public abstract class CSVLoader {
 			}
 			// Click CSV
 			case CLICK_LOG: {
-				while(scanner.hasNextLine()){
-					String entry = scanner.nextLine();
-					String[] attributes = entry.split(",");
-					// Expected output: Date, ID, ClickCost.
+				while ((row = parser.parseNext()) != null) {
+					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
 					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseClick(attributes);
+					Object[] a = CSVLoader.parseImpression(row);
 					// Generates log entry.
 					log.add(new ClickLog((DateC)a[0], (long)a[1], (float)a[2]));
 					
@@ -60,25 +64,18 @@ public abstract class CSVLoader {
 			}
 			// Server CSV
 			case SERVER_LOG: {
-				while(scanner.hasNextLine()){
-					String entry = scanner.nextLine();
-					String[] attributes = entry.split(",");
-					// Expected output: EntryDate, ID, ExitDate, PagesViewed, Conversion. 
+				while ((row = parser.parseNext()) != null) {
+					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
 					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseServer(attributes);
+					Object[] a = CSVLoader.parseImpression(row);
 					// Generates log entry.
 					log.add(new ServerLog((DateC)a[0], (long)a[1], (DateC)a[2], (int)a[3], (boolean)a[4]));
 				}
 				break;
 			}
 		}
-		scanner.close();
+		parser.stopParsing();
 		return log;
-		
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 	public static Object[] parseImpression (String[] attributes) {
