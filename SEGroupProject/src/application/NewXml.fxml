@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Accordion fx:id="accord" layoutX="-6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1210.0">
+         <panes>
+            <TitledPane fx:id="titletPane" alignment="CENTER" animated="true" prefHeight="516.0" prefWidth="821.0" text="Overview">
+               <content>
+                  <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" style="-fx-background-color: ;">
+                     <children>
+                        <Label fx:id="sidebarLabel1" accessibleText="sidebarLabel1" alignment="CENTER" layoutX="330.0" layoutY="5.0" />
+                        <Label fx:id="sidebarLabel2" accessibleText="sidebarLabel2" alignment="CENTER" layoutX="330.0" layoutY="30.0" />
+                        <Label fx:id="sidebarLabel3" accessibleText="sidebarLabel3" alignment="CENTER" layoutX="330.0" layoutY="55.0" />
+                        <Label fx:id="sidebarLabel4" accessibleText="sidebarLabel4" alignment="CENTER" layoutX="330.0" layoutY="80.0" />
+                        <Label fx:id="sidebarLabel6" accessibleText="sidebarLabel6" alignment="CENTER" layoutX="330.0" layoutY="135.0" />
+                        <Label fx:id="sidebarLabel5" accessibleText="sidebarLabel5" alignment="CENTER" layoutX="330.0" layoutY="110.0" />
+                        <Label fx:id="sidebarLabel7" accessibleText="sidebarLabel7" alignment="CENTER" layoutX="330.0" layoutY="160.0" />
+                        <Label fx:id="sidebarLabel8" accessibleText="sidebarLabel8" alignment="CENTER" layoutX="330.0" layoutY="190.0" />
+                        <Label fx:id="sidebarLabel11" accessibleText="sidebarLabel11" alignment="CENTER" layoutX="330.0" layoutY="265.0" />
+                        <Label fx:id="sidebarLabel10" accessibleText="sidebarLabel10" alignment="CENTER" layoutX="330.0" layoutY="240.0" />
+                        <Label fx:id="sidebarLabel9" accessibleText="sidebarLabel9" alignment="CENTER" layoutX="330.0" layoutY="215.0" />
+                        <Label fx:id="NoOfClicksLab" accessibleText="sidebarLabel1" alignment="CENTER" layoutX="48.0" layoutY="4.0" text="Number of Clicks:" />
+                        <Label fx:id="NoOfImpressLab" accessibleText="sidebarLabel2" alignment="CENTER" layoutX="48.0" layoutY="30.0" text="Number of Impressions:" />
+                        <Label fx:id="NoOfUniqLab" accessibleText="sidebarLabel3" alignment="CENTER" layoutX="48.0" layoutY="56.0" text="Number of unique user clicks:" />
+                        <Label fx:id="NoOfConversLab" accessibleText="sidebarLabel4" alignment="CENTER" layoutX="48.0" layoutY="81.0" text="Number of conversions:" />
+                        <Label fx:id="CTRLab" accessibleText="sidebarLabel6" alignment="CENTER" layoutX="48.0" layoutY="133.0" text="Click-through-rate (CTR):" />
+                        <Label fx:id="TotCostCampLab" accessibleText="sidebarLabel5" alignment="CENTER" layoutX="48.0" layoutY="106.0" text="Total cost of campaign:" />
+                        <Label fx:id="CPALab" accessibleText="sidebarLabel7" alignment="CENTER" layoutX="48.0" layoutY="160.0" text="Cost-per-aquisition (CPA):" />
+                        <Label fx:id="CPCLab" accessibleText="sidebarLabel8" alignment="CENTER" layoutX="48.0" layoutY="187.0" text="Cost-per-click (CPC):" />
+                        <Label fx:id="BounceRateLab" accessibleText="sidebarLabel11" alignment="CENTER" layoutX="48.0" layoutY="263.0" text="Bounce rate:" />
+                        <Label fx:id="NoOfBouncesLab" accessibleText="sidebarLabel10" alignment="CENTER" layoutX="48.0" layoutY="239.0" text="Number of bounces:" />
+                        <Label fx:id="CPMLab" accessibleText="sidebarLabel9" alignment="CENTER" layoutX="27.0" layoutY="213.0" prefHeight="18.0" prefWidth="70.0" text="CPM:" />
+                     </children>
+                  </AnchorPane>
+               </content>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TitledPane>
+            <TitledPane fx:id="ChartsAndGraphsPane" alignment="CENTER" animated="true" text="Charts and Graphs">
+               <content>
+                  <AnchorPane fx:id="chGrphAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <MenuButton fx:id="ChartsGraphsDropDown" alignment="CENTER" contentDisplay="CENTER" layoutX="850.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Select" textAlignment="CENTER">
+                          <items>
+                            <MenuItem fx:id="HistogramItem" mnemonicParsing="false" onAction="#setHistogramVisible" text="Histogram" />
+                            <MenuItem fx:id="GraphItem" mnemonicParsing="false" onAction="#setGraphVisible" text="Graph" />
+                          </items>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </MenuButton>
+                        <StackedBarChart fx:id="Histogram" layoutX="30.0" layoutY="50.0" prefHeight="400.0" prefWidth="750.0" title="Hsto" visible="false">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedBarChart>
+                        <LineChart fx:id="Graph" layoutX="30.0" layoutY="50.0" prefHeight="400.0" prefWidth="757.0" title="Graph" visible="false">
+                          <xAxis>
+                            <CategoryAxis label="Time" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis label="Data" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+               </content>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TitledPane>
+            <TitledPane fx:id="SettingsPane" alignment="CENTER" animated="true" text="Settings">
+               <content>
+                  <AnchorPane fx:id="SettingsAnchor" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </TitledPane>
+         </panes>
+      </Accordion>
+   </children>
+</AnchorPane>
