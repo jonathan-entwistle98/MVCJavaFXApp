@@ -205,13 +205,8 @@ public class Controller {
 	 * @return number of bounces
 	 */
 	public int calculateNumberOfBounces(){
-//		int numberOfBounces = 0;
 		int bouncesCount = 0;
 		int totalClicks = model.serverLogList.size();
-//		ArrayList<String> entryDates = new ArrayList<String>();
-//		ArrayList<String> exitDates = new ArrayList<String>();
-//		ArrayList<Integer> pagesViewed = new ArrayList<Integer>();
-		
 		for(int i=1; i<totalClicks; i++){
 			String[] splitValues = model.serverLogList.get(i).split(",");
 		    
@@ -219,7 +214,7 @@ public class Controller {
 				bouncesCount++;
 				
 			} else {
-					if(splitValues[0] != null && splitValues[2] != null){
+					if(splitValues[0] != null && splitValues[2] != null && !splitValues[2].equals("n/a")){
 	
 						String entry = splitValues[0];	
 						String exit_ = splitValues[2];
@@ -249,17 +244,12 @@ public class Controller {
 					    int exitSecond = Integer.parseInt(exitTimesplit[2]);
 					    @SuppressWarnings("deprecation")
 						int exitDateInt = (int) new Date(exitYear, exitMonth, exitDay, exitHour,exitMinute, exitSecond).getTime();
-					   
-					    if ((exitDateInt-entryDateInt)<12000) {
+					    int seconds = (exitDateInt - entryDateInt)/1000;
+					    if (seconds < 120) {
 					    	bouncesCount++;
-					    }
-					    
+					    }   
 					}
-			
-			}
-			
-		
-			
+			}	
 		}
 		
 		return bouncesCount;
