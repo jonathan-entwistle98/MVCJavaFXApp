@@ -150,17 +150,17 @@ public class Controller {
 	public void initModel(Model model) {
 		this.model = model;
 
-		sidebarLabel1.setText(String.valueOf(model.clickLogList.size() - 1));
-		sidebarLabel2.setText(String.valueOf(model.impressionLogList.size() - 1));
-		sidebarLabel3.setText(String.valueOf(calculateNumUniqueUserClicks()));
-		sidebarLabel4.setText(String.valueOf(calculateNumClicksConverted()));
-		sidebarLabel5.setText(String.valueOf(calculateCampaignCost()));
-		sidebarLabel6.setText(String.valueOf(calculateCTR()));
-		sidebarLabel7.setText(String.valueOf(calculateCPA()));
-		sidebarLabel8.setText(String.valueOf(calculateCPC()));
-		sidebarLabel9.setText(String.valueOf(calculateCPM()));
-		sidebarLabel10.setText(String.valueOf(calculateNumberOfBounces()));
-		sidebarLabel11.setText(String.valueOf(calculateBounceRate()));
+		sidebarLabel1.setText("No. of clicks: " + String.valueOf(model.clickLogList.size() - 1));
+		sidebarLabel2.setText("No. of impressions: " + String.valueOf(model.impressionLogList.size() - 1));
+		sidebarLabel3.setText("No. of unique clicks: " + String.valueOf(calculateNumUniqueUserClicks()));
+		sidebarLabel4.setText("No. of clicks converted: " + String.valueOf(calculateNumClicksConverted()));
+		sidebarLabel5.setText("Total campaign cost: " + String.valueOf(calculateCampaignCost()));
+		sidebarLabel6.setText("Click-through-rate (CTR): " + String.valueOf(calculateCTR()));
+		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + String.valueOf(calculateCPA()));
+		sidebarLabel8.setText("Cost-per-click (CPC): " + String.valueOf(calculateCPC()));
+		sidebarLabel9.setText("Cost-per-thousand-clicks (CPM): " + String.valueOf(calculateCPM()));
+		sidebarLabel10.setText("Number of bounces: " + String.valueOf(calculateNumberOfBounces()));
+		sidebarLabel11.setText("Bounce rate: " + String.valueOf(calculateBounceRate()));
 	}
 
 	public int calculateNumUniqueUserClicks() {
