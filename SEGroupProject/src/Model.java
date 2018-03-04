@@ -1,5 +1,4 @@
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
@@ -17,8 +16,6 @@ public class Model {
 		impressionLog = CSVLoader.loadCSVData(impressions, FileType.IMPRESSION_LOG);
 		clicksLog = CSVLoader.loadCSVData(clicks, FileType.CLICK_LOG);
 		serverLog = CSVLoader.loadCSVData(server, FileType.SERVER_LOG);
-		
-		System.out.println((((ServerLog)serverLog.get(11)).getExitDate() == null));
 	}
 	
 	public OverviewItems getOverviewItems() {

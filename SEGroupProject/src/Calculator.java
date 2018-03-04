@@ -7,18 +7,19 @@ public abstract class Calculator {
 		OverviewItems items = new OverviewItems();
 		int clicks = Calculator.calcClicks(clickLog);
 		int impressions = Calculator.calcImpressions(impressionLog);
-		float cost = Calculator.calcTotalCost(impressionLog);
+		float imprCost = Calculator.calcImprCost(impressionLog);
+		float clickCost = Calculator.calcClickCost(clickLog);
 		int converted = Calculator.calcConversions(serverLog);
 		int bounces = Calculator.calcBounces(serverLog, minPages, minSeconds);
 		items.setClicks(clicks);
 		items.setImpressions(impressions);
 		items.setUniques(Calculator.calcUniques(clickLog));
 		items.setConversions(converted);
-		items.setTotalCost(cost);
+		items.setTotalCost(imprCost + clickCost);
 		items.setCTR(Calculator.calcCTR(clicks, impressions));
-		items.setCPA(Calculator.calcCPA(cost, converted));
-		items.setCPC(Calculator.calcCPC(cost, clicks));
-		items.setCPM(Calculator.calcCPM(cost, impressions));
+		items.setCPA(Calculator.calcCPA(imprCost + clickCost, converted));
+		items.setCPC(Calculator.calcCPC(clickCost, clicks));
+		items.setCPM(Calculator.calcCPM(imprCost, impressions));
 		items.setBounces(bounces);
 		items.setBounceRate(Calculator.calcBounceRate(bounces, clicks));
 		
@@ -74,13 +75,20 @@ public abstract class Calculator {
 		return conversions;
 	}
 	
-	public static float calcTotalCost (List<Log> impressionLog) {
-		float totalCost = 0;
-		for(Log l : impressionLog) {
-			totalCost += ((ImpressionLog)l).getImpressionCost();
+	public static float calcClickCost (List<Log> clickLog) {
+		float cost = 0;
+		for(Log l: clickLog) {
+			cost += ((ClickLog)l).getClickCost();
 		}
-		
-		return totalCost;
+		return cost;
+	}
+	
+	public static float calcImprCost(List<Log> impressionLog) {
+		float cost = 0;
+		for(Log l : impressionLog) {
+			cost += ((ImpressionLog)l).getImpressionCost();
+		}
+		return cost;
 	}
 	
 	public static float calcCTR (int clicks, int impressions) {
