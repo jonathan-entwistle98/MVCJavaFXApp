@@ -55,7 +55,7 @@ public abstract class CSVLoader {
 				while ((row = parser.parseNext()) != null) {
 					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
 					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseImpression(row);
+					Object[] a = CSVLoader.parseClick(row);
 					// Generates log entry.
 					log.add(new ClickLog((DateC)a[0], (long)a[1], (float)a[2]));
 					
@@ -67,14 +67,14 @@ public abstract class CSVLoader {
 				while ((row = parser.parseNext()) != null) {
 					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
 					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseImpression(row);
+					Object[] a = CSVLoader.parseServer(row);
 					// Generates log entry.
 					log.add(new ServerLog((DateC)a[0], (long)a[1], (DateC)a[2], (int)a[3], (boolean)a[4]));
 				}
 				break;
 			}
 		}
-		parser.stopParsing();
+		parser.stopParsing();		
 		return log;
 	}
 	

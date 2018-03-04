@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -123,10 +124,7 @@ public class AdDashboard extends Application{
 	@FXML
 	private AnchorPane SettingsAnchor;
 	
-	private Model model;
-	
-	private ArrayList<Object> allMetrics = new ArrayList<Object>();
-	
+	private Controller controller; 
 	
 	
 	public static void main(String[] args) {
@@ -143,17 +141,20 @@ public class AdDashboard extends Application{
 			
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("viewDashboard.fxml"));
 		
-		Controller controller = new Controller();
+		// Setting up model and controller
+		Model model = new Model();
+		controller = new Controller(model);
 		
 		loader.setController(this);
 		
 		Parent root = loader.load();
 		
-		model = new Model();
-		model.loadCSVData();
-		controller.setUp(model);
-		this.allMetrics = controller.getAllMetrics();
-		initModel();	
+		model.loadCSVs(new File("impression_log.csv"),
+					   new File("click_log.csv"),
+					   new File("server_log.csv"));
+		
+		// Updates overview with new values.
+		updateOverview();	
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 1000, 600);
@@ -169,20 +170,21 @@ public class AdDashboard extends Application{
 	 * Uses data from model class to set all required metrics to be added to the sidebar in the view
 	 * @param model
 	 */
-	public void initModel() {
-		this.model = model;
-
-		sidebarLabel1.setText("Number of Clicks: " + (model.clickLogList.size()-1));
-		sidebarLabel2.setText("Number of Impressions: " + (model.impressionLogList.size()-1));
-		sidebarLabel3.setText("Number of unique user clicks: " + allMetrics.get(0));
-		sidebarLabel4.setText("Number of conversions: " + allMetrics.get(1));
-		sidebarLabel5.setText("Total cost of campaign: " + allMetrics.get(2));
-		sidebarLabel6.setText("Click-through-rate (CTR): " + allMetrics.get(3));
-		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + allMetrics.get(4));
-		sidebarLabel8.setText("Cost-per-click (CPC): " + allMetrics.get(5));
-		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + allMetrics.get(6));
-		sidebarLabel10.setText("Number of bounces: " + allMetrics.get(7));
-		sidebarLabel11.setText("Bounce rate: " + allMetrics.get(8));
+	public void updateOverview() {
+		// Gets overview items (clicks, impressions, etc.).
+		OverviewItems items = controller.getOverviewItems();
+		
+		sidebarLabel1.setText("Number of Clicks: " + items.getClicks());
+		sidebarLabel2.setText("Number of Impressions: " + items.getImpressions());
+		sidebarLabel3.setText("Number of unique user clicks: " + items.getUniques());
+		sidebarLabel4.setText("Number of conversions: " + items.getConversions());
+		sidebarLabel5.setText("Total cost of campaign: " + items.getTotalCost());
+		sidebarLabel6.setText("Click-through-rate (CTR): " + items.getCTR());
+		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + items.getCPA());
+		sidebarLabel8.setText("Cost-per-click (CPC): " + items.getCPC());
+		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + items.getCPM());
+		sidebarLabel10.setText("Number of bounces: " + items.getBounces());
+		sidebarLabel11.setText("Bounce rate: " + items.getBounceRate());
 	}
 	
 
