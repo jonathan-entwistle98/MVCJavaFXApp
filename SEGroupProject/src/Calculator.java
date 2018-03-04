@@ -3,13 +3,13 @@ import java.util.List;
 
 public abstract class Calculator {
 
-	public static OverviewItems getOverview(List<Log> impressionLog, List<Log> clickLog, List<Log> serverLog) {
+	public static OverviewItems getOverview(List<Log> impressionLog, List<Log> clickLog, List<Log> serverLog, int minPages, int minSeconds) {
 		OverviewItems items = new OverviewItems();
 		int clicks = Calculator.calcClicks(clickLog);
 		int impressions = Calculator.calcImpressions(impressionLog);
 		float cost = Calculator.calcTotalCost(impressionLog);
 		int converted = Calculator.calcConversions(serverLog);
-		int bounces = Calculator.calcBounces();
+		int bounces = Calculator.calcBounces(serverLog, minPages, minSeconds);
 		items.setClicks(clicks);
 		items.setImpressions(impressions);
 		items.setUniques(Calculator.calcUniques(clickLog));
@@ -34,7 +34,6 @@ public abstract class Calculator {
 	}
 	
 	public static int calcUniques (List<Log> clickLog) {
-		
 		HashSet<Long> ids = new HashSet<Long>();
 		
 		for(Log l : clickLog) {
@@ -43,10 +42,26 @@ public abstract class Calculator {
 		
 		return clickLog.size();
 	}
-	//TODO bounces
-	public static int calcBounces () {
+
+	public static int calcBounces (List<Log> serverLog, int minPages, int minSeconds) {
+		int bounces = 0;
 		
-		return 0;
+		for(Log l : serverLog) {
+			
+			// Do time check.
+			if(minSeconds > 0 && ((ServerLog)l).getExitDate() != null) {
+				long msSpent = ((ServerLog)l).getExitDate().getTime() - ((ServerLog)l).getEntryDate().getTime();
+				if(msSpent / 1000 >= minSeconds) {
+					bounces++;
+					continue;
+				}
+			}
+			// Do page check.
+			if(((ServerLog)l).getPagesViewed() < minPages) {
+				bounces++;
+			}
+		}
+		return bounces;
 	}
 	
 	public static int calcConversions (List<Log> serverLog) {
