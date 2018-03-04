@@ -1,5 +1,10 @@
 import java.util.Date;
 
+/**
+ * Stores one row of server log data.
+ *
+ */
+
 public class ServerLog extends Log {
 	//TODO javadoc
 

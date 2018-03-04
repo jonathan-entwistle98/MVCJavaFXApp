@@ -20,6 +20,12 @@ public abstract class CSVLoader {
 
 	private static String dateFormat = "yyyy-MM-dd HH:mm:ss";
 	
+	/**
+	 * 
+	 * @param file file to be loaded.
+	 * @param fileType type of log file to be loaded.
+	 * @return list of log objects which represent rows in a log file. 
+	 */
 	public static List<Log> loadCSVData (File file, FileType fileType){
 		
 		List<Log> log = new ArrayList<Log>();
@@ -43,23 +49,16 @@ public abstract class CSVLoader {
 			// Impression CSV
 			case IMPRESSION_LOG: {
 				while ((row = parser.parseNext()) != null) {
-					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
-					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseImpression(row);
-					// Generates log entry.
-					log.add(new ImpressionLog((Date)a[0], (long)a[1], (Gender)a[2], (Age)a[3],
-							                  (Income)a[4], (Context)a[5], (float)a[6]));
+					// parses row and creates log row object.
+					log.add(CSVLoader.parseImpression(row));
 				}
 				break;
 			}
 			// Click CSV
 			case CLICK_LOG: {
 				while ((row = parser.parseNext()) != null) {
-					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
-					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseClick(row);
-					// Generates log entry.
-					log.add(new ClickLog((Date)a[0], (long)a[1], (float)a[2]));
+					// parses row and creates log row object.
+					log.add(CSVLoader.parseClick(row));
 					
 				}
 				break;
@@ -67,11 +66,8 @@ public abstract class CSVLoader {
 			// Server CSV
 			case SERVER_LOG: {
 				while ((row = parser.parseNext()) != null) {
-					// Expected output: Date, ID, Gender, Age, Income, Context, ImpressionCost.
-					// Converts string attributes to objects.
-					Object[] a = CSVLoader.parseServer(row);
-					// Generates log entry.
-					log.add(new ServerLog((Date)a[0], (long)a[1], (Date)a[2], (int)a[3], (boolean)a[4]));
+					// parses row and creates log row object.
+					log.add(CSVLoader.parseServer(row));
 				}
 				break;
 			}
@@ -80,7 +76,13 @@ public abstract class CSVLoader {
 		return log;
 	}
 	
-	public static Object[] parseImpression (String[] attributes) {
+	/**
+	 * Takes a row from impression log as a string and converts to a log object.
+	 * 
+	 * @param attributes
+	 * @return object representing a row in impression log.
+	 */
+	public static ImpressionLog parseImpression (String[] attributes) {
 
 		Date date = null;
 		try {
@@ -164,11 +166,16 @@ public abstract class CSVLoader {
 		}
 		float cost = Float.parseFloat(attributes[6]);
 
-		Object[] a = {date, id, gender, age, income, context, cost};
-		return a;
+		return new ImpressionLog(date, id, gender, age, income, context, cost);
 	}
 	
-	public static Object[] parseClick (String[] attributes) {
+	/**
+	 * Takes a row from click log as a string and converts to a log object.
+	 * 
+	 * @param attributes
+	 * @return object representing a row in click log.
+	 */
+	public static ClickLog parseClick (String[] attributes) {
 		
 		Date date = null;
 		try {
@@ -179,11 +186,16 @@ public abstract class CSVLoader {
 		long id = Long.parseLong(attributes[1]);
 		float cost = Float.parseFloat(attributes[2]);
 		
-		Object[] a = {date, id, cost};
-		return a;
+		return new ClickLog(date, id, cost);
 	}
 	
-	public static Object[] parseServer (String[] attributes) {
+	/**
+	 * Takes a row from server log as a string and converts to a log object.
+	 * 
+	 * @param attributes
+	 * @return object representing a row in server log.
+	 */
+	public static ServerLog parseServer (String[] attributes) {
 
 		Date enDate = null;
 		try {
@@ -215,7 +227,6 @@ public abstract class CSVLoader {
 			break;
 		}
 		
-		Object[] a = {enDate, id, exDate, pages, conversion};
-		return a;
+		return new ServerLog(enDate, id, exDate, pages, conversion);
 	}
 }

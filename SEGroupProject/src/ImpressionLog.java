@@ -1,5 +1,9 @@
 import java.util.Date;
 
+/**
+ * Stores one row of impression log data.
+ *
+ */
 public class ImpressionLog extends Log {
 	
 	private Date date;

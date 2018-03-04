@@ -1,4 +1,7 @@
-
+/**
+ * Holds all essential calculated campaign overview information.
+ *
+ */
 public class OverviewItems {
 
 	private int impressions;

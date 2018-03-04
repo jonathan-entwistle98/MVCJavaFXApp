@@ -1,13 +1,21 @@
 import java.util.Date;
 
+/**
+ * Stores one row of click log data.
+ *
+ */
 public class ClickLog extends Log {
 
 	private Date date;
 	private long id; 
 	private float clickCost;
-
-	//TODO javadoc
 	
+	/**
+	 * 
+	 * @param date
+	 * @param id
+	 * @param clickCost
+	 */
 	public ClickLog (Date date, long id, float clickCost) {
 		setDate(date);
 		setId(id);
