@@ -40,7 +40,7 @@ public abstract class Calculator {
 			ids.add(((ClickLog)l).getId());
 		}
 		
-		return clickLog.size();
+		return ids.size();
 	}
 
 	public static int calcBounces (List<Log> serverLog, int minPages, int minSeconds) {
