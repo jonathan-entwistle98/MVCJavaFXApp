@@ -1,54 +1,127 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class AdDashboard extends Application{
 	
 	@FXML
-	private HBox headerDashboard;
+	private AnchorPane mainAnchorPane;
+
 	@FXML
-	private VBox leftAreaDashboard;
+	private Accordion accord;
+
 	@FXML
-	private TextFlow metricsText;
+	private TitledPane titletPane;
+
 	@FXML
-	private VBox bodyDashboard;
-	@FXML
-	private HBox footerDashboard;
+	private AnchorPane anchorPane;
+
 	@FXML
 	private Label sidebarLabel1;
+
 	@FXML
-	private Label sidebarLabel2;	
+	private Label sidebarLabel2;
+
 	@FXML
-	private Label sidebarLabel3;	
+	private Label sidebarLabel3;
+
 	@FXML
-	private Label sidebarLabel4;	
+	private Label sidebarLabel4;
+
 	@FXML
-	private Label sidebarLabel5;	
+	private Label sidebarLabel6;
+
 	@FXML
-	private Label sidebarLabel6;	
+	private Label sidebarLabel5;
+
 	@FXML
-	private Label sidebarLabel7;	
+	private Label sidebarLabel7;
+
 	@FXML
-	private Label sidebarLabel8;	
-	@FXML
-	private Label sidebarLabel9;	
-	@FXML
-	private Label sidebarLabel10;
+	private Label sidebarLabel8;
+
 	@FXML
 	private Label sidebarLabel11;
+
+	@FXML
+	private Label sidebarLabel10;
+
+	@FXML
+	private Label sidebarLabel9;
+
+	@FXML
+	private Label NoOfClicksLab;
+
+	@FXML
+	private Label NoOfImpressLab;
+
+	@FXML
+	private Label NoOfUniqLab;
+
+	@FXML
+	private Label NoOfConversLab;
+
+	@FXML
+	private Label CTRLab;
+
+	@FXML
+	private Label TotCostCampLab;
+
+	@FXML
+	private Label CPALab;
+
+	@FXML
+	private Label CPCLab;
+
+	@FXML
+	private Label BounceRateLab;
+
+	@FXML
+	private Label NoOfBouncesLab;
+
+	@FXML
+	private Label CPMLab;
+
+	@FXML
+	private TitledPane ChartsAndGraphsPane;
+
+	@FXML
+	private AnchorPane chGrphAnchor;
+
+	@FXML
+	private MenuButton ChartsGraphsDropDown;
+
+	@FXML
+	private MenuItem HistogramItem;
+
+	@FXML
+	private MenuItem GraphItem;
+
+	@FXML
+	private StackedBarChart<?, ?> Histogram;
+
+	@FXML
+	private LineChart<?, ?> Graph;
+
+	@FXML
+	private TitledPane SettingsPane;
+
+	@FXML
+	private AnchorPane SettingsAnchor;
 	
 	private Model model;
 	

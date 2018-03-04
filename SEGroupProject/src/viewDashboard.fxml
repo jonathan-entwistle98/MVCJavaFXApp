@@ -1,85 +1,224 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <VBox BorderPane.alignment="CENTER">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox>
          <children>
-            <MenuBar />
-            <HBox id="headerDashboard" fx:id="headerDashboard" spacing="10.0">
+            <TabPane prefHeight="610.0" prefWidth="990.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="All Metrics">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="856.0">
+                           <children>
+                              <VBox layoutX="10.0" layoutY="10.0">
+                                 <children>
+                                    <Label id="sidebarLabel" fx:id="sidebarLabel1" text="Sidebar">
+                                       <padding>
+                                          <Insets left="10.0" top="20.0" />
+                                       </padding>
+                                    </Label>
+                                    <Label fx:id="sidebarLabel2" text="Label" />
+                                    <Label fx:id="sidebarLabel3" text="Label" />
+                                    <Label fx:id="sidebarLabel4" text="Label" />
+                                    <Label fx:id="sidebarLabel5" text="Label" />
+                                    <Label fx:id="sidebarLabel6" text="Label" />
+                                    <Label fx:id="sidebarLabel7" text="Label" />
+                                    <Label fx:id="sidebarLabel8" text="Label" />
+                                    <Label fx:id="sidebarLabel9" text="Label" />
+                                    <Label fx:id="sidebarLabel10" text="Label" />
+                                    <Label fx:id="sidebarLabel11" text="Label" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="No. of Clicks">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="No. of Impressions">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="No. of Unique Clicks">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Campaign Cost">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="CTR">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="CPA">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="CPC">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="CPM">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="979.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="No. of Bounces">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Bounce Rate">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="393.0" prefWidth="1200.0">
+                           <children>
+                              <LineChart>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <VBox prefHeight="610.0" prefWidth="175.0">
                <children>
-                  <Label prefHeight="24.0" prefWidth="135.0" text="Dashboard Header">
-                     <HBox.margin>
-                        <Insets top="1.0" />
-                     </HBox.margin></Label>
+                  <Label text="Settings" />
+                  <Label text="Label" />
+                  <Label text="Label" />
+                  <Label layoutX="10.0" layoutY="44.0" text="Label" />
+                  <Label layoutX="10.0" layoutY="61.0" text="Label" />
+                  <Label layoutX="10.0" layoutY="78.0" text="Label" />
+                  <Label layoutX="10.0" layoutY="95.0" text="Label" />
+                  <Label layoutX="10.0" layoutY="112.0" text="Label" />
                </children>
-               <VBox.margin>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </VBox.margin>
-            </HBox>
+            </VBox>
          </children>
-      </VBox>
-   </top>
-   <bottom>
-      <HBox id="footerDashboard" fx:id="footerDashboard" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="footerText" text="Footer" HBox.hgrow="ALWAYS" />
-         </children>
-         <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </padding>
-         <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </BorderPane.margin>
       </HBox>
-   </bottom>
-   <left>
-      <VBox id="leftAreaDashboard" fx:id="leftAreaDashboard" prefHeight="306.0" prefWidth="276.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextFlow id="metricsText" fx:id="metricsText">
-               <children>
-                  <Label id="sidebarLabel" fx:id="sidebarLabel1" text="Sidebar">
-                     <padding>
-                        <Insets left="10.0" top="20.0" />
-                     </padding>
-                  </Label>
-                  <Label fx:id="sidebarLabel2" text="Label" />
-                  <Label fx:id="sidebarLabel3" text="Label" />
-                  <Label fx:id="sidebarLabel4" text="Label" />
-                  <Label fx:id="sidebarLabel5" text="Label" />
-                  <Label fx:id="sidebarLabel6" text="Label" />
-                  <Label fx:id="sidebarLabel7" text="Label" />
-                  <Label fx:id="sidebarLabel8" text="Label" />
-                  <Label fx:id="sidebarLabel9" text="Label" />
-                  <Label fx:id="sidebarLabel10" text="Label" />
-                  <Label fx:id="sidebarLabel11" text="Label" />
-               </children>
-            </TextFlow>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <center>
-      <VBox id="bodyDashboard" fx:id="bodyDashboard" alignment="CENTER" fillWidth="false" prefHeight="338.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Body" textAlignment="CENTER" wrapText="true">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-         <BorderPane.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </BorderPane.margin>
-      </VBox>
-   </center>
-</BorderPane>
+   </children>
+</AnchorPane>
