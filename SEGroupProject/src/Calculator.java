@@ -33,7 +33,6 @@ public abstract class Calculator {
 		return clickLog.size();
 	}
 	
-	//TODO uniques
 	public static int calcUniques (List<Log> clickLog) {
 		
 		HashSet<Long> ids = new HashSet<Long>();

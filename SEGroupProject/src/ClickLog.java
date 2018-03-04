@@ -1,23 +1,24 @@
+import java.util.Date;
 
 public class ClickLog extends Log {
 
-	private DateC date;
+	private Date date;
 	private long id; 
 	private float clickCost;
 
 	//TODO javadoc
 	
-	public ClickLog (DateC date, long id, float clickCost) {
+	public ClickLog (Date date, long id, float clickCost) {
 		setDate(date);
 		setId(id);
 		setClickCost(clickCost);
 	}
 
-	public DateC getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(DateC date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

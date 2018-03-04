@@ -1,14 +1,15 @@
+import java.util.Date;
 
 public class ServerLog extends Log {
 	//TODO javadoc
 
-	private DateC entryDate;
+	private Date entryDate;
 	private long id;
-	private DateC exitDate;
+	private Date exitDate;
 	private int pagesViewed;
 	private boolean converted;
 
-	public ServerLog(DateC entryDate, long id, DateC exitDate, int pagesViewed, boolean converted) {
+	public ServerLog(Date entryDate, long id, Date exitDate, int pagesViewed, boolean converted) {
 		setEntryDate(entryDate);
 		setId(id);
 		setExitDate(exitDate);
@@ -22,16 +23,16 @@ public class ServerLog extends Log {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public DateC getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
-	public void setEntryDate(DateC entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
-	public DateC getExitDate() {
+	public Date getExitDate() {
 		return exitDate;
 	}
-	public void setExitDate(DateC exitDate) {
+	public void setExitDate(Date exitDate) {
 		this.exitDate = exitDate;
 	}
 	public int getPagesViewed() {

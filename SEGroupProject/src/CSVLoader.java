@@ -1,9 +1,9 @@
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
@@ -18,6 +18,8 @@ public abstract class CSVLoader {
 	 *  3- ServerLog
 	 */
 
+	private static String dateFormat = "yyyy-MM-dd HH:mm:ss";
+	
 	public static List<Log> loadCSVData (File file, FileType fileType){
 		
 		List<Log> log = new ArrayList<Log>();
@@ -45,7 +47,7 @@ public abstract class CSVLoader {
 					// Converts string attributes to objects.
 					Object[] a = CSVLoader.parseImpression(row);
 					// Generates log entry.
-					log.add(new ImpressionLog((DateC)a[0], (long)a[1], (Gender)a[2], (Age)a[3],
+					log.add(new ImpressionLog((Date)a[0], (long)a[1], (Gender)a[2], (Age)a[3],
 							                  (Income)a[4], (Context)a[5], (float)a[6]));
 				}
 				break;
@@ -57,7 +59,7 @@ public abstract class CSVLoader {
 					// Converts string attributes to objects.
 					Object[] a = CSVLoader.parseClick(row);
 					// Generates log entry.
-					log.add(new ClickLog((DateC)a[0], (long)a[1], (float)a[2]));
+					log.add(new ClickLog((Date)a[0], (long)a[1], (float)a[2]));
 					
 				}
 				break;
@@ -69,7 +71,7 @@ public abstract class CSVLoader {
 					// Converts string attributes to objects.
 					Object[] a = CSVLoader.parseServer(row);
 					// Generates log entry.
-					log.add(new ServerLog((DateC)a[0], (long)a[1], (DateC)a[2], (int)a[3], (boolean)a[4]));
+					log.add(new ServerLog((Date)a[0], (long)a[1], (Date)a[2], (int)a[3], (boolean)a[4]));
 				}
 				break;
 			}
@@ -80,7 +82,13 @@ public abstract class CSVLoader {
 	
 	public static Object[] parseImpression (String[] attributes) {
 
-		DateC date = new DateC(attributes[0]);
+		Date date = null;
+		try {
+			date = new SimpleDateFormat(dateFormat).parse(attributes[0]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
 		long id = Long.parseLong(attributes[1]);
 		Gender gender;
 		switch(attributes[2]){
@@ -162,7 +170,12 @@ public abstract class CSVLoader {
 	
 	public static Object[] parseClick (String[] attributes) {
 		
-		DateC date = new DateC(attributes[0]);
+		Date date = null;
+		try {
+			date = new SimpleDateFormat(dateFormat).parse(attributes[0]);
+		} catch (ParseException e) {
+//			e.printStackTrace();
+		}
 		long id = Long.parseLong(attributes[1]);
 		float cost = Float.parseFloat(attributes[2]);
 		
@@ -172,9 +185,21 @@ public abstract class CSVLoader {
 	
 	public static Object[] parseServer (String[] attributes) {
 
-		DateC enDate = new DateC(attributes[0]);
+		Date enDate = null;
+		try {
+			enDate = new SimpleDateFormat(dateFormat).parse(attributes[0]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
 		long id = Long.parseLong(attributes[1]);
-		DateC exDate = new DateC(attributes[2]);
+		Date exDate = null;
+		try {
+			exDate = new SimpleDateFormat(dateFormat).parse(attributes[2]);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
 		int pages = Integer.parseInt(attributes[3]);
 		boolean conversion;
 		switch(attributes[4]){

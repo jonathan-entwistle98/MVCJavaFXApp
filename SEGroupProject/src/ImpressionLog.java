@@ -1,7 +1,8 @@
+import java.util.Date;
 
 public class ImpressionLog extends Log {
 	
-	private DateC date;
+	private Date date;
 	private long id;
 	private Gender gender;
 	private Age age;
@@ -11,7 +12,7 @@ public class ImpressionLog extends Log {
 	
 	//TODO javadoc
 	//Date, ID, Gender, Age, Income, Context, ImpressionCost. 
-	public ImpressionLog(DateC date, long id, Gender gender, Age age,
+	public ImpressionLog(Date date, long id, Gender gender, Age age,
 			Income income, Context context, float impressionCost) {
 		setDate(date);
 		setId(id);
@@ -22,11 +23,11 @@ public class ImpressionLog extends Log {
 		setImpressionCost(impressionCost);
 	}
 
-	public DateC getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(DateC date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
