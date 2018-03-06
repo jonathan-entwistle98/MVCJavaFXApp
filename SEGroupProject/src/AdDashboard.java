@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import com.gluonhq.charm.glisten.control.*;
 
@@ -167,9 +170,26 @@ public class AdDashboard extends Application{
 	@FXML
 	private AnchorPane SettingsAnchor;
 	
+	@FXML
+	private TextField clickLogTextField;
+	
+	@FXML
+	private TextField impressionLogTextField;
+	
+	@FXML
+	private TextField serverLogTextField;
+	
 	private Controller controller; 
 	
 	private Stage stage;
+	
+	private File impressionLogFile;
+	
+	private File clickLogFile;
+	
+	private File serverLogFile;
+	
+	private Model model;
 	
 	
 	public static void main(String[] args) {
@@ -187,16 +207,12 @@ public class AdDashboard extends Application{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("initialView.fxml"));
 		
 		// Setting up model and controller
-		Model model = new Model();
+		model = new Model();
 		controller = new Controller(model);
 		
 		loader.setController(this);
 		
 		Parent root = loader.load();
-		
-		model.loadCSVs(new File("impression_log.csv"),
-					   new File("click_log.csv"),
-					   new File("server_log.csv"));
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 1000, 600);
@@ -242,6 +258,9 @@ public class AdDashboard extends Application{
 	}
 	
 	public void viewAnalyticsClicked(){
+		
+		model.loadCSVs(impressionLogFile, clickLogFile, serverLogFile);
+		
 		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("mainView.fxml"));
 		loader2.setController(this);
 		
@@ -339,6 +358,27 @@ public class AdDashboard extends Application{
 			e.printStackTrace();
 		}
 		updateOverview();
+	}
+	
+	public void impressionLogFilePickerClicked(){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select Impression Log");
+		  impressionLogFile = fileChooser.showOpenDialog(stage);
+		  impressionLogTextField.setText(impressionLogFile.getName());
+	}
+	
+	public void clickLogFilePickerClicked(){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select Click Log");
+		  clickLogFile = fileChooser.showOpenDialog(stage);
+		  clickLogTextField.setText(clickLogFile.getName());
+	}
+	
+	public void serverLogFilePickerClicked(){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select Click Log");
+		  serverLogFile = fileChooser.showOpenDialog(stage);
+		  serverLogTextField.setText(serverLogFile.getName());
 	}
 	
 

@@ -7,8 +7,8 @@ public class Model {
 	private List<Log> clicksLog;
 	private List<Log> serverLog;
 	
-	private int minPages;
-	private int minSeconds;
+	private int minPages = 1;
+	private int minSeconds = 120;
 	
 	/**
 	 * 
