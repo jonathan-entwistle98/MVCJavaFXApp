@@ -146,7 +146,11 @@ public abstract class Calculator {
 	 * @return click-through-rate: the average number of clicks per impression.
 	 */
 	public static float calcCTR (int clicks, int impressions) {
-		return (float) clicks / impressions;
+		if(impressions <= 0){
+			return 0;
+		}else{
+			return (float) clicks / impressions;
+		}
 	}
 	/**
 	 * 
@@ -155,7 +159,11 @@ public abstract class Calculator {
 	 * @return cost-per-acquisition:The average amount of money spent on an advertising campaign for each acquisition (conversion).
 	 */
 	public static float calcCPA (float cost, int converted) {
-		return cost / converted;
+		if(converted <= 0){
+			return 0;
+		}else{
+			return cost / converted;
+		}
 	}
 	/**
 	 * 
@@ -165,7 +173,11 @@ public abstract class Calculator {
 	 * 
 	 */
 	public static float calcCPC (float cost, int clicks) {
-		return cost / clicks;
+		if(clicks <= 0){
+			return 0;
+		}else{
+			return cost / clicks;
+		}
 	}
 	/**
 	 * 
@@ -175,7 +187,11 @@ public abstract class Calculator {
 	 * one thousand impressions.
 	 */
 	public static float calcCPM (float cost, int impressions) {
-		return (cost/impressions)*1000;
+		if(impressions <= 0){
+			return 0;
+		}else{
+			return (cost/impressions)*1000;
+		}
 	}
 	/**
 	 * 
@@ -184,7 +200,11 @@ public abstract class Calculator {
 	 * @return the average number of bounces per click.
 	 */
 	public static float calcBounceRate (int bounces, int clicks) {
-		return (float) bounces / clicks;
+		if(clicks <= 0){
+			return 0;
+		}else{
+			return (float) bounces / clicks;
+		}
 	}
 	
 }
