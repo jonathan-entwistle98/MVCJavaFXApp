@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -19,8 +20,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.gluonhq.charm.glisten.control.*;
 
@@ -179,6 +184,9 @@ public class AdDashboard extends Application{
 	@FXML
 	private TextField serverLogTextField;
 	
+	@FXML
+	private ImageView graphLogo;
+	
 	private Controller controller; 
 	
 	private Stage stage;
@@ -206,6 +214,7 @@ public class AdDashboard extends Application{
 			
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("initialView.fxml"));
 		
+
 		// Setting up model and controller
 		model = new Model();
 		controller = new Controller(model);
@@ -220,6 +229,9 @@ public class AdDashboard extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		this.stage = primaryStage;
+	//	File file = new File("graphLogo.jpg");
+	    Image image = new Image("graphLogo2.jpg");
+		graphLogo.setImage(image);
 		
 	}
 	
@@ -248,13 +260,17 @@ public class AdDashboard extends Application{
 		impressions.setText("Number of Impressions: " + items.getImpressions());
 		uniques.setText("Number of unique user clicks: " + items.getUniques());
 		conversions.setText("Number of conversions: " + items.getConversions());
-		totalCost.setText("Total cost of campaign: " + items.getTotalCost());
-		ctr.setText("Click-through-rate (CTR): " + items.getCTR());
-		cpa.setText("Cost-per-aquisition (CPA): " + items.getCPA());
-		cpc.setText("Cost-per-click (CPC): " + items.getCPC());
-		cpm.setText("Cost per-thousand-impressions (CPM): " + items.getCPM());
+		totalCost.setText("Total cost of campaign: " + round(items.getTotalCost(),4));
+		ctr.setText("Click-through-rate (CTR): " + round(items.getCTR(),4));
+		cpa.setText("Cost-per-aquisition (CPA): " + round(items.getCPA(),4));
+		cpc.setText("Cost-per-click (CPC): " + round(items.getCPC(),4));
+		cpm.setText("Cost per-thousand-impressions (CPM): " + round(items.getCPM(),4));
 		bounces.setText("Number of bounces: " + items.getBounces());
-		bounceRate.setText("Bounce rate: " + items.getBounceRate());
+		bounceRate.setText("Bounce rate: " + round(items.getBounceRate(),4));
+		
+		if(items.getBounceRate()==0 || items.getBounces()==0 || items.getCPM()==0 || items.getCPC()==0 || items.getCPA()==0 || items.getCTR()==0){
+			divideByZeroError();
+		}
 	}
 	
 	public void viewAnalyticsClicked(){
@@ -376,9 +392,30 @@ public class AdDashboard extends Application{
 	
 	public void serverLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Select Click Log");
+		fileChooser.setTitle("Select Server Log");
 		  serverLogFile = fileChooser.showOpenDialog(stage);
 		  serverLogTextField.setText(serverLogFile.getName());
+	}
+	
+	public void divideByZeroError(){
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text("A divide by zero error occurred"));
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+	}
+	
+//	public static float round(float d, int decimalPlace) {
+//        BigDecimal bd = new BigDecimal(Float.toString(d));
+//        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+//        return bd.floatValue();
+//    }
+	
+	public static double round(double value, int scale) {
+	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}
 	
 
