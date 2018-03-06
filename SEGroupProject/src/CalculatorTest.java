@@ -39,30 +39,37 @@ public class CalculatorTest extends Calculator{
 	
 	@Test
 	public void testcalcImpressionCost() {
-		assertEquals(2, 2);
+		assertEquals(calcImprCost(impressionLog), 0.006, 0.001);
 	}
 	
 	@Test
 	public void testcalcCTR() {
-		assertEquals(2, 2);
+		assertEquals(calcCTR(calcClicks(clickLog), calcImpressions(impressionLog)), 0.5, 0.1);
 	}
 	
 	@Test
 	public void testcalcCPA() {
-		assertEquals(2, 2);
+		assertEquals(calcCPA(calcImprCost(impressionLog) + calcClickCost(clickLog), calcConversions(serverLog)), 23.5, 0.1);
 	}
 	
 	@Test
 	public void testcalcCPC() {
-		assertEquals(2, 2);
+		assertEquals(calcCPC(calcClickCost(clickLog), calcClicks(clickLog)), 11.8, 0.1);
 	}
 
 	@Test
 	public void testcalcCPM() {
-		assertEquals(2, 2);
+		assertEquals(calcCPM(calcImprCost(impressionLog), calcImpressions(impressionLog)), 1.5, 0.1);
 	}
-
-	//Still need to do bounce rate caclulations tests
-
+	
+	@Test
+	public void testcalcBounces() {
+		assertEquals(calcBounces(serverLog, 1, 120), 1);
+	}
+	
+	@Test
+	public void testcalcBounceRate() {
+		assertEquals(calcBounceRate(calcBounces(serverLog, 1, 120), calcClicks(clickLog)), 0.5, 0.1);
+	}
 	
 }

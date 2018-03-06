@@ -175,7 +175,7 @@ public abstract class Calculator {
 	 * one thousand impressions.
 	 */
 	public static float calcCPM (float cost, int impressions) {
-		return cost / (impressions/1000);
+		return (cost/impressions)*1000;
 	}
 	/**
 	 * 
