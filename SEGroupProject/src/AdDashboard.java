@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -9,13 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import com.gluonhq.charm.glisten.control.*;
 
 public class AdDashboard extends Application{
 	
@@ -26,11 +30,50 @@ public class AdDashboard extends Application{
 	private Accordion accord;
 
 	@FXML
+	private TabPane metricsDetailsTabPane;
+	
+	@FXML
 	private TitledPane titletPane;
 
 	@FXML
 	private AnchorPane anchorPane;
 
+	@FXML
+	private Button viewAnalytics;
+	
+	@FXML
+	private Button impressions;
+	
+	@FXML
+	private Button clicks;
+	
+	@FXML
+	private Button uniques;
+	
+	@FXML
+	private Button bounces;
+	
+	@FXML
+	private Button cpm;
+	
+	@FXML
+	private Button totalCost;
+	
+	@FXML
+	private Button ctr;
+	
+	@FXML
+	private Button cpc;
+	
+	@FXML
+	private Button cpa;
+	
+	@FXML
+	private Button conversions;
+	
+	@FXML
+	private Button bounceRate;
+	
 	@FXML
 	private Label sidebarLabel1;
 
@@ -126,6 +169,8 @@ public class AdDashboard extends Application{
 	
 	private Controller controller; 
 	
+	private Stage stage;
+	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -139,7 +184,7 @@ public class AdDashboard extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 			
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("viewDashboard.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("initialView.fxml"));
 		
 		// Setting up model and controller
 		Model model = new Model();
@@ -152,16 +197,13 @@ public class AdDashboard extends Application{
 		model.loadCSVs(new File("impression_log.csv"),
 					   new File("click_log.csv"),
 					   new File("server_log.csv"));
-		
-		// Updates overview with new values.
-		updateOverview();	
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 1000, 600);
 		scene.getStylesheets().add("style.css");
-		primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("icon.png")));
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		this.stage = primaryStage;
 		
 	}
 	
@@ -174,17 +216,128 @@ public class AdDashboard extends Application{
 		// Gets overview items (clicks, impressions, etc.).
 		OverviewItems items = controller.getOverviewItems();
 		
-		sidebarLabel1.setText("Number of Clicks: " + items.getClicks());
-		sidebarLabel2.setText("Number of Impressions: " + items.getImpressions());
-		sidebarLabel3.setText("Number of unique user clicks: " + items.getUniques());
-		sidebarLabel4.setText("Number of conversions: " + items.getConversions());
-		sidebarLabel5.setText("Total cost of campaign: " + items.getTotalCost());
-		sidebarLabel6.setText("Click-through-rate (CTR): " + items.getCTR());
-		sidebarLabel7.setText("Cost-per-aquisition (CPA): " + items.getCPA());
-		sidebarLabel8.setText("Cost-per-click (CPC): " + items.getCPC());
-		sidebarLabel9.setText("Cost per-thousand-impressions (CPM): " + items.getCPM());
-		sidebarLabel10.setText("Number of bounces: " + items.getBounces());
-		sidebarLabel11.setText("Bounce rate: " + items.getBounceRate());
+		clicks.wrapTextProperty().setValue(true);
+		impressions.wrapTextProperty().setValue(true);
+		uniques.wrapTextProperty().setValue(true);
+		conversions.wrapTextProperty().setValue(true);
+		totalCost.wrapTextProperty().setValue(true);
+		ctr.wrapTextProperty().setValue(true);
+		cpa.wrapTextProperty().setValue(true);
+		cpc.wrapTextProperty().setValue(true);
+		cpm.wrapTextProperty().setValue(true);
+		bounces.wrapTextProperty().setValue(true);
+		bounceRate.wrapTextProperty().setValue(true);
+		
+		clicks.setText("Number of Clicks: " + items.getClicks());
+		impressions.setText("Number of Impressions: " + items.getImpressions());
+		uniques.setText("Number of unique user clicks: " + items.getUniques());
+		conversions.setText("Number of conversions: " + items.getConversions());
+		totalCost.setText("Total cost of campaign: " + items.getTotalCost());
+		ctr.setText("Click-through-rate (CTR): " + items.getCTR());
+		cpa.setText("Cost-per-aquisition (CPA): " + items.getCPA());
+		cpc.setText("Cost-per-click (CPC): " + items.getCPC());
+		cpm.setText("Cost per-thousand-impressions (CPM): " + items.getCPM());
+		bounces.setText("Number of bounces: " + items.getBounces());
+		bounceRate.setText("Bounce rate: " + items.getBounceRate());
+	}
+	
+	public void viewAnalyticsClicked(){
+		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("mainView.fxml"));
+		loader2.setController(this);
+		
+		Parent root2;
+		try {
+			root2 = loader2.load();
+			Scene scene = new Scene(root2, 1000, 600);
+			scene.getStylesheets().add("style.css");
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		updateOverview();	
+	}
+	
+	public void impressionsDetailClicked(){
+		FXMLLoader loader3 = new FXMLLoader(getClass().getResource("detailedView.fxml"));
+		loader3.setController(this);
+		
+		Parent root3;
+		try {
+			root3 = loader3.load();
+			Scene scene = new Scene(root3, 1000, 600);
+			scene.getStylesheets().add("style.css");
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void clicksDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(1);	
+	}
+	
+	public void uniquesDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(2);	
+	}
+	
+	public void bouncesDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(3);	
+	}
+	
+	public void cpmDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(4);	
+	}
+	
+	public void totalCostDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(5);	
+	}
+	
+	public void ctrDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(6);	
+	}
+	
+	public void cpcDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(7);	
+	}
+	
+	public void cpaDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(8);	
+	}
+	
+	public void conversionsDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(9);	
+	}
+	
+	public void bounceRateDetailClicked(){
+		impressionsDetailClicked();
+		metricsDetailsTabPane.getSelectionModel().select(10);	
+	}
+	
+	public void returnToOverviewClicked(){
+		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("mainView.fxml"));
+		loader2.setController(this);
+		
+		Parent root2;
+		try {
+			root2 = loader2.load();
+			Scene scene = new Scene(root2, 1000, 600);
+			scene.getStylesheets().add("style.css");
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 
