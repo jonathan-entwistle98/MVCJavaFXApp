@@ -338,6 +338,7 @@ public class AdDashboard extends Application{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		updateOverview();
 	}
 	
 
