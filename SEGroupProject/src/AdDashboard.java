@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.gluonhq.charm.glisten.control.*;
@@ -402,6 +404,8 @@ public class AdDashboard extends Application{
 	
 	public void impressionLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Impression Log");
 		  impressionLogFile = fileChooser.showOpenDialog(stage);
 		  impressionLogTextField.setText(impressionLogFile.getName());
@@ -409,6 +413,8 @@ public class AdDashboard extends Application{
 	
 	public void clickLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Click Log");
 		  clickLogFile = fileChooser.showOpenDialog(stage);
 		  clickLogTextField.setText(clickLogFile.getName());
@@ -416,6 +422,8 @@ public class AdDashboard extends Application{
 	
 	public void serverLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Server Log");
 		  serverLogFile = fileChooser.showOpenDialog(stage);
 		  serverLogTextField.setText(serverLogFile.getName());

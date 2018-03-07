@@ -17,7 +17,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane fx:id="metricsDetailsTabPane" layoutY="39.0" prefHeight="582.0" prefWidth="880.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -48,10 +48,10 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
+                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
                                           <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                          <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                          <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
                                        </children>
                                     </AnchorPane>
                               </content>
