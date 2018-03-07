@@ -17,7 +17,8 @@ public class Model {
 	 * @param server CSV server log file
 	 */
 	public void loadCSVs(File impressions, File clicks, File server) {
-		// TODO add error checking.
+
+		
 		
 		impressionLog = CSVLoader.loadCSVData(impressions, FileType.IMPRESSION_LOG);
 		clicksLog = CSVLoader.loadCSVData(clicks, FileType.CLICK_LOG);

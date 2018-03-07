@@ -1,4 +1,6 @@
 import java.io.File;
+
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,9 +31,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.gluonhq.charm.glisten.control.*;
+import javafx.scene.control.Alert;
 
 public class AdDashboard extends Application{
 	
+
 	@FXML
 	private AnchorPane mainAnchorPane;
 
@@ -187,6 +192,9 @@ public class AdDashboard extends Application{
 	@FXML
 	private ImageView graphLogo;
 	
+
+	
+	
 	private Controller controller; 
 	
 	private Stage stage;
@@ -224,7 +232,7 @@ public class AdDashboard extends Application{
 		Parent root = loader.load();
 
 		primaryStage.setTitle("Dashboard");
-		Scene scene = new Scene(root, 1000, 600);
+		Scene scene = new Scene(root, 800, 600);
 		scene.getStylesheets().add("style.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -274,11 +282,27 @@ public class AdDashboard extends Application{
 	}
 	
 	public void viewAnalyticsClicked(){
+	//	double initialTime = System.currentTimeMillis();
+		
+		if(clickLogTextField.getText().equals("")
+			|| impressionLogTextField.getText().equals("")
+			|| serverLogTextField.getText().equals("")){
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Blank Field");
+			alert.setHeaderText("Error, please select all files.");
+			alert.setContentText("Some fields are left blank.");
+			
+			alert.showAndWait();
+		}
 		
 		model.loadCSVs(impressionLogFile, clickLogFile, serverLogFile);
 		
 		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("mainView.fxml"));
 		loader2.setController(this);
+
+	//	double finalTime = System.currentTimeMillis();
+		
 		
 		Parent root2;
 		try {
@@ -398,21 +422,14 @@ public class AdDashboard extends Application{
 	}
 	
 	public void divideByZeroError(){
-		final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stage);
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("A divide by zero error occurred"));
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
+        
+        Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("CSV Data Error");
+		alert.setHeaderText("Negative Number or Divide by Zero error");
+		alert.setContentText("A divide by zero error occurred");
+		
+		alert.showAndWait();
 	}
-	
-//	public static float round(float d, int decimalPlace) {
-//        BigDecimal bd = new BigDecimal(Float.toString(d));
-//        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
-//        return bd.floatValue();
-//    }
 	
 	public static double round(double value, int scale) {
 	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
