@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="239.0" layoutY="50.0" style="-fx-font-family: &quot;Arial Black&quot;, Gadget, sans-serif; -fx-font-size: 16;" text="Ad Auction Analytics">
          <font>
@@ -25,6 +25,6 @@
       <Button fx:id="browseClickLog" layoutX="467.0" layoutY="256.0" mnemonicParsing="false" onAction="#clickLogFilePickerClicked" text="Browse" />
       <Button fx:id="browseImpressionLog" layoutX="467.0" layoutY="307.0" mnemonicParsing="false" onAction="#impressionLogFilePickerClicked" text="Browse" />
       <Button fx:id="browseServerLog" layoutX="467.0" layoutY="354.0" mnemonicParsing="false" onAction="#serverLogFilePickerClicked" text="Browse" />
-      <Button fx:id="viewAnalytics" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#viewAnalyticsClicked" style="-fx-background-color: white;" text="View Analytics" textAlignment="CENTER" />
+      <Button fx:id="viewAnalytics" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="View Analytics" textAlignment="CENTER" />
    </children>
 </AnchorPane>
