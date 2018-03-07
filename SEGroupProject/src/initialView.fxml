@@ -25,6 +25,6 @@
       <Button fx:id="browseClickLog" layoutX="467.0" layoutY="256.0" mnemonicParsing="false" onAction="#clickLogFilePickerClicked" text="Browse" />
       <Button fx:id="browseImpressionLog" layoutX="467.0" layoutY="307.0" mnemonicParsing="false" onAction="#impressionLogFilePickerClicked" text="Browse" />
       <Button fx:id="browseServerLog" layoutX="467.0" layoutY="354.0" mnemonicParsing="false" onAction="#serverLogFilePickerClicked" text="Browse" />
-      <Button fx:id="viewAnalytics" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#viewAnalyticsClicked" style="-fx-background-color: green; -fx-border-color: black;" text="View Analytics" textAlignment="CENTER" />
+      <Button fx:id="viewAnalytics" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#viewAnalyticsClicked" style="-fx-background-color: white;" text="View Analytics" textAlignment="CENTER" />
    </children>
 </AnchorPane>

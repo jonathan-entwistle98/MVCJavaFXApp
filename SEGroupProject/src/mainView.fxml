@@ -35,17 +35,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="impressions" layoutX="22.0" layoutY="26.0" mnemonicParsing="false" onAction="#impressionsDetailClicked" prefHeight="100.0" prefWidth="141.0" text="Number of Impressions" />
-                        <Button fx:id="clicks" layoutX="241.0" layoutY="26.0" mnemonicParsing="false" onAction="#clicksDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Number of Clicks" />
-                        <Button fx:id="uniques" layoutX="436.0" layoutY="26.0" mnemonicParsing="false" onAction="#uniquesDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Number of Uniques" />
-                        <Button fx:id="bounces" layoutX="621.0" layoutY="26.0" mnemonicParsing="false" onAction="#bouncesDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Number of Bounces" />
-                        <Button fx:id="conversions" layoutX="436.0" layoutY="348.0" mnemonicParsing="false" onAction="#conversionsDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Number of Conversions" />
-                        <Button fx:id="totalCost" layoutX="321.0" layoutY="191.0" mnemonicParsing="false" onAction="#totalCostDetailClicked" prefHeight="100.0" prefWidth="160.0" text="Total Cost" />
-                        <Button fx:id="ctr" layoutX="591.0" layoutY="184.0" mnemonicParsing="false" onAction="#ctrDetailClicked" prefHeight="100.0" prefWidth="170.0" text="Click-throught rate (CTR)" />
-                        <Button fx:id="cpc" layoutX="23.0" layoutY="348.0" mnemonicParsing="false" onAction="#cpcDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Cost per Click (CPC)" />
-                        <Button fx:id="cpa" layoutX="241.0" layoutY="348.0" mnemonicParsing="false" onAction="#cpaDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Cost per Acquisition(CPA)" />
-                        <Button fx:id="cpm" layoutX="23.0" layoutY="184.0" mnemonicParsing="false" onAction="#cpmDetailClicked" prefHeight="100.0" prefWidth="170.0" text="Cost per million Impression(CPM)" />
-                        <Button fx:id="bounceRate" layoutX="621.0" layoutY="348.0" mnemonicParsing="false" onAction="#bounceRateDetailClicked" prefHeight="100.0" prefWidth="140.0" text="Bounce Rate" />
+                        <Button fx:id="impressions" layoutX="22.0" layoutY="26.0" mnemonicParsing="false" onAction="#impressionsDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="clicks" layoutX="232.0" layoutY="26.0" mnemonicParsing="false" onAction="#clicksDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="uniques" layoutX="436.0" layoutY="26.0" mnemonicParsing="false" onAction="#uniquesDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="bounces" layoutX="621.0" layoutY="26.0" mnemonicParsing="false" onAction="#bouncesDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="conversions" layoutX="436.0" layoutY="348.0" mnemonicParsing="false" onAction="#conversionsDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="totalCost" layoutX="341.0" layoutY="184.0" mnemonicParsing="false" onAction="#totalCostDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="ctr" layoutX="556.0" layoutY="184.0" mnemonicParsing="false" onAction="#ctrDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="cpc" layoutX="23.0" layoutY="348.0" mnemonicParsing="false" onAction="#cpcDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="cpa" layoutX="241.0" layoutY="348.0" mnemonicParsing="false" onAction="#cpaDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="cpm" layoutX="121.0" layoutY="184.0" mnemonicParsing="false" onAction="#cpmDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
+                        <Button fx:id="bounceRate" layoutX="621.0" layoutY="348.0" mnemonicParsing="false" onAction="#bounceRateDetailClicked" prefHeight="100.0" prefWidth="120.0" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
             </content>

@@ -266,17 +266,17 @@ public class AdDashboard extends Application{
 		bounces.wrapTextProperty().setValue(true);
 		bounceRate.wrapTextProperty().setValue(true);
 		
-		clicks.setText("Number of Clicks: " + items.getClicks());
-		impressions.setText("Number of Impressions: " + items.getImpressions());
-		uniques.setText("Number of unique user clicks: " + items.getUniques());
-		conversions.setText("Number of conversions: " + items.getConversions());
-		totalCost.setText("Total cost of campaign: " + round(items.getTotalCost(),4));
-		ctr.setText("Click-through-rate (CTR): " + round(items.getCTR(),4));
-		cpa.setText("Cost-per-aquisition (CPA): " + round(items.getCPA(),4));
-		cpc.setText("Cost-per-click (CPC): " + round(items.getCPC(),4));
-		cpm.setText("Cost per-thousand-impressions (CPM): " + round(items.getCPM(),4));
-		bounces.setText("Number of bounces: " + items.getBounces());
-		bounceRate.setText("Bounce rate: " + round(items.getBounceRate(),4));
+		clicks.setText("Clicks \n" + items.getClicks());
+		impressions.setText("Impressions \n" + items.getImpressions());
+		uniques.setText("Unique Clicks \n" + items.getUniques());
+		conversions.setText("Conversions \n" + items.getConversions());
+		totalCost.setText("Total Cost \n" + round(items.getTotalCost(),4));
+		ctr.setText("CTR \n" + round(items.getCTR(),4));
+		cpa.setText("CPA \n" + round(items.getCPA(),4));
+		cpc.setText("CPC \n" + round(items.getCPC(),4));
+		cpm.setText("CPM \n" + round(items.getCPM(),4));
+		bounces.setText("Bounces \n" + items.getBounces());
+		bounceRate.setText("Bounce Rate \n" + round(items.getBounceRate(),4));
 		
 		if(items.getBounceRate()==0 || items.getBounces()==0 || items.getCPM()==0 || items.getCPC()==0 || items.getCPA()==0 || items.getCTR()==0){
 			divideByZeroError();
