@@ -1,30 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="239.0" layoutY="50.0" style="-fx-font-family: &quot;Arial Black&quot;, Gadget, sans-serif; -fx-font-size: 16;" text="Ad Auction Analytics">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="graphLogo" fitHeight="76.0" fitWidth="92.0" layoutX="285.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="37.0" layoutY="196.0" text="Upload your CSV files below:" />
-      <Label layoutX="67.0" layoutY="263.0" text="Click Log" />
-      <Label layoutX="67.0" layoutY="314.0" text="Impression Log" />
-      <Label layoutX="67.0" layoutY="361.0" text="Server Log" />
-      <TextField fx:id="clickLogTextField" layoutX="214.0" layoutY="255.0" prefHeight="26.0" prefWidth="224.0" />
-      <TextField fx:id="impressionLogTextField" layoutX="214.0" layoutY="301.0" prefHeight="26.0" prefWidth="224.0" />
-      <TextField fx:id="serverLogTextField" layoutX="214.0" layoutY="357.0" prefHeight="26.0" prefWidth="224.0" />
-      <Button fx:id="browseClickLog" layoutX="467.0" layoutY="256.0" mnemonicParsing="false" onAction="#clickLogFilePickerClicked" text="Browse" />
-      <Button fx:id="browseImpressionLog" layoutX="467.0" layoutY="307.0" mnemonicParsing="false" onAction="#impressionLogFilePickerClicked" text="Browse" />
-      <Button fx:id="browseServerLog" layoutX="467.0" layoutY="354.0" mnemonicParsing="false" onAction="#serverLogFilePickerClicked" text="Browse" />
-      <Button fx:id="viewAnalytics" layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="View Analytics" textAlignment="CENTER" />
-   </children>
-</AnchorPane>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox alignment="CENTER">
+         <children>
+            <Label style="-fx-font-family: &quot;Arial Black&quot;, Gadget, sans-serif; -fx-font-size: 16;" text="Ad Auction Analytics">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="graphLogo" fitHeight="76.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true" />
+            <Label text="Upload your CSV files below:">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Label>
+            <HBox maxHeight="32.0" maxWidth="431.0">
+               <children>
+                  <Label text="Click Log">
+                     <HBox.margin>
+                        <Insets right="60.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="clickLogTextField" prefHeight="26.0" prefWidth="224.0">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="browseClickLog" mnemonicParsing="false" onAction="#clickLogFilePickerClicked" text="Browse" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox maxHeight="32.0" maxWidth="431.0">
+               <children>
+                  <Label text="Impression Log">
+                     <HBox.margin>
+                        <Insets right="27.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="impressionLogTextField" prefHeight="26.0" prefWidth="224.0">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="browseImpressionLog" mnemonicParsing="false" onAction="#impressionLogFilePickerClicked" text="Browse" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox maxHeight="32.0" maxWidth="431.0">
+               <children>
+                  <Label text="Server Log">
+                     <HBox.margin>
+                        <Insets right="52.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="serverLogTextField" prefHeight="26.0" prefWidth="224.0">
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="browseServerLog" mnemonicParsing="false" onAction="#serverLogFilePickerClicked" text="Browse" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Button fx:id="viewAnalytics" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="View Analytics" textAlignment="CENTER" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
