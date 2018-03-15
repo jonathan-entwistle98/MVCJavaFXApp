@@ -16,783 +16,791 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TabPane fx:id="metricsDetailsTabPane" layoutY="39.0" prefHeight="582.0" prefWidth="880.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Impressions">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="834.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                          <panes>
-                            <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Clicks">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="491.0" prefWidth="288.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Uniques">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Bounces">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="CPM">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Total Cost">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="CTR">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="CPC">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="CPA">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="14.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Conversions">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Bounce Rate">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <LineChart layoutX="14.0" layoutY="14.0">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </LineChart>
-                        <Accordion layoutX="578.0" layoutY="13.0" prefHeight="528.0" prefWidth="288.0">
-                           <panes>
-                              <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
-                                       <children>
-                                          <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="93.0" text="Pages viewed" />
-                                          <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
-                                          <Spinner editable="true" layoutX="150.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
-                                          <Spinner layoutX="150.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                              <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="6.0" text="From date:" />
-                                          <Label layoutX="14.0" layoutY="32.0" text="To date:" />
-                                          <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
-                                          <Label layoutX="14.0" layoutY="61.0" text="Gender" />
-                                          <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Label layoutX="15.0" layoutY="88.0" text="Age" />
-                                          <Label layoutX="14.0" layoutY="117.0" text="Income" />
-                                          <Label layoutX="15.0" layoutY="148.0" text="Context" />
-                                          <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
-                                          <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
-                                          <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
-                                          <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
-                                          <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
-                                          <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
-                                          <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
-                                          <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
-                                          <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </TitledPane>
-                           </panes>
-                        </Accordion>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Button mnemonicParsing="false" onAction="#returnToOverviewClicked" prefHeight="41.0" prefWidth="136.0" text="Return to Overview" />
-   </children>
-</AnchorPane>
+
+<BorderPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox>
+         <children>
+            <Button mnemonicParsing="false" onAction="#returnToOverviewClicked" prefHeight="41.0" prefWidth="136.0" text="Return to Overview" />
+            <TabPane fx:id="metricsDetailsTabPane" maxHeight="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+              <tabs>
+                <Tab text="Impressions">
+                  <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                <xAxis>
+                                  <CategoryAxis side="BOTTOM" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" />
+                                </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                <panes>
+                                  <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                  </content>
+                </Tab>
+                  <Tab text="Clicks">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Uniques">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Bounces">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="CPM">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Total Cost">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="CTR">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="CPC">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="CPA">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Conversions">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+                  <Tab text="Bounce Rate">
+                     <content>
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <children>
+                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis prefHeight="400.0" side="LEFT" />
+                                 </yAxis>
+                              </LineChart>
+                              <Accordion prefHeight="528.0" prefWidth="288.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="409.0" prefWidth="241.0" text="Time Unit">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="218.0">
+                                             <children>
+                                                <ComboBox layoutX="14.0" layoutY="14.0" prefWidth="150.0" promptText="Time Interval" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="433.0" prefWidth="250.0" text="Bounce Definition">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <RadioButton layoutX="8.0" layoutY="27.0" mnemonicParsing="false" prefWidth="100.0" text="Pages viewed" />
+                                                <RadioButton layoutX="8.0" layoutY="66.0" mnemonicParsing="false" text="Time spent (seconds)" />
+                                                <Spinner editable="true" layoutX="177.0" layoutY="23.0" prefHeight="25.0" prefWidth="54.0" />
+                                                <Spinner layoutX="177.0" layoutY="62.0" prefHeight="25.0" prefWidth="54.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                    <TitledPane animated="false" prefHeight="411.0" prefWidth="220.0" text="Filters">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="6.0" text="From date:" />
+                                                <Label layoutX="14.0" layoutY="32.0" text="To date:" />
+                                                <DatePicker layoutX="79.0" layoutY="2.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <DatePicker layoutX="79.0" layoutY="28.0" prefHeight="25.0" prefWidth="142.0" />
+                                                <Label layoutX="14.0" layoutY="61.0" text="Gender" />
+                                                <ComboBox layoutX="79.0" layoutY="57.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Label layoutX="15.0" layoutY="88.0" text="Age" />
+                                                <Label layoutX="14.0" layoutY="117.0" text="Income" />
+                                                <Label layoutX="15.0" layoutY="148.0" text="Context" />
+                                                <Label layoutX="15.0" layoutY="178.0" text="Filter name" />
+                                                <ComboBox layoutX="79.0" layoutY="84.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="113.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <ComboBox layoutX="79.0" layoutY="144.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <TextField layoutX="79.0" layoutY="174.0" prefHeight="25.0" prefWidth="136.0" />
+                                                <Button layoutX="57.0" layoutY="206.0" mnemonicParsing="false" text="Generate Filter" />
+                                                <CheckBox layoutX="9.0" layoutY="242.0" mnemonicParsing="false" text="Hide original graph" />
+                                                <Label layoutX="72.0" layoutY="269.0" text="Existing Filters" />
+                                                <CheckBox layoutX="13.0" layoutY="286.0" mnemonicParsing="false" text="Impressions - Male" />
+                                                <CheckBox layoutX="12.0" layoutY="312.0" mnemonicParsing="false" text="Impressions - Female" />
+                                                <CheckBox layoutX="13.0" layoutY="339.0" mnemonicParsing="false" text="Impressions - Low income" />
+                                                <Button layoutX="53.0" layoutY="388.0" mnemonicParsing="false" text="Delete Selected Filters" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                           </children>
+                        </HBox>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
