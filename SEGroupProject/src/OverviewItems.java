@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Holds all essential calculated campaign overview information.
  *
@@ -15,6 +17,7 @@ public class OverviewItems {
 	private float CPC;
 	private float CPM;
 	private float bounceRate;
+	public ArrayList<ArrayList<Object>> impressionsOverTime;
 	
 	public int getImpressions() {
 		return impressions;

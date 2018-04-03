@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -174,7 +175,7 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<?, ?> Graph;
+	private LineChart<Integer, Integer> Graph;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -195,7 +196,7 @@ public class AdDashboard extends Application{
 	private ImageView graphLogo;
 	
 
-	
+	private OverviewItems items;
 	
 	private Controller controller; 
 	
@@ -235,6 +236,7 @@ public class AdDashboard extends Application{
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 800, 600);
+		
 		scene.getStylesheets().add("style.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -242,7 +244,7 @@ public class AdDashboard extends Application{
 	//	File file = new File("graphLogo.jpg");
 	    Image image = new Image("graphLogo2.jpg");
 		graphLogo.setImage(image);
-		
+				
 	}
 	
 	
@@ -252,7 +254,7 @@ public class AdDashboard extends Application{
 	 */
 	public void updateOverview() {
 		// Gets overview items (clicks, impressions, etc.).
-		OverviewItems items = controller.getOverviewItems();
+		items = controller.getOverviewItems();
 		
 		clicks.wrapTextProperty().setValue(true);
 		impressions.wrapTextProperty().setValue(true);
@@ -330,6 +332,7 @@ public class AdDashboard extends Application{
 			scene.getStylesheets().add("style.css");
 			stage.setScene(scene);
 			stage.show();
+			tempNameGraphMethod();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -441,6 +444,15 @@ public class AdDashboard extends Application{
 	
 	public static double round(double value, int scale) {
 	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+	}
+	
+	public void tempNameGraphMethod(){
+		XYChart.Series series = new XYChart.Series();
+		series.getData().add(new XYChart.Data(15, 23));
+		series.getData().add(new XYChart.Data(20, 15));
+		Graph.getData().add(series);
+		
+		ArrayList<ArrayList<Object>> impressionsOverTime = items.impressionsOverTime;
 	}
 	
 

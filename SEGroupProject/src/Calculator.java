@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -13,24 +15,26 @@ public abstract class Calculator {
 	/**
 	 * Creates an instance of OverviewItems containing campaign overview information calculated from log files.
 	 * 
-	 * @param impressionLog list of ImpressionLog items.
-	 * @param clickLog list of ClickLog items.
-	 * @param serverLog list of ServerLog items.
+	 * @param impressionLogs list of ImpressionLog items.
+	 * @param clickLogs list of ClickLog items.
+	 * @param serverLogs list of ServerLog items.
 	 * @param minPages less than that and bounce will be registered. Ignored if 0.
 	 * @param minSeconds less than that and bounce will be registered. Ignored if 0.
 	 * @return calculated overview of campaign.
 	 */
-	public static OverviewItems getOverview(List<Log> impressionLog, List<Log> clickLog, List<Log> serverLog, int minPages, int minSeconds) {
+	public static OverviewItems getOverview(List<ImpressionLog> impressionLogs, List<ClickLog> clickLogs, List<ServerLog> serverLogs, int minPages, int minSeconds) {
 		OverviewItems items = new OverviewItems();
-		int clicks = Calculator.calcClicks(clickLog);
-		int impressions = Calculator.calcImpressions(impressionLog);
-		float imprCost = Calculator.calcImprCost(impressionLog);
-		float clickCost = Calculator.calcClickCost(clickLog);
-		int converted = Calculator.calcConversions(serverLog);
-		int bounces = Calculator.calcBounces(serverLog, minPages, minSeconds);
+		int clicks = Calculator.calcClicks(clickLogs);
+		int impressions = Calculator.calcImpressions(impressionLogs);
+		float imprCost = Calculator.calcImprCost(impressionLogs);
+		float clickCost = Calculator.calcClickCost(clickLogs);
+		int converted = Calculator.calcConversions(serverLogs);
+		int bounces = Calculator.calcBounces(serverLogs, minPages, minSeconds);
+		ArrayList<ArrayList<Object>> impressionsOverTime = Calculator.calcImpressionsOverTime(impressionLogs);
+		items.impressionsOverTime = impressionsOverTime;
 		items.setClicks(clicks);
 		items.setImpressions(impressions);
-		items.setUniques(Calculator.calcUniques(clickLog));
+		items.setUniques(Calculator.calcUniques(clickLogs));
 		items.setConversions(converted);
 		items.setTotalCost(imprCost + clickCost);
 		items.setCTR(Calculator.calcCTR(clicks, impressions));
@@ -45,30 +49,30 @@ public abstract class Calculator {
 	
 	/**
 	 *
-	 * @param impressionLog
+	 * @param impressionLogs
 	 * @return total number of impressions.
 	 */
-	public static int calcImpressions (List<Log> impressionLog) {
-		return impressionLog.size();
+	public static int calcImpressions (List<ImpressionLog> impressionLogs) {
+		return impressionLogs.size();
 	}
 	
 	/**
 	 * 
-	 * @param clickLog
+	 * @param clickLogs
 	 * @return total number of clicks.
 	 */
-	public static int calcClicks (List<Log> clickLog) {
-		return clickLog.size();
+	public static int calcClicks (List<ClickLog> clickLogs) {
+		return clickLogs.size();
 	}
 	/**
 	 * 
-	 * @param clickLog
+	 * @param clickLogs
 	 * @return total number of unique clicks.
 	 */
-	public static int calcUniques (List<Log> clickLog) {
+	public static int calcUniques (List<ClickLog> clickLogs) {
 		HashSet<Long> ids = new HashSet<Long>();
 		
-		for(Log l : clickLog) {
+		for(Log l : clickLogs) {
 			ids.add(((ClickLog)l).getId());
 		}
 		
@@ -76,15 +80,15 @@ public abstract class Calculator {
 	}
 	/**
 	 * 
-	 * @param serverLog
+	 * @param serverLogs
 	 * @param minPages less than that and bounce will be registered. Ignored if 0.
 	 * @param minSeconds less than that and bounce will be registered. Ignored if 0.
 	 * @return number of bounces based on defined criteria.
 	 */
-	public static int calcBounces (List<Log> serverLog, int minPages, int minSeconds) {
+	public static int calcBounces (List<ServerLog> serverLogs, int minPages, int minSeconds) {
 		int bounces = 0;
 		
-		for(Log l : serverLog) {
+		for(Log l : serverLogs) {
 			
 			// Do time check.
 			if(minSeconds > 0 && ((ServerLog)l).getExitDate() != null) {
@@ -103,12 +107,12 @@ public abstract class Calculator {
 	}
 	/**
 	 * 
-	 * @param serverLog
+	 * @param serverLogs
 	 * @return total number of customer conversions.
 	 */
-	public static int calcConversions (List<Log> serverLog) {
+	public static int calcConversions (List<ServerLog> serverLogs) {
 		int conversions = 0;
-		for(Log l : serverLog) {
+		for(Log l : serverLogs) {
 			if(((ServerLog)l).isConverted()) {
 				conversions++;
 			}
@@ -117,24 +121,24 @@ public abstract class Calculator {
 	}
 	/**
 	 * 
-	 * @param clickLog
+	 * @param clickLogs
 	 * @return total cost of all clicks.
 	 */
-	public static float calcClickCost (List<Log> clickLog) {
+	public static float calcClickCost (List<ClickLog> clickLogs) {
 		float cost = 0;
-		for(Log l: clickLog) {
+		for(Log l: clickLogs) {
 			cost += ((ClickLog)l).getClickCost();
 		}
 		return cost;
 	}
 	/**
 	 * 
-	 * @param impressionLog
+	 * @param impressionLogs
 	 * @return total cost of all impressions.
 	 */
-	public static float calcImprCost(List<Log> impressionLog) {
+	public static float calcImprCost(List<ImpressionLog> impressionLogs) {
 		float cost = 0;
-		for(Log l : impressionLog) {
+		for(Log l : impressionLogs) {
 			cost += ((ImpressionLog)l).getImpressionCost();
 		}
 		return cost;
@@ -205,6 +209,22 @@ public abstract class Calculator {
 		}else{
 			return (float) bounces / clicks;
 		}
+	}
+	
+	public static ArrayList<ArrayList<Object>> calcImpressionsOverTime(List<ImpressionLog> impressionLogs){
+		
+		ArrayList<ArrayList<Object>> allImpressionsAndTimes = new ArrayList<ArrayList<Object>>();
+		
+		for(ImpressionLog impressionLog : impressionLogs){
+			ArrayList<Object> impressionsAndTime = new ArrayList<Object>();
+			Date impressionDate = impressionLog.getDate();
+			int numImpressions = 5;
+			impressionsAndTime.add(impressionDate);
+			impressionsAndTime.add(numImpressions);
+			allImpressionsAndTimes.add(impressionsAndTime);
+		}
+		
+		return allImpressionsAndTimes;
 	}
 	
 }
