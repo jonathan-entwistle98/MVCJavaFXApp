@@ -3,6 +3,8 @@ import java.io.File;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -175,7 +177,7 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<Integer, Integer> Graph;
+	private LineChart<String, Integer> Graph;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -209,6 +211,8 @@ public class AdDashboard extends Application{
 	private File serverLogFile;
 	
 	private Model model;
+	
+	private XYChart.Series series;
 	
 	
 	public static void main(String[] args) {
@@ -447,12 +451,20 @@ public class AdDashboard extends Application{
 	}
 	
 	public void tempNameGraphMethod(){
-		XYChart.Series series = new XYChart.Series();
-		series.getData().add(new XYChart.Data(15, 23));
-		series.getData().add(new XYChart.Data(20, 15));
-		Graph.getData().add(series);
+		series = new XYChart.Series();
+//		series.getData().add(new XYChart.Data(10, 23));
+//		series.getData().add(new XYChart.Data(20, 15));
+		
 		
 		ArrayList<ArrayList<Object>> impressionsOverTime = items.impressionsOverTime;
+		for(ArrayList<Object> impressionOverTime : impressionsOverTime){
+			for(int i=0; i<impressionOverTime.size(); i++){
+				Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String impressionOverTimeString = formatter.format(impressionOverTime.get(0));
+				series.getData().add(new XYChart.Data(impressionOverTimeString, impressionOverTime.get(1)));
+			}
+		}
+		Graph.getData().add(series);
 	}
 	
 

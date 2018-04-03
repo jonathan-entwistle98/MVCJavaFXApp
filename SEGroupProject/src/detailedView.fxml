@@ -33,7 +33,7 @@
                            <children>
                               <LineChart fx:id="Graph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis />
+                                  <CategoryAxis side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" />
@@ -312,12 +312,12 @@
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
                               <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
                                  <yAxis>
                                     <NumberAxis prefHeight="400.0" side="LEFT" />
                                  </yAxis>
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>

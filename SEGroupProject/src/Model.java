@@ -3,9 +3,9 @@ import java.util.List;
 
 public class Model {
 	
-	private List<Log> impressionLog;
-	private List<Log> clicksLog;
-	private List<Log> serverLog;
+	private List<ImpressionLog> impressionLog;
+	private List<ClickLog> clicksLog;
+	private List<ServerLog> serverLog;
 	
 	private int minPages = 1;
 	private int minSeconds = 120;
@@ -20,9 +20,9 @@ public class Model {
 
 		//if(impressions.getName().endsWith(".csv") || );
 		
-		impressionLog = CSVLoader.loadCSVData(impressions, FileType.IMPRESSION_LOG);
-		clicksLog = CSVLoader.loadCSVData(clicks, FileType.CLICK_LOG);
-		serverLog = CSVLoader.loadCSVData(server, FileType.SERVER_LOG);
+		impressionLog = CSVLoader.loadImpressionCSVData(impressions, FileType.IMPRESSION_LOG);
+		clicksLog = CSVLoader.loadClickCSVData(clicks, FileType.CLICK_LOG);
+		serverLog = CSVLoader.loadServerCSVData(server, FileType.SERVER_LOG);
 	}
 	
 	/**

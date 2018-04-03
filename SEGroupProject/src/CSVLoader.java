@@ -26,9 +26,9 @@ public abstract class CSVLoader {
 	 * @param fileType type of log file to be loaded.
 	 * @return list of log objects which represent rows in a log file. 
 	 */
-	public static List<Log> loadCSVData (File file, FileType fileType){
+	public static List<ClickLog> loadClickCSVData(File file, FileType fileType){
 		
-		List<Log> log = new ArrayList<Log>();
+		List<ClickLog> log = new ArrayList<ClickLog>();
 		
 		CsvParserSettings settings = new CsvParserSettings();
 		//the file used in the example uses '\n' as the line separator sequence.
@@ -45,33 +45,68 @@ public abstract class CSVLoader {
 		String[] row;
 		row = parser.parseNext();
 		
-		switch(fileType) {
-			// Impression CSV
-			case IMPRESSION_LOG: {
-				while ((row = parser.parseNext()) != null) {
-					// parses row and creates log row object.
-					log.add(CSVLoader.parseImpression(row));
-				}
-				break;
-			}
-			// Click CSV
-			case CLICK_LOG: {
-				while ((row = parser.parseNext()) != null) {
-					// parses row and creates log row object.
-					log.add(CSVLoader.parseClick(row));
-					
-				}
-				break;
-			}
-			// Server CSV
-			case SERVER_LOG: {
-				while ((row = parser.parseNext()) != null) {
-					// parses row and creates log row object.
-					log.add(CSVLoader.parseServer(row));
-				}
-				break;
-			}
+		while ((row = parser.parseNext()) != null) {
+			// parses row and creates log row object.
+			log.add(CSVLoader.parseClick(row));
+			
 		}
+		
+		parser.stopParsing();		
+		return log;
+	}
+	
+	public static List<ImpressionLog> loadImpressionCSVData(File file, FileType fileType){
+		
+		List<ImpressionLog> log = new ArrayList<ImpressionLog>();
+		
+		CsvParserSettings settings = new CsvParserSettings();
+		//the file used in the example uses '\n' as the line separator sequence.
+		//the line separator sequence is defined here to ensure systems such as MacOS and Windows
+		//are able to process this file correctly (MacOS uses '\r'; and Windows uses '\r\n').
+		settings.getFormat().setLineSeparator("\n");
+		
+		// creates a CSV parser
+		CsvParser parser = new CsvParser(settings);
+		
+		// call beginParsing to read records one by one, iterator-style.
+		parser.beginParsing(file);
+		
+		String[] row;
+		row = parser.parseNext();
+
+		while ((row = parser.parseNext()) != null) {
+			// parses row and creates log row object.
+			log.add(CSVLoader.parseImpression(row));
+		}
+				
+		parser.stopParsing();
+		return log;
+	}
+
+	public static List<ServerLog> loadServerCSVData(File file, FileType fileType){
+	
+		List<ServerLog> log = new ArrayList<ServerLog>();
+		
+		CsvParserSettings settings = new CsvParserSettings();
+		//the file used in the example uses '\n' as the line separator sequence.
+		//the line separator sequence is defined here to ensure systems such as MacOS and Windows
+		//are able to process this file correctly (MacOS uses '\r'; and Windows uses '\r\n').
+		settings.getFormat().setLineSeparator("\n");
+		
+		// creates a CSV parser
+		CsvParser parser = new CsvParser(settings);
+		
+		// call beginParsing to read records one by one, iterator-style.
+		parser.beginParsing(file);
+		
+		String[] row;
+		row = parser.parseNext();
+
+		while ((row = parser.parseNext()) != null) {
+			// parses row and creates log row object.
+			log.add(CSVLoader.parseServer(row));
+		}
+				
 		parser.stopParsing();		
 		return log;
 	}
