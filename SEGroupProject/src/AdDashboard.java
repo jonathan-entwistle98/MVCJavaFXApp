@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,8 +19,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,6 +42,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import com.gluonhq.charm.glisten.control.*;
 import javafx.scene.control.Alert;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.*;
 
 public class AdDashboard extends Application{
 	
@@ -177,7 +184,13 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<String, Integer> Graph;
+	private LineChart<Date, Integer> Graph;
+	
+	@FXML
+	private DateAxis dateAxis;
+	
+	@FXML
+	private NumberAxis numberAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -212,7 +225,7 @@ public class AdDashboard extends Application{
 	
 	private Model model;
 	
-	private XYChart.Series series;
+	private Series<Date, Integer> series;
 	
 	
 	public static void main(String[] args) {
@@ -336,7 +349,7 @@ public class AdDashboard extends Application{
 			scene.getStylesheets().add("style.css");
 			stage.setScene(scene);
 			stage.show();
-			tempNameGraphMethod();
+			getImpressionsOverTime();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -450,18 +463,33 @@ public class AdDashboard extends Application{
 	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}
 	
-	public void tempNameGraphMethod(){
+	public void getImpressionsOverTime(){
 		series = new XYChart.Series();
 //		series.getData().add(new XYChart.Data(10, 23));
 //		series.getData().add(new XYChart.Data(20, 15));
 		
-		
 		ArrayList<ArrayList<Object>> impressionsOverTime = items.impressionsOverTime;
 		for(ArrayList<Object> impressionOverTime : impressionsOverTime){
 			for(int i=0; i<impressionOverTime.size(); i++){
-				Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String impressionOverTimeString = formatter.format(impressionOverTime.get(0));
-				series.getData().add(new XYChart.Data(impressionOverTimeString, impressionOverTime.get(1)));
+			//	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				//String impressionOverTimeString = formatter.format(impressionOverTime.get(0));
+				
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+				
+//				Calendar myCal = Calendar.getInstance();
+//				myCal.set(Calendar.YEAR, 2015);
+//				myCal.set(Calendar.MONTH, 8);
+//				myCal.set(Calendar.DAY_OF_MONTH, 1);
+//				Date theDate = myCal.getTime();
+				
+				try {
+					series.getData().add(new XYChart.Data(dateFormat.parse("11/Jan/2014"), impressionOverTime.get(1)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				series.getData().add(new XYChart.Data(theDate, impressionOverTime.get(1)));
+//				series.getData().add(new XYChart.Data(impressionOverTime.get(0), impressionOverTime.get(1)));
 			}
 		}
 		Graph.getData().add(series);

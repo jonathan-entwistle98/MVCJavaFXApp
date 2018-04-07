@@ -214,14 +214,37 @@ public abstract class Calculator {
 	public static ArrayList<ArrayList<Object>> calcImpressionsOverTime(List<ImpressionLog> impressionLogs){
 		
 		ArrayList<ArrayList<Object>> allImpressionsAndTimes = new ArrayList<ArrayList<Object>>();
-		
+		int numImpressions = 0;
+		System.out.println(impressionLogs.size());
 		for(ImpressionLog impressionLog : impressionLogs){
+			numImpressions++;
 			ArrayList<Object> impressionsAndTime = new ArrayList<Object>();
-			Date impressionDate = impressionLog.getDate();
-			int numImpressions = 5;
-			impressionsAndTime.add(impressionDate);
-			impressionsAndTime.add(numImpressions);
-			allImpressionsAndTimes.add(impressionsAndTime);
+			if(impressionLogs.size()<100) {
+				Date impressionDate = impressionLog.getDate();
+				impressionsAndTime.add(impressionDate);
+				impressionsAndTime.add(numImpressions);
+				allImpressionsAndTimes.add(impressionsAndTime);
+			}else if(100<=impressionLogs.size() && impressionLogs.size()<1000 && numImpressions%10==0) {
+				Date impressionDate = impressionLog.getDate();
+				impressionsAndTime.add(impressionDate);
+				impressionsAndTime.add(numImpressions);
+				allImpressionsAndTimes.add(impressionsAndTime);
+			}else if(1000<=impressionLogs.size() && impressionLogs.size()<10000 && numImpressions%100==0) {
+				Date impressionDate = impressionLog.getDate();
+				impressionsAndTime.add(impressionDate);
+				impressionsAndTime.add(numImpressions);
+				allImpressionsAndTimes.add(impressionsAndTime);
+			}else if(10000<=impressionLogs.size() && impressionLogs.size()<100000 && numImpressions%1000==0) {
+				Date impressionDate = impressionLog.getDate();
+				impressionsAndTime.add(impressionDate);
+				impressionsAndTime.add(numImpressions);
+				allImpressionsAndTimes.add(impressionsAndTime);
+			}else if(100000<=impressionLogs.size() && impressionLogs.size()<1000000 && numImpressions%10000==0) {
+				Date impressionDate = impressionLog.getDate();
+				impressionsAndTime.add(impressionDate);
+				impressionsAndTime.add(numImpressions);
+				allImpressionsAndTimes.add(impressionsAndTime);
+			}
 		}
 		
 		return allImpressionsAndTimes;
