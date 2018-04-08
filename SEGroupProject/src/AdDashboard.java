@@ -172,13 +172,22 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<Long, Integer> Graph;
+	private LineChart<Long, Integer> impressionGraph;
 	
 	@FXML
-	private NumberAxis numberAxis;
+	private LineChart<Long, Integer> clickGraph;
 	
 	@FXML
-	private NumberAxis dateNumberAxis;
+	private NumberAxis impressionYAxis;
+	
+	@FXML
+	private NumberAxis impressionXAxis;
+	
+	@FXML
+	private NumberAxis clickYAxis;
+	
+	@FXML
+	private NumberAxis clickXAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -213,7 +222,9 @@ public class AdDashboard extends Application{
 	
 	private Model model;
 	
-	private Series<Long, Integer> series;
+	private Series<Long, Integer> impressionSeries;
+	
+	private Series<Long, Integer> clickSeries;
 	
 	
 	public static void main(String[] args) {
@@ -326,7 +337,7 @@ public class AdDashboard extends Application{
 		updateOverview();	
 	}
 	
-	public void impressionsDetailClicked(){
+	public void loadDetailedView() {
 		FXMLLoader loader3 = new FXMLLoader(getClass().getResource("detailedView.fxml"));
 		loader3.setController(this);
 		
@@ -337,59 +348,64 @@ public class AdDashboard extends Application{
 			scene.getStylesheets().add("style.css");
 			stage.setScene(scene);
 			stage.show();
-			getImpressionsOverTime();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public void impressionsDetailClicked(){
+			loadDetailedView();
+			getImpressionsOverTime();
+	}
+	
 	public void clicksDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
+		getClicksOverTime();
 		metricsDetailsTabPane.getSelectionModel().select(1);	
 	}
 	
 	public void uniquesDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(2);	
 	}
 	
 	public void bouncesDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(3);	
 	}
 	
 	public void cpmDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(4);	
 	}
 	
 	public void totalCostDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(5);	
 	}
 	
 	public void ctrDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(6);	
 	}
 	
 	public void cpcDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(7);	
 	}
 	
 	public void cpaDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(8);	
 	}
 	
 	public void conversionsDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(9);	
 	}
 	
 	public void bounceRateDetailClicked(){
-		impressionsDetailClicked();
+		loadDetailedView();
 		metricsDetailsTabPane.getSelectionModel().select(10);	
 	}
 	
@@ -452,28 +468,24 @@ public class AdDashboard extends Application{
 	}
 	
 	public void getImpressionsOverTime(){
-		series = new XYChart.Series();
-		dateNumberAxis.setAutoRanging(false);
+		impressionSeries = new XYChart.Series();
+		impressionXAxis.setAutoRanging(false);
 		double lowerBound = (double)1420130859000L;
 		double upperBound = (double)1421227547000L;
-		dateNumberAxis.setLowerBound(lowerBound);
-		dateNumberAxis.setUpperBound(upperBound);
-		dateNumberAxis.setTickUnit(100000000);
-//		series.getData().add(new XYChart.Data(10, 23));
-//		series.getData().add(new XYChart.Data(20, 15));
+		impressionXAxis.setLowerBound(lowerBound);
+		impressionXAxis.setUpperBound(upperBound);
+		impressionXAxis.setTickUnit(100000000);
 		
-		ArrayList<ArrayList<Object>> impressionsOverTime = items.impressionsOverTime;
+		ArrayList<ArrayList<Object>> impressionsOverTime = items.getImpressionsOverTime();
 		for(ArrayList<Object> impressionOverTime : impressionsOverTime){
 			for(int i=0; i<impressionOverTime.size(); i++){
 				Date d = (Date) impressionOverTime.get(0);
 				Long longDate = d.getTime();
-				series.getData().add(new XYChart.Data(longDate, impressionOverTime.get(1)));
-				System.out.println(longDate);
+				impressionSeries.getData().add(new XYChart.Data(longDate, impressionOverTime.get(1)));
 			}
 		}
 		
-		dateNumberAxis.setTickLabelFormatter(new StringConverter<Number>() {
-
+		impressionXAxis.setTickLabelFormatter(new StringConverter<Number>() {
 	        @Override
 	        public String toString(Number number) {
 	        	Long l = number.longValue();
@@ -482,14 +494,49 @@ public class AdDashboard extends Application{
 	        	String stringDate = formatter.format(date);
 	            return stringDate;
 	        }
-
 	        @Override
 	        public Number fromString(String string) {
                 return null;
             }
 	    });
 		
-		Graph.getData().add(series);
+		impressionGraph.getData().add(impressionSeries);
+	}
+	
+	public void getClicksOverTime(){
+		clickSeries = new XYChart.Series();
+		clickXAxis.setAutoRanging(false);
+		double lowerBound = (double)1420130859000L;
+		double upperBound = (double)1421227547000L;
+		clickXAxis.setLowerBound(lowerBound);
+		clickXAxis.setUpperBound(upperBound);
+		clickXAxis.setTickUnit(100000000);
+		
+		ArrayList<ArrayList<Object>> clicksOverTime = items.getClicksOverTime();
+		for(ArrayList<Object> clickOverTime : clicksOverTime){
+			for(int i=0; i<clickOverTime.size(); i++){
+				Date d = (Date) clickOverTime.get(0);
+				Long longDate = d.getTime();
+				clickSeries.getData().add(new XYChart.Data(longDate, clickOverTime.get(1)));
+			}
+		}
+		
+		clickXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+	        @Override
+	        public String toString(Number number) {
+	        	Long l = number.longValue();
+	        	Date date = new Date(l);
+	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        	String stringDate = formatter.format(date);
+	            return stringDate;
+	        }
+	        @Override
+	        public Number fromString(String string) {
+                return null;
+            }
+	    });
+		
+		clickGraph.getData().add(clickSeries);
 	}
 	
 

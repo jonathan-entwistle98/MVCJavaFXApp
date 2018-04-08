@@ -31,7 +31,9 @@ public abstract class Calculator {
 		int converted = Calculator.calcConversions(serverLogs);
 		int bounces = Calculator.calcBounces(serverLogs, minPages, minSeconds);
 		ArrayList<ArrayList<Object>> impressionsOverTime = Calculator.calcImpressionsOverTime(impressionLogs);
-		items.impressionsOverTime = impressionsOverTime;
+		ArrayList<ArrayList<Object>> clicksOverTime = Calculator.calcClicksOverTime(clickLogs);
+		items.setImpressionOverTime(impressionsOverTime);
+		items.setClicksOverTime(clicksOverTime);
 		items.setClicks(clicks);
 		items.setImpressions(impressions);
 		items.setUniques(Calculator.calcUniques(clickLogs));
@@ -212,7 +214,6 @@ public abstract class Calculator {
 	}
 	
 	public static ArrayList<ArrayList<Object>> calcImpressionsOverTime(List<ImpressionLog> impressionLogs){
-		
 		ArrayList<ArrayList<Object>> allImpressionsAndTimes = new ArrayList<ArrayList<Object>>();
 		int numImpressions = 0;
 		System.out.println(impressionLogs.size());
@@ -246,8 +247,44 @@ public abstract class Calculator {
 				allImpressionsAndTimes.add(impressionsAndTime);
 			}
 		}
-		
 		return allImpressionsAndTimes;
+	}
+	
+	public static ArrayList<ArrayList<Object>> calcClicksOverTime(List<ClickLog> clickLogs){
+		ArrayList<ArrayList<Object>> allClicksAndTimes = new ArrayList<ArrayList<Object>>();
+		int numClicks = 0;
+		System.out.println(clickLogs.size());
+		for(ClickLog clickLog : clickLogs){
+			numClicks++;
+			ArrayList<Object> clicksAndTime = new ArrayList<Object>();
+			if(clickLogs.size()<100) {
+				Date clickDate = clickLog.getDate();
+				clicksAndTime.add(clickDate);
+				clicksAndTime.add(numClicks);
+				allClicksAndTimes.add(clicksAndTime);
+			}else if(100<=clickLogs.size() && clickLogs.size()<1000 && numClicks%10==0) {
+				Date clickDate = clickLog.getDate();
+				clicksAndTime.add(clickDate);
+				clicksAndTime.add(numClicks);
+				allClicksAndTimes.add(clicksAndTime);
+			}else if(1000<=clickLogs.size() && clickLogs.size()<10000 && numClicks%100==0) {
+				Date clickDate = clickLog.getDate();
+				clicksAndTime.add(clickDate);
+				clicksAndTime.add(numClicks);
+				allClicksAndTimes.add(clicksAndTime);
+			}else if(10000<=clickLogs.size() && clickLogs.size()<100000 && numClicks%1000==0) {
+				Date clickDate = clickLog.getDate();
+				clicksAndTime.add(clickDate);
+				clicksAndTime.add(numClicks);
+				allClicksAndTimes.add(clicksAndTime);
+			}else if(100000<=clickLogs.size() && clickLogs.size()<1000000 && numClicks%10000==0) {
+				Date clickDate = clickLog.getDate();
+				clicksAndTime.add(clickDate);
+				clicksAndTime.add(numClicks);
+				allClicksAndTimes.add(clicksAndTime);
+			}
+		}
+		return allClicksAndTimes;
 	}
 	
 }

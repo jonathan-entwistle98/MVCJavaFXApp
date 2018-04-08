@@ -31,12 +31,12 @@
                   <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart fx:id="Graph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="impressionGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="dateNumberAxis"/>
+                                  <NumberAxis side="BOTTOM" fx:id="impressionXAxis"/>
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="numberAxis"/>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="impressionYAxis"/>
                                 </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
@@ -101,13 +101,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                              <LineChart fx:id="clickGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="clickXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="clickYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>

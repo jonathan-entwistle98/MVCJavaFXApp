@@ -17,7 +17,24 @@ public class OverviewItems {
 	private float CPC;
 	private float CPM;
 	private float bounceRate;
-	public ArrayList<ArrayList<Object>> impressionsOverTime;
+	private ArrayList<ArrayList<Object>> impressionsOverTime;
+	private ArrayList<ArrayList<Object>> clicksOverTime;
+	
+	public ArrayList<ArrayList<Object>> getImpressionsOverTime(){
+		return impressionsOverTime;
+	}
+	
+	public void setImpressionOverTime(ArrayList<ArrayList<Object>> impressionsOverTime) {
+		this.impressionsOverTime = impressionsOverTime;
+	}
+	
+	public ArrayList<ArrayList<Object>> getClicksOverTime(){
+		return clicksOverTime;
+	}
+	
+	public void setClicksOverTime(ArrayList<ArrayList<Object>> clicksOverTime) {
+		this.clicksOverTime = clicksOverTime;
+	}
 	
 	public int getImpressions() {
 		return impressions;
