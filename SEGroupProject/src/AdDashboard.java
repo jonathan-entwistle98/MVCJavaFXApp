@@ -1,17 +1,11 @@
 import java.io.File;
-
-
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import com.gluonhq.charm.glisten.control.TextField;
 
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -24,26 +18,20 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import com.gluonhq.charm.glisten.control.*;
-import javafx.scene.control.Alert;
-import org.jfree.chart.axis.DateAxis;
-import org.jfree.chart.*;
+import javafx.util.StringConverter;
 
 public class AdDashboard extends Application{
 	
@@ -184,13 +172,13 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<Date, Integer> Graph;
-	
-	@FXML
-	private DateAxis dateAxis;
+	private LineChart<Long, Integer> Graph;
 	
 	@FXML
 	private NumberAxis numberAxis;
+	
+	@FXML
+	private NumberAxis dateNumberAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -225,7 +213,7 @@ public class AdDashboard extends Application{
 	
 	private Model model;
 	
-	private Series<Date, Integer> series;
+	private Series<Long, Integer> series;
 	
 	
 	public static void main(String[] args) {
@@ -465,33 +453,42 @@ public class AdDashboard extends Application{
 	
 	public void getImpressionsOverTime(){
 		series = new XYChart.Series();
+		dateNumberAxis.setAutoRanging(false);
+		double lowerBound = (double)1420130859000L;
+		double upperBound = (double)1421227547000L;
+		dateNumberAxis.setLowerBound(lowerBound);
+		dateNumberAxis.setUpperBound(upperBound);
+		dateNumberAxis.setTickUnit(100000000);
 //		series.getData().add(new XYChart.Data(10, 23));
 //		series.getData().add(new XYChart.Data(20, 15));
 		
 		ArrayList<ArrayList<Object>> impressionsOverTime = items.impressionsOverTime;
 		for(ArrayList<Object> impressionOverTime : impressionsOverTime){
 			for(int i=0; i<impressionOverTime.size(); i++){
-			//	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				//String impressionOverTimeString = formatter.format(impressionOverTime.get(0));
-				
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
-				
-//				Calendar myCal = Calendar.getInstance();
-//				myCal.set(Calendar.YEAR, 2015);
-//				myCal.set(Calendar.MONTH, 8);
-//				myCal.set(Calendar.DAY_OF_MONTH, 1);
-//				Date theDate = myCal.getTime();
-				
-				try {
-					series.getData().add(new XYChart.Data(dateFormat.parse("11/Jan/2014"), impressionOverTime.get(1)));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-//				series.getData().add(new XYChart.Data(theDate, impressionOverTime.get(1)));
-//				series.getData().add(new XYChart.Data(impressionOverTime.get(0), impressionOverTime.get(1)));
+				Date d = (Date) impressionOverTime.get(0);
+				Long longDate = d.getTime();
+				series.getData().add(new XYChart.Data(longDate, impressionOverTime.get(1)));
+				System.out.println(longDate);
 			}
 		}
+		
+		dateNumberAxis.setTickLabelFormatter(new StringConverter<Number>() {
+
+	        @Override
+	        public String toString(Number number) {
+	        	Long l = number.longValue();
+	        	Date date = new Date(l);
+	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        	String stringDate = formatter.format(date);
+	            return stringDate;
+	        }
+
+	        @Override
+	        public Number fromString(String string) {
+                return null;
+            }
+	    });
+		
 		Graph.getData().add(series);
 	}
 	

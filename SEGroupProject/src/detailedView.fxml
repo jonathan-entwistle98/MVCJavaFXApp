@@ -33,10 +33,10 @@
                            <children>
                               <LineChart fx:id="Graph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" fx:id="dateNumberAxis"/>
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis prefHeight="400.0" side="LEFT" />
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="numberAxis"/>
                                 </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
