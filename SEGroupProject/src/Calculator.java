@@ -32,8 +32,29 @@ public abstract class Calculator {
 		int bounces = Calculator.calcBounces(serverLogs, minPages, minSeconds);
 		ArrayList<ArrayList<Object>> impressionsOverTime = Calculator.calcImpressionsOverTime(impressionLogs);
 		ArrayList<ArrayList<Object>> clicksOverTime = Calculator.calcClicksOverTime(clickLogs);
+		ArrayList<ArrayList<Object>> uniquesOverTime = Calculator.calcUniquesOverTime(clickLogs);
+		
+		ArrayList<ArrayList<Object>> bouncesOverTime = Calculator.calcBouncesOverTime(serverLogs, minPages, minSeconds);
+//		ArrayList<ArrayList<Object>> conversionsOverTime = Calculator.calcConversionsOverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> totalCostOverTime = Calculator.calcTotalCostOverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> CTROverTime = Calculator.calcCTROverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> CPCOverTime = Calculator.calcCPCOverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> CPAOverTime = Calculator.calcCPAOverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> CPMOverTime = Calculator.calcCPMOverTime(clickLogs);
+//		ArrayList<ArrayList<Object>> bounceRateOverTime = Calculator.calcBounceRateOverTime(clickLogs);
+		
 		items.setImpressionOverTime(impressionsOverTime);
 		items.setClicksOverTime(clicksOverTime);
+		items.setUniquesOverTime(uniquesOverTime);
+		items.setBouncesOverTime(bouncesOverTime);
+//		items.setConversionsOverTime(conversionsOverTime);
+//		items.setTotalCostOverTime(totalCostOverTime);
+//		items.setCTROverTime(CTROverTime);
+//		items.setCPCOverTime(CPCOverTime);
+//		items.setCPAOverTime(CPAOverTime);
+//		items.setCPMOverTime(CPMOverTime);
+//		items.setBounceRateOverTime(bounceRateOverTime);
+		
 		items.setClicks(clicks);
 		items.setImpressions(impressions);
 		items.setUniques(Calculator.calcUniques(clickLogs));
@@ -285,6 +306,116 @@ public abstract class Calculator {
 			}
 		}
 		return allClicksAndTimes;
+	}
+	
+	public static ArrayList<ArrayList<Object>> calcUniquesOverTime(List<ClickLog> clickLogs){
+		
+		ArrayList<Date> uniqueClicksDates = new ArrayList<Date>();
+		HashSet<Long> ids = new HashSet<Long>();
+		
+		for(Log l : clickLogs) {
+			if(ids.add(((ClickLog)l).getId())) {
+				uniqueClicksDates.add(((ClickLog)l).getDate());
+			}
+		}
+	
+		ArrayList<ArrayList<Object>> allUniquesAndTimes = new ArrayList<ArrayList<Object>>();
+		int numUniques = 0;
+		System.out.println(uniqueClicksDates.size());
+		for(Date uniqueDate : uniqueClicksDates){
+			numUniques++;
+			ArrayList<Object> uniquesAndTime = new ArrayList<Object>();
+			if(uniqueClicksDates.size()<100) {
+				uniquesAndTime.add(uniqueDate);
+				uniquesAndTime.add(numUniques);
+				allUniquesAndTimes.add(uniquesAndTime);
+			}else if(100<=uniqueClicksDates.size() && uniqueClicksDates.size()<1000 && numUniques%10==0) {
+				uniquesAndTime.add(uniqueDate);
+				uniquesAndTime.add(numUniques);
+				allUniquesAndTimes.add(uniquesAndTime);
+			}else if(1000<=uniqueClicksDates.size() && uniqueClicksDates.size()<10000 && numUniques%100==0) {
+				uniquesAndTime.add(uniqueDate);
+				uniquesAndTime.add(numUniques);
+				allUniquesAndTimes.add(uniquesAndTime);
+			}else if(10000<=uniqueClicksDates.size() && uniqueClicksDates.size()<100000 && numUniques%1000==0) {
+				uniquesAndTime.add(uniqueDate);
+				uniquesAndTime.add(numUniques);
+				allUniquesAndTimes.add(uniquesAndTime);
+			}else if(100000<=uniqueClicksDates.size() && uniqueClicksDates.size()<1000000 && numUniques%10000==0) {
+				uniquesAndTime.add(uniqueDate);
+				uniquesAndTime.add(numUniques);
+				allUniquesAndTimes.add(uniquesAndTime);
+			}
+		}
+		return allUniquesAndTimes;
+	}
+	
+	public static ArrayList<ArrayList<Object>> calcBouncesOverTime(List<ServerLog> serverLogs, int minPages, int minSeconds){
+		
+		ArrayList<ArrayList<Object>> allBouncesAndTimes = new ArrayList<ArrayList<Object>>();
+		int numBounces = 0;
+		System.out.println(serverLogs.size());
+		for(ServerLog serverLog : serverLogs){
+			ArrayList<Object> bouncesAndTime = new ArrayList<Object>();
+			Date bounceDate = serverLog.getEntryDate();
+			// Do time check.
+			if(minSeconds > 0 && serverLog.getExitDate() != null) {
+				long msSpent = serverLog.getExitDate().getTime() - serverLog.getEntryDate().getTime();
+				if(msSpent / 1000 < minSeconds) {
+					numBounces++;
+					if(serverLogs.size()<100) {
+						bouncesAndTime.add(bounceDate);
+						bouncesAndTime.add(numBounces);
+						allBouncesAndTimes.add(bouncesAndTime);
+					}else if(100<=serverLogs.size() && serverLogs.size()<1000 && numBounces%10==0) {
+						bouncesAndTime.add(bounceDate);
+						bouncesAndTime.add(numBounces);
+						allBouncesAndTimes.add(bouncesAndTime);
+					}else if(1000<=serverLogs.size() && serverLogs.size()<10000 && numBounces%100==0) {
+						bouncesAndTime.add(bounceDate);
+						bouncesAndTime.add(numBounces);
+						allBouncesAndTimes.add(bouncesAndTime);
+					}else if(10000<=serverLogs.size() && serverLogs.size()<100000 && numBounces%1000==0) {
+						bouncesAndTime.add(bounceDate);
+						bouncesAndTime.add(numBounces);
+						allBouncesAndTimes.add(bouncesAndTime);
+					}else if(100000<=serverLogs.size() && serverLogs.size()<1000000 && numBounces%10000==0) {
+						bouncesAndTime.add(bounceDate);
+						bouncesAndTime.add(numBounces);
+						allBouncesAndTimes.add(bouncesAndTime);
+					}
+					continue;
+				}
+			}
+			// Do page check.
+			if(serverLog.getPagesViewed() < minPages) {
+				numBounces++;
+				if(serverLogs.size()<100) {
+					bouncesAndTime.add(bounceDate);
+					bouncesAndTime.add(numBounces);
+					allBouncesAndTimes.add(bouncesAndTime);
+				}else if(100<=serverLogs.size() && serverLogs.size()<1000 && numBounces%10==0) {
+					bouncesAndTime.add(bounceDate);
+					bouncesAndTime.add(numBounces);
+					allBouncesAndTimes.add(bouncesAndTime);
+				}else if(1000<=serverLogs.size() && serverLogs.size()<10000 && numBounces%100==0) {
+					bouncesAndTime.add(bounceDate);
+					bouncesAndTime.add(numBounces);
+					allBouncesAndTimes.add(bouncesAndTime);
+				}else if(10000<=serverLogs.size() && serverLogs.size()<100000 && numBounces%1000==0) {
+					bouncesAndTime.add(bounceDate);
+					bouncesAndTime.add(numBounces);
+					allBouncesAndTimes.add(bouncesAndTime);
+				}else if(100000<=serverLogs.size() && serverLogs.size()<1000000 && numBounces%10000==0) {
+					bouncesAndTime.add(bounceDate);
+					bouncesAndTime.add(numBounces);
+					allBouncesAndTimes.add(bouncesAndTime);
+				}
+			}
+			
+
+		}
+		return allBouncesAndTimes;
 	}
 	
 }

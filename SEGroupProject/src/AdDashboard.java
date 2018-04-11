@@ -178,6 +178,12 @@ public class AdDashboard extends Application{
 	private LineChart<Long, Integer> clickGraph;
 	
 	@FXML
+	private LineChart<Long, Integer> uniqueGraph;
+	
+	@FXML
+	private LineChart<Long, Integer> bounceGraph;
+	
+	@FXML
 	private NumberAxis impressionYAxis;
 	
 	@FXML
@@ -188,6 +194,18 @@ public class AdDashboard extends Application{
 	
 	@FXML
 	private NumberAxis clickXAxis;
+	
+	@FXML
+	private NumberAxis uniqueYAxis;
+	
+	@FXML
+	private NumberAxis uniqueXAxis;
+	
+	@FXML
+	private NumberAxis bounceYAxis;
+	
+	@FXML
+	private NumberAxis bounceXAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -225,6 +243,10 @@ public class AdDashboard extends Application{
 	private Series<Long, Integer> impressionSeries;
 	
 	private Series<Long, Integer> clickSeries;
+	
+	private Series<Long, Integer> uniqueSeries;
+	
+	private Series<Long, Integer> bounceSeries;
 	
 	
 	public static void main(String[] args) {
@@ -366,11 +388,13 @@ public class AdDashboard extends Application{
 	
 	public void uniquesDetailClicked(){
 		loadDetailedView();
+		getUniquesOverTime();
 		metricsDetailsTabPane.getSelectionModel().select(2);	
 	}
 	
 	public void bouncesDetailClicked(){
 		loadDetailedView();
+		getBouncesOverTime();
 		metricsDetailsTabPane.getSelectionModel().select(3);	
 	}
 	
@@ -537,6 +561,78 @@ public class AdDashboard extends Application{
 	    });
 		
 		clickGraph.getData().add(clickSeries);
+	}
+	
+	public void getUniquesOverTime(){
+		uniqueSeries = new XYChart.Series();
+		uniqueXAxis.setAutoRanging(false);
+		double lowerBound = (double)1420130859000L;
+		double upperBound = (double)1421227547000L;
+		uniqueXAxis.setLowerBound(lowerBound);
+		uniqueXAxis.setUpperBound(upperBound);
+		uniqueXAxis.setTickUnit(100000000);
+		
+		ArrayList<ArrayList<Object>> uniquesOverTime = items.getClicksOverTime();
+		for(ArrayList<Object> uniqueOverTime : uniquesOverTime){
+			for(int i=0; i<uniqueOverTime.size(); i++){
+				Date d = (Date) uniqueOverTime.get(0);
+				Long longDate = d.getTime();
+				uniqueSeries.getData().add(new XYChart.Data(longDate, uniqueOverTime.get(1)));
+			}
+		}
+		
+		uniqueXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+	        @Override
+	        public String toString(Number number) {
+	        	Long l = number.longValue();
+	        	Date date = new Date(l);
+	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        	String stringDate = formatter.format(date);
+	            return stringDate;
+	        }
+	        @Override
+	        public Number fromString(String string) {
+                return null;
+            }
+	    });
+		
+		uniqueGraph.getData().add(uniqueSeries);
+	}
+	
+	public void getBouncesOverTime(){
+		bounceSeries = new XYChart.Series();
+		bounceXAxis.setAutoRanging(false);
+		double lowerBound = (double)1420130859000L;
+		double upperBound = (double)1421227547000L;
+		bounceXAxis.setLowerBound(lowerBound);
+		bounceXAxis.setUpperBound(upperBound);
+		bounceXAxis.setTickUnit(100000000);
+		
+		ArrayList<ArrayList<Object>> bouncesOverTime = items.getClicksOverTime();
+		for(ArrayList<Object> bounceOverTime : bouncesOverTime){
+			for(int i=0; i<bounceOverTime.size(); i++){
+				Date d = (Date) bounceOverTime.get(0);
+				Long longDate = d.getTime();
+				bounceSeries.getData().add(new XYChart.Data(longDate, bounceOverTime.get(1)));
+			}
+		}
+		
+		bounceXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+	        @Override
+	        public String toString(Number number) {
+	        	Long l = number.longValue();
+	        	Date date = new Date(l);
+	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        	String stringDate = formatter.format(date);
+	            return stringDate;
+	        }
+	        @Override
+	        public Number fromString(String string) {
+                return null;
+            }
+	    });
+		
+		bounceGraph.getData().add(bounceSeries);
 	}
 	
 

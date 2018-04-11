@@ -171,13 +171,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                              <LineChart fx:id="uniqueGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="uniqueXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="uniqueYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -241,13 +241,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                              <LineChart fx:id="bounceGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                                <xAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="bounceXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="bounceYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -311,13 +311,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
-                                 <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
+                              <LineChart fx:id="CPMGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+								<xAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="CPMXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPMYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -381,13 +381,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="totalCostGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="totalCostXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="totalCostYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -451,13 +451,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="CTRGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="CTRXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CTRYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -521,13 +521,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="CPCGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="CPCXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPCYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -591,13 +591,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="CPAGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="CPAXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPAYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -661,13 +661,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="conversionsGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="conversionsXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="conversionsYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
@@ -731,13 +731,13 @@
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
-                              <LineChart maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+                              <LineChart fx:id="bounceRateGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                    <CategoryAxis side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis prefHeight="400.0" side="LEFT" />
-                                 </yAxis>
+                                  <NumberAxis side="BOTTOM" fx:id="bounceRateXAxis"/>
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis prefHeight="400.0" side="LEFT" fx:id="bounceRateYAxis"/>
+                                </yAxis>
                               </LineChart>
                               <Accordion prefHeight="528.0" prefWidth="288.0">
                                  <panes>
