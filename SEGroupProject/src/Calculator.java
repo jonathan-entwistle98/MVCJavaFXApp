@@ -19,11 +19,11 @@ public class Calculator {
 		this.servers = servers;
 	}
 	
-	public String[] calcDates(int range, Date date) {
-		String[] dates = new String[range];
+	public long[] calcDates(int range, Date date) {
+		long[] dates = new long[range];
 		long startTime = date.getTime();
 		for(int i = 0; i < range; i++) {
-			dates[i] = (new Date(startTime + i * 3600000)).toString();
+			dates[i] = startTime + i * 3600000;
 		}
 		return dates;
 	}

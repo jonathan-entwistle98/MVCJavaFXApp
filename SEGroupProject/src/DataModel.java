@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javafx.scene.chart.XYChart;
+
 public class DataModel {
 	
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
 	private ArrayList<ServerEntry> servers;
 	private MetricStorage metrics;
-	private String[] dates;
+	private long[] dates;
 	private OverviewItems overview;
 	
 	private DBManager dbm;
@@ -55,10 +57,55 @@ public class DataModel {
 	}
 	
 	//TODO change return to Series
-	public void getMetric(Metric m) {
-		float[] met = metrics.getCpa();
+	public XYChart.Series getSeries(Metric m) {
+		XYChart.Series series = new XYChart.Series();
+		switch (m) {
+		case IMPRESSIONS:
+			populateSeries(series, metrics.getImpressions());
+			return series;
+		case CLICKS:
+			populateSeries(series, metrics.getClicks());
+			return series;
+		case UNIQUES:
+			populateSeries(series, metrics.getUniques());
+			return series;
+		case BOUNCES:
+			populateSeries(series, metrics.getBounces());
+			return series;
+		case CONVERSIONS:
+			populateSeries(series, metrics.getConversions());
+			return series;
+		case TOTAL_COST:
+			populateSeries(series, metrics.getCosts());
+			return series;
+		case CTR:
+			populateSeries(series, metrics.getCtr());
+			return series;
+		case CPA:
+			populateSeries(series, metrics.getCpa());
+			return series;
+		case CPC:
+			populateSeries(series, metrics.getCpc());
+			return series;
+		case CPM:
+			populateSeries(series, metrics.getCpm());
+			return series;
+		case BOUNCE_RATE:
+			
+			break;
+		}
+		return null;
+	}
+	
+	private void populateSeries(XYChart.Series series, float[] met) {
 		for(int i = 0; i < dates.length; i++) {
-			System.out.println(dates[i] + " " + met[i]);
+			series.getData().add(new XYChart.Data(dates[i], met[i]));
+		}
+	}
+	
+	private void populateSeries (XYChart.Series series, int[] met) {
+		for(int i = 0; i < dates.length; i++) {
+			series.getData().add(new XYChart.Data(dates[i], met[i]));
 		}
 	}
 
