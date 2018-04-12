@@ -17,105 +17,19 @@ public class OverviewItems {
 	private float CPC;
 	private float CPM;
 	private float bounceRate;
-	private ArrayList<ArrayList<Object>> impressionsOverTime;
-	private ArrayList<ArrayList<Object>> clicksOverTime;
-	private ArrayList<ArrayList<Object>> uniquesOverTime;
+	public ArrayList<ArrayList<Object>> impressionsOverTime;
 	
-	private ArrayList<ArrayList<Object>> bouncesOverTime;
-	private ArrayList<ArrayList<Object>> conversionsOverTime;
-	private ArrayList<ArrayList<Object>> totalCostOverTime;
-	private ArrayList<ArrayList<Object>> CTROverTime;
-	private ArrayList<ArrayList<Object>> CPCOverTime;
-	private ArrayList<ArrayList<Object>> CPAOverTime;
-	private ArrayList<ArrayList<Object>> CPMOverTime;
-	private ArrayList<ArrayList<Object>> bounceRateOverTime;
-	
-	public ArrayList<ArrayList<Object>> getImpressionsOverTime(){
-		return impressionsOverTime;
-	}
-	
-	public void setImpressionOverTime(ArrayList<ArrayList<Object>> impressionsOverTime) {
-		this.impressionsOverTime = impressionsOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getClicksOverTime(){
-		return clicksOverTime;
-	}
-	
-	public void setClicksOverTime(ArrayList<ArrayList<Object>> clicksOverTime) {
-		this.clicksOverTime = clicksOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getUniquesOverTime(){
-		return uniquesOverTime;
-	}
-	
-	public void setUniquesOverTime(ArrayList<ArrayList<Object>> uniquesOverTime) {
-		this.uniquesOverTime = uniquesOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getBouncesOverTime(){
-		return bouncesOverTime;
-	}
-	
-	public void setBouncesOverTime(ArrayList<ArrayList<Object>> bouncesOverTime) {
-		this.bouncesOverTime = bouncesOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getConversionsOverTime(){
-		return conversionsOverTime;
-	}
-	
-	public void setConversionsOverTime(ArrayList<ArrayList<Object>> conversionsOverTime) {
-		this.conversionsOverTime = conversionsOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getTotalCostOverTime(){
-		return totalCostOverTime;
-	}
-	
-	public void setTotalCostOverTime(ArrayList<ArrayList<Object>> totalCostOverTime) {
-		this.totalCostOverTime = totalCostOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getCTROverTime(){
-		return CTROverTime;
-	}
-	
-	public void setCTROverTime(ArrayList<ArrayList<Object>> CTROverTime) {
-		this.CTROverTime = CTROverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getCPCOverTime(){
-		return CPCOverTime;
-	}
-	
-	public void setCPCOverTime(ArrayList<ArrayList<Object>> CPCOverTime) {
-		this.CPCOverTime = CPCOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getCPAOverTime(){
-		return CPAOverTime;
-	}
-	
-	public void setCPAOverTime(ArrayList<ArrayList<Object>> CPAOverTime) {
-		this.CPAOverTime = CPAOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getCPMOverTime(){
-		return CPMOverTime;
-	}
-	
-	public void setCPMOverTime(ArrayList<ArrayList<Object>> CPMOverTime) {
-		this.CPMOverTime = CPMOverTime;
-	}
-	
-	public ArrayList<ArrayList<Object>> getBounceRateOverTime(){
-		return bounceRateOverTime;
-	}
-	
-	public void setBounceRateOverTime(ArrayList<ArrayList<Object>> bounceRateOverTime) {
-		this.bounceRateOverTime = bounceRateOverTime;
+	public OverviewItems(int impressions, int clicks, int uniques, int conversions, float totalCost,
+			float CTR, float CPA, float CPC, float CPM) {
+		this.impressions = impressions;
+		this.clicks = clicks;
+		this.uniques = uniques;
+		this.conversions = conversions;
+		this.totalCost = totalCost;
+		this.CTR = CTR;
+		this.CPA = CPA;
+		this.CPC = CPC;
+		this.CPM = CPM;
 	}
 	
 	public int getImpressions() {
