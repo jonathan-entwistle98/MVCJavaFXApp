@@ -1,6 +1,7 @@
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javafx.scene.chart.XYChart;
@@ -27,6 +28,8 @@ public class Example {
 		/*
 		 * Example below shows how to use DataModel class.
 		 * 
+		 * If anything goes wrong during exporting files just delete test.db
+		 * and try again.
 		 * 
 		 */
 		
@@ -36,11 +39,15 @@ public class Example {
 		// Call initialization method (creates storage objects, connects to database, etc.).
 		dm.init();
 		
-		// Load campaign to the database by providing the following:
-		// 	file1 = impression_log.CSV
-		// 	file2 = click_log.CSV
-		//  file3 = server_log.CSV
-//		dm.exportCSVs(file1, file2, file3);
+		// Export campaign to the database by providing the following:
+		// 	File file1 = impression_log.CSV
+		// 	File file2 = click_log.CSV
+		//  File file3 = server_log.CSV
+		// Doing so will create a new campaign and allocate it an ID.
+		dm.exportCSVs(file1, file2, file3);
+		
+		// Get IDs of all existing campaigns.
+		ArrayList<Integer> campaignIDs = dm.getCampaigns();
 		
 		// Select campaign by its ID from the database.
 		// This selects campaign for loading and returns overview metrics.
@@ -49,6 +56,7 @@ public class Example {
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
 		dm.fetchData(start, end);
+		
 		// Returns XYChart.Series for defined metric.
 		XYChart.Series series = dm.getSeries(Metric.IMPRESSIONS);
 	}

@@ -56,7 +56,6 @@ public class DataModel {
 		dates = calc.calcDates(range, startD);
 	}
 	
-	//TODO change return to Series
 	public XYChart.Series getSeries(Metric m) {
 		XYChart.Series series = new XYChart.Series();
 		switch (m) {
@@ -111,6 +110,10 @@ public class DataModel {
 
 	public OverviewItems getOverview() {
 		return overview;
+	}
+	
+	public ArrayList<Integer> getCampaigns() {
+		return dbm.getCampaigns();
 	}
 	
 }

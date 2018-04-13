@@ -5,12 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
@@ -23,6 +20,8 @@ public class DBManager {
 	public int selectedCampaign;
 	public long refDate = 0;
 	public long endDate = 0;
+	private int rowID = 0;
+	
 	/***
 	 * Returns data WITH relative time offset. (first r_date always 0)
 	 * 
@@ -157,6 +156,8 @@ public class DBManager {
 	 */
 	public void exportData(File impressions, File clicks, File servers) {
 		
+		getRowID();
+		
 		// Parses CSV and updates database.
 		exportLog(impressions, FileType.IMPRESSION_LOG);
 		exportLog(clicks, FileType.CLICK_LOG);
@@ -166,7 +167,7 @@ public class DBManager {
 		
 		//doCalculations()
 		
-		createCampaign(1);
+		createCampaign("DefaultName");
 		
 	}
 	
@@ -224,7 +225,7 @@ public class DBManager {
 					dateSet = true;
 				}
 //				// Set the variables
-				pstmt.setInt(1, 1);
+				pstmt.setInt(1, rowID);
 				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
 				pstmt.setLong(3, Long.parseLong(row[1]));
 				pstmt.setString(4, row[2]);
@@ -269,7 +270,7 @@ public class DBManager {
 			String[] row;
 			while ((row = parser.parseNext()) != null) {
 				// Set the variables
-				pstmt.setInt(1, 1);
+				pstmt.setInt(1, rowID);
 				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
 				pstmt.setLong(3, Long.parseLong(row[1]));
 				pstmt.setFloat(4, Float.parseFloat(row[2]));
@@ -308,7 +309,7 @@ public class DBManager {
 			String[] row;
 			while ((row = parser.parseNext()) != null) {
 				// Set the variables
-				pstmt.setInt(1, 1);
+				pstmt.setInt(1, rowID);
 				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
 				pstmt.setString(3, row[0]);
 				pstmt.setLong(4, Long.parseLong(row[1]));
@@ -359,13 +360,13 @@ public class DBManager {
 		return parser;
 	}
 
-	private void createCampaign(int ID) {
+	private void createCampaign(String name) {
 
 		// Create SQL statement
-		String SQL = "INSERT INTO CAMPAIGN (ID, START_DATE, END_DATE,\n"
+		String SQL = "INSERT INTO CAMPAIGN (ROWID, NAME, START_DATE, END_DATE,\n"
 				+ "IMPRESSIONS, CLICKS, UNIQUES, CONVERSIONS, TOTAL_COST,\n"
 				+ "CTR, CPA, CPC, CPM)\n"
-		        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		        + "VALUES(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		ResultSet rs = null;
 		try (
@@ -385,33 +386,33 @@ public class DBManager {
 			float CPC = 0;
 			float CPM = 0;
 			
-			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM IMPRESSION_LOG");
+			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM IMPRESSION_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				impressions = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM CLICK_LOG");
+			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				clicks = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT COUNT(id) FROM CLICK_LOG");
+			rs = stmt.executeQuery("SELECT COUNT(id) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				uniques = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM SERVER_LOG WHERE CONVERSION = 'Yes'");
+			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM SERVER_LOG WHERE CONVERSION = 'Yes' AND CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				conversions = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT SUM(IMPRESSION_COST) FROM IMPRESSION_LOG");
+			rs = stmt.executeQuery("SELECT SUM(IMPRESSION_COST) FROM IMPRESSION_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				totalCost += rs.getInt(1);
 				CPM = rs.getInt(1) / (impressions / 1000.0f); 
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT SUM(CLICK_COST) FROM CLICK_LOG");
+			rs = stmt.executeQuery("SELECT SUM(CLICK_COST) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				totalCost += rs.getInt(1);
 				CPC = rs.getInt(1) / (float)clicks;
@@ -419,18 +420,19 @@ public class DBManager {
 			CTR = clicks / (float)impressions;
 			CPA = totalCost / (float)conversions;
 			
-			pstmt.setInt(1, ID);
-			pstmt.setLong(2, refDate);
-			pstmt.setLong(3, endDate);
-			pstmt.setInt(4, impressions);
-			pstmt.setInt(5, clicks);
-			pstmt.setInt(6, uniques);
-			pstmt.setInt(7, conversions);
-			pstmt.setFloat(8, totalCost);
-			pstmt.setFloat(9, CTR);
-			pstmt.setFloat(10, CPA);
-			pstmt.setFloat(11, CPC);
-			pstmt.setFloat(12, CPM);
+			pstmt.setInt(1, rowID);
+			pstmt.setString(2, name);
+			pstmt.setLong(3, refDate);
+			pstmt.setLong(4, endDate);
+			pstmt.setInt(5, impressions);
+			pstmt.setInt(6, clicks);
+			pstmt.setInt(7, uniques);
+			pstmt.setInt(8, conversions);
+			pstmt.setFloat(9, totalCost);
+			pstmt.setFloat(10, CTR);
+			pstmt.setFloat(11, CPA);
+			pstmt.setFloat(12, CPC);
+			pstmt.setFloat(13, CPM);
 			
 			// Add it to the batch
 			pstmt.addBatch();
@@ -461,7 +463,7 @@ public class DBManager {
 	public OverviewItems selectCampaign(int ID) {
 		
 		String sql = "SELECT * FROM CAMPAIGN\n"
-				+ "WHERE ID = " + ID + ";";
+				+ "WHERE rowid = " + ID + ";";
 		try (
 				Connection conn = DriverManager.getConnection(DBNAME);
 				Statement stmt = conn.createStatement();
@@ -493,6 +495,46 @@ public class DBManager {
 		return null;
 	}
 	
+	public ArrayList<Integer> getCampaigns() {
+		
+		String sql = "SELECT rowid FROM CAMPAIGN\n";
+		ArrayList<Integer> campaigns = new ArrayList<Integer>();
+				
+		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				) {
+
+			while ( rs.next() ) {
+				campaigns.add(rs.getInt(1));
+			}
+			return campaigns;
+
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return null;
+		
+	}
+	
+	private void getRowID() {
+		String sql = "SELECT max(rowid) FROM CAMPAIGN\n";
+				
+		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				) {
+
+			if ( rs.next() ) {
+				rowID = rs.getInt(1) + 1;
+			}
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+	}
+	
 	public void init() {
 		
 		Connection conn = null;
@@ -509,7 +551,7 @@ public class DBManager {
 			stmt = conn.createStatement();
 	        
 			String campaignT = "CREATE TABLE IF NOT EXISTS CAMPAIGN (\n"
-	                + "	ID INTEGER PRIMARY KEY,\n"
+	                + "	NAME TEXT,\n"
 					+ " START_DATE INTEGER,\n"
 	                + " END_DATE INTEGER,\n"
 					+ " IMPRESSIONS INTEGER,\n"
