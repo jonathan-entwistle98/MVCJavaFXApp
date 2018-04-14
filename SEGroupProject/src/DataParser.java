@@ -356,8 +356,23 @@ public abstract class DataParser {
 			income = null;
 			break;
 		}
+		int seconds = (int) attributes[6];
+		int pages = (int) attributes[7];
+		boolean conversion;
+		switch((String)attributes[8]){
+		case "Yes":
+			conversion = true;
+			break;
+		case "No":
+			conversion = false;
+			break;
+		default:
+			//TODO it assumes the conversion was not made if the field is empty. Might want to change.
+			conversion = false;
+			break;
+		}
 		
-		return new ClickEntry(date, id, cost, gender, age, income);
+		return new ClickEntry(date, id, cost, gender, age, income, seconds, pages, conversion);
 	}
 	
 	/**

@@ -11,7 +11,6 @@ public class DataModel {
 	
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
-	private ArrayList<ServerEntry> servers;
 	private MetricStorage metrics;
 	private long[] dates;
 	private OverviewItems overview;
@@ -23,10 +22,9 @@ public class DataModel {
 		metrics = new MetricStorage();
 		impressions = new ArrayList<ImpressionEntry>();
 		clicks = new ArrayList<ClickEntry>();
-		servers = new ArrayList<ServerEntry>();
 		dbm = new DBManager();
 		dbm.init();
-		calc = new Calculator(metrics, impressions, clicks, servers);
+		calc = new Calculator(metrics, impressions, clicks);
 	}
 	
 	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV) {
@@ -45,10 +43,8 @@ public class DataModel {
 		
 		impressions.clear();
 		clicks.clear();
-		servers.clear();
 		impressions.addAll((ArrayList<ImpressionEntry>) logs[0]);
 		clicks.addAll((ArrayList<ClickEntry>) logs[1]);
-		servers.addAll((ArrayList<ServerEntry>) logs[2]);
 		
 		// Set range and Calculate metrics based on new data.
 		int range = DataParser.relativeDate(startD.getTime(), endD) + 1;

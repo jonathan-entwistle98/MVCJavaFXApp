@@ -6,17 +6,14 @@ public class Calculator {
 	private MetricStorage metrics;
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
-	private ArrayList<ServerEntry> servers;
 	private int range;
 	
 	public Calculator(MetricStorage metrics, 
 			ArrayList<ImpressionEntry> impressions,
-			ArrayList<ClickEntry> clicks,
-			ArrayList<ServerEntry> servers) {
+			ArrayList<ClickEntry> clicks) {
 		this.metrics = metrics;
 		this.impressions = impressions;
 		this.clicks = clicks;
-		this.servers = servers;
 	}
 	
 	public long[] calcDates(int range, Date date) {
@@ -64,7 +61,7 @@ public class Calculator {
 	}
 	private void calcConversions() {
 		int[] arr = new int[range];
-		for(ServerEntry e : servers) {
+		for(ClickEntry e : clicks) {
 			if (e.isConverted()) {
 				arr[(int)e.getDate()]++;
 			}
@@ -95,7 +92,7 @@ public class Calculator {
 		int[] im = metrics.getImpressions();
 		for(int i = 0; i < range; i++) {
 			if(im[i] != 0) {
-				arr[i] = cl[i] / im[i];
+				arr[i] = cl[i] / (float)im[i];
 			}
 		}
 		metrics.setCtr(arr);

@@ -79,6 +79,8 @@ public class DBManager {
 
 			// Get Click Log
 			sql = "SELECT DISTINCT c.ROWID, c.R_DATE, c.ID, c.CLICK_COST, c.CAMPAIGN,\n"
+					+ "c.CAMPAIGN, strftime('%s', c.EXIT_DATE) - strftime('%s', c.ENTRY_DATE) AS SECONDS_VIEWED,\n" 
+					+ "c.PAGES_VIEWED, c.CONVERSION,\n"
 					+ "i.GENDER, i.AGE, i.INCOME, i.CONTEXT\n"
 					+ "FROM CLICK_LOG c\n"
 					+ "LEFT JOIN IMPRESSION_LOG i\n"
@@ -99,36 +101,40 @@ public class DBManager {
 						rs.getFloat("CLICK_COST"),
 						rs.getString("GENDER"),
 						rs.getString("AGE"),
-						rs.getString("INCOME")};
+						rs.getString("INCOME"),
+						rs.getInt("SECONDS_VIEWED"),
+						rs.getInt("PAGES_VIEWED"),
+						rs.getString("CONVERSION")
+						};
 
 				clicks.add(DataParser.makeClick(attributes));
 			}
 			
-			// Get Server Log
-			sql = "SELECT *\n"
-				+ "FROM SERVER_LOG\n"
-				+ "WHERE CAMPAIGN = " + selectedCampaign + "\n"
-				+ condition;
-	
-			rs.close();
-			rs = stmt.executeQuery(sql);
+//			// Get Server Log
+//			sql = "SELECT *\n"
+//				+ "FROM SERVER_LOG\n"
+//				+ "WHERE CAMPAIGN = " + selectedCampaign + "\n"
+//				+ condition;
+//	
+//			rs.close();
+//			rs = stmt.executeQuery(sql);
+//			
+//			ArrayList<ServerEntry> servers = new ArrayList<ServerEntry>();
+//			//TODO Use original types instead of string to improve performance.
+//			while ( rs.next() ) {
+//				
+//				Object[] attributes = {
+//						rs.getLong("R_DATE") - start, // Accounting for offset
+//						rs.getString("ENTRY_DATE"),
+//						rs.getLong("ID"),
+//						rs.getString("EXIT_DATE"),
+//						rs.getInt("PAGES_VIEWED"),
+//						rs.getString("CONVERSION")};
+//
+//				servers.add(DataParser.makeServer(attributes));
+//			}
 			
-			ArrayList<ServerEntry> servers = new ArrayList<ServerEntry>();
-			//TODO Use original types instead of string to improve performance.
-			while ( rs.next() ) {
-				
-				Object[] attributes = {
-						rs.getLong("R_DATE") - start, // Accounting for offset
-						rs.getString("ENTRY_DATE"),
-						rs.getLong("ID"),
-						rs.getString("EXIT_DATE"),
-						rs.getInt("PAGES_VIEWED"),
-						rs.getString("CONVERSION")};
-
-				servers.add(DataParser.makeServer(attributes));
-			}
-			
-			return new Object[]{impressions, clicks, servers};
+			return new Object[]{impressions, clicks};
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
@@ -159,9 +165,8 @@ public class DBManager {
 		getRowID();
 		
 		// Parses CSV and updates database.
-		exportLog(impressions, FileType.IMPRESSION_LOG);
-		exportLog(clicks, FileType.CLICK_LOG);
-		exportLog(servers, FileType.SERVER_LOG);
+		exportImpression(impressions);
+		exportRichClick(clicks, servers);
 		
 		//fetchAllData()
 		
@@ -170,40 +175,8 @@ public class DBManager {
 		createCampaign("DefaultName");
 		
 	}
-	
-	private void exportLog(File file, FileType ftype) {
 		
-		try (
-				Connection conn = DriverManager.getConnection(DBNAME);
-				) {
-			conn.setAutoCommit(false);
-			
-			CsvParser parser = parseCSV(file);
-
-			switch (ftype) {
-			case IMPRESSION_LOG:
-//				refDate = DataParser.roundToHours(rows.get(0)[0]);
-//				endDate = DataParser.roundToHours(rows.get(rows.size()-1)[0]);
-				exportImpression(conn, parser);
-				break;
-			
-			case CLICK_LOG:
-				exportClick(conn, parser);
-				break;
-			
-			case SERVER_LOG:
-				exportServer(conn, parser);
-				break;
-			default:
-				break;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private void exportImpression(Connection conn, CsvParser parser) {
+	private void exportImpression(File impressionFile) {
 
 		// Create SQL statement
 		String SQL = "INSERT INTO IMPRESSION_LOG (CAMPAIGN, R_DATE, ID, GENDER, "
@@ -211,14 +184,18 @@ public class DBManager {
 		        + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
 				Statement stmt = conn.createStatement();
 				PreparedStatement pstmt = conn.prepareStatement(SQL);
 				) {
+			conn.setAutoCommit(false);
+			
+			CsvParser parser = parseCSV(impressionFile);
 			
 			int counter = 0;
 			boolean dateSet = false;
-			String[] row;
 			
+			String[] row;
 			while ((row = parser.parseNext()) != null) {
 				if(dateSet == false) {
 					refDate = DataParser.roundToHours(row[0]);
@@ -256,31 +233,52 @@ public class DBManager {
       
 	}
 	
-	private void exportClick(Connection conn, CsvParser parser) {
+	private void exportRichClick(File clickFile, File serverFile) {
 		
 		// Create SQL statement
-		String SQL = "INSERT INTO CLICK_LOG (CAMPAIGN, R_DATE, ID, CLICK_COST) "
-				+ "VALUES(?, ?, ?, ?)";
+		String SQL = "INSERT INTO CLICK_LOG (CAMPAIGN, R_DATE, ID, CLICK_COST, ENTRY_DATE, EXIT_DATE,\n"
+				+ "PAGES_VIEWED, CONVERSION)\n"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
-		try (
+		try (				
+				Connection conn = DriverManager.getConnection(DBNAME);
 				PreparedStatement pstmt = conn.prepareStatement(SQL);
 				) {
-
+			conn.setAutoCommit(false);
+			
+			CsvParser clickParser = parseCSV(clickFile);
+			CsvParser serverParser = parseCSV(serverFile);
+			
 			int counter = 0;
-			String[] row;
-			while ((row = parser.parseNext()) != null) {
-				// Set the variables
-				pstmt.setInt(1, rowID);
-				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
-				pstmt.setLong(3, Long.parseLong(row[1]));
-				pstmt.setFloat(4, Float.parseFloat(row[2]));
-				// Add it to the batch
-				pstmt.addBatch();
-				
-				counter++;
-				if(counter >= 250000) {
-					pstmt.executeBatch();
-					counter = 0;
+			String[] cRow;
+			String[] sRow;
+			while ((cRow = clickParser.parseNext()) != null) {
+				if((sRow = serverParser.parseNext()) != null) {
+					// Check if IDs match
+					if(cRow[1].equals(sRow[1])) {
+						// Set the variables
+						pstmt.setInt(1, rowID);
+						pstmt.setLong(2, DataParser.relativeDate(refDate, cRow[0]));
+						pstmt.setLong(3, Long.parseLong(cRow[1]));
+						pstmt.setFloat(4, Float.parseFloat(cRow[2]));
+						pstmt.setString(5, sRow[0]);
+						pstmt.setString(6, sRow[2]);
+						pstmt.setLong(7, Long.parseLong(sRow[3]));
+						pstmt.setString(8, sRow[4]);
+
+						// Add it to the batch
+						pstmt.addBatch();
+						
+						counter++;
+						if(counter >= 250000) {
+							pstmt.executeBatch();
+							counter = 0;
+						}
+					} else {
+						System.err.println("Click and server log row mismatch. (User IDs differ on same rows) " + cRow[1] + " and " + sRow[1]);
+					}
+				} else {
+					System.err.println("Server log is incomplete.");
 				}
 			}
 
@@ -295,48 +293,48 @@ public class DBManager {
 		} 
 	}
 
-	private void exportServer(Connection conn, CsvParser parser) {
-		
-		// Create SQL statement
-		String SQL = "INSERT INTO SERVER_LOG (CAMPAIGN, R_DATE, ENTRY_DATE, ID, EXIT_DATE, "
-				+ "PAGES_VIEWED, CONVERSION) "
-		        + "VALUES(?, ?, ?, ?, ?, ?, ?)";
-		try (
-				PreparedStatement pstmt = conn.prepareStatement(SQL);
-				) {
-			
-			int counter = 0;
-			String[] row;
-			while ((row = parser.parseNext()) != null) {
-				// Set the variables
-				pstmt.setInt(1, rowID);
-				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
-				pstmt.setString(3, row[0]);
-				pstmt.setLong(4, Long.parseLong(row[1]));
-				pstmt.setString(5, row[2]);
-				pstmt.setLong(6, Long.parseLong(row[3]));
-				pstmt.setString(7, row[4]);
-
-				// Add it to the batch
-				pstmt.addBatch();
-				
-				counter++;
-				if(counter >= 250000) {
-					pstmt.executeBatch();
-					counter = 0;
-				}
-			}
-
-			pstmt.executeBatch();
-
-			//Explicitly commit statements to apply changes
-			conn.commit();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}
+//	private void exportServer(Connection conn, CsvParser parser) {
+//		
+//		// Create SQL statement
+//		String SQL = "INSERT INTO SERVER_LOG (CAMPAIGN, R_DATE, ENTRY_DATE, ID, EXIT_DATE, "
+//				+ "PAGES_VIEWED, CONVERSION) "
+//		        + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+//		try (
+//				PreparedStatement pstmt = conn.prepareStatement(SQL);
+//				) {
+//			
+//			int counter = 0;
+//			String[] row;
+//			while ((row = parser.parseNext()) != null) {
+//				// Set the variables
+//				pstmt.setInt(1, rowID);
+//				pstmt.setLong(2, DataParser.relativeDate(refDate, row[0]));
+//				pstmt.setString(3, row[0]);
+//				pstmt.setLong(4, Long.parseLong(row[1]));
+//				pstmt.setString(5, row[2]);
+//				pstmt.setLong(6, Long.parseLong(row[3]));
+//				pstmt.setString(7, row[4]);
+//
+//				// Add it to the batch
+//				pstmt.addBatch();
+//				
+//				counter++;
+//				if(counter >= 250000) {
+//					pstmt.executeBatch();
+//					counter = 0;
+//				}
+//			}
+//
+//			pstmt.executeBatch();
+//
+//			//Explicitly commit statements to apply changes
+//			conn.commit();
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//	}
 	
 	private	CsvParser parseCSV(File file) {
 		//TODO add header check based on file type.
@@ -401,7 +399,7 @@ public class DBManager {
 				uniques = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM SERVER_LOG WHERE CONVERSION = 'Yes' AND CAMPAIGN == " + rowID);
+			rs = stmt.executeQuery("SELECT COUNT(rowid) FROM CLICK_LOG WHERE CONVERSION = 'Yes' AND CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				conversions = rs.getInt(1);
 			}
@@ -580,25 +578,29 @@ public class DBManager {
 					+ "	CAMPAIGN INTEGER,\n"
 					+ "	R_DATE INTEGER,\n"
 	                + "	ID INTEGER,\n"
-	                + "	CLICK_COST REAL\n"
-	                + ");";
-			
-			String serverT = "CREATE TABLE IF NOT EXISTS SERVER_LOG (\n"
-					+ "	CAMPAIGN INTEGER,\n"
-					+ " R_DATE INTEGER,\n"
+	                + "	CLICK_COST REAL,\n"
 					+ "	ENTRY_DATE TEXT,\n"
-	                + "	ID INTEGER,\n"
 					+ "	EXIT_DATE TEXT,\n"
 					+ "	PAGES_VIEWED INTEGER,\n"
 	                + "	CONVERSION TEXT\n"
 	                + ");";
+			
+//			String serverT = "CREATE TABLE IF NOT EXISTS SERVER_LOG (\n"
+//					+ "	CAMPAIGN INTEGER,\n"
+//					+ " R_DATE INTEGER,\n"
+//					+ "	ENTRY_DATE TEXT,\n"
+//	                + "	ID INTEGER,\n"
+//					+ "	EXIT_DATE TEXT,\n"
+//					+ "	PAGES_VIEWED INTEGER,\n"
+//	                + "	CONVERSION TEXT\n"
+//	                + ");";
 			
 			String indexI = "CREATE INDEX IF NOT EXISTS ID_I ON IMPRESSION_LOG (ID)";
 			
 	        stmt.executeUpdate(campaignT);
 	        stmt.executeUpdate(impressionT);
 	        stmt.executeUpdate(clickT);
-	        stmt.executeUpdate(serverT);
+//	        stmt.executeUpdate(serverT);
 	        stmt.executeUpdate(indexI);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
