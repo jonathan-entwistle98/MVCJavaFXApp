@@ -335,42 +335,42 @@ public class AdDashboard extends Application{
 			
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("initialView.fxml"));
 		
-		// New DataModel Set-Up
-		File file1 = new File("impression_log.csv");
-		File file2 = new File("click_log.csv");
-		File file3 = new File("server_log.csv");
-		
-		String dateFormat = "yyyy-MM-dd HH:mm:ss";
-		Date start = null;
-		Date end = null;
-		try {
-			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
-			end = new SimpleDateFormat(dateFormat).parse("2015-02-30 13:59:08");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		dm = new DataModel();
-		dm.init();
-		
-		// Export campaign to the database by providing the following:
-		// 	File file1 = impression_log.CSV
-		// 	File file2 = click_log.CSV
-		//  File file3 = server_log.CSV
-		// Doing so will create a new campaign and allocate it an ID.
-		dm.exportCSVs(file1, file2, file3);
-		
-		// Get IDs of all existing campaigns.
-		ArrayList<Integer> campaignIDs = dm.getCampaigns();
-		
-		// Select campaign by its ID from the database.
-		// This selects campaign for loading and returns overview metrics.
-		overview = dm.selectCampaign(1);
-		
-		// Gets data with set date range and stores it in DataModel.
-		// Must pass two Date objects (start and end) as parameters.
-		dm.fetchData(start, end);
+//		// New DataModel Set-Up
+//		File file1 = new File("impression_log.csv");
+//		File file2 = new File("click_log.csv");
+//		File file3 = new File("server_log.csv");
+//		
+//		String dateFormat = "yyyy-MM-dd HH:mm:ss";
+//		Date start = null;
+//		Date end = null;
+//		try {
+//			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
+//			end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		dm = new DataModel();
+//		dm.init();
+//		
+//		// Export campaign to the database by providing the following:
+//		// 	File file1 = impression_log.CSV
+//		// 	File file2 = click_log.CSV
+//		//  File file3 = server_log.CSV
+//		// Doing so will create a new campaign and allocate it an ID.
+//		dm.exportCSVs(file1, file2, file3);
+//		
+//		// Get IDs of all existing campaigns.
+//		ArrayList<Integer> campaignIDs = dm.getCampaigns();
+//		
+//		// Select campaign by its ID from the database.
+//		// This selects campaign for loading and returns overview metrics.
+//		overview = dm.selectCampaign(1);
+//		
+//		// Gets data with set date range and stores it in DataModel.
+//		// Must pass two Date objects (start and end) as parameters.
+//		dm.fetchData(start, end);
 		
 		loader.setController(this);
 		
@@ -427,6 +427,43 @@ public class AdDashboard extends Application{
 	
 	public void viewAnalyticsClicked(){
 	//	double initialTime = System.currentTimeMillis();
+		
+		// New DataModel Set-Up
+//				File file1 = new File("impression_log.csv");
+//				File file2 = new File("click_log.csv");
+//				File file3 = new File("server_log.csv");
+				
+				String dateFormat = "yyyy-MM-dd HH:mm:ss";
+				Date start = null;
+				Date end = null;
+				try {
+					start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
+					end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				dm = new DataModel();
+				dm.init();
+				
+				// Export campaign to the database by providing the following:
+				// 	File file1 = impression_log.CSV
+				// 	File file2 = click_log.CSV
+				//  File file3 = server_log.CSV
+				// Doing so will create a new campaign and allocate it an ID.
+				dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile);
+				
+				// Get IDs of all existing campaigns.
+				ArrayList<Integer> campaignIDs = dm.getCampaigns();
+				
+				// Select campaign by its ID from the database.
+				// This selects campaign for loading and returns overview metrics.
+				overview = dm.selectCampaign(1);
+				
+				// Gets data with set date range and stores it in DataModel.
+				// Must pass two Date objects (start and end) as parameters.
+				dm.fetchData(start, end);
 		
 		if(clickLogTextField.getText().equals("")
 			|| impressionLogTextField.getText().equals("")
@@ -490,13 +527,13 @@ public class AdDashboard extends Application{
 	
 	public void uniquesDetailClicked(){
 		loadDetailedView();
-//		getUniquesOverTime();
+		getUniquesOverTime();
 		metricsDetailsTabPane.getSelectionModel().select(2);	
 	}
 	
 	public void bouncesDetailClicked(){
 		loadDetailedView();
-//		getBouncesOverTime();
+		getBouncesOverTime();
 		metricsDetailsTabPane.getSelectionModel().select(3);	
 	}
 	
@@ -663,200 +700,48 @@ public class AdDashboard extends Application{
 	
 	public void getCPMsOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
-	CPMSeries = dm.getSeries(Metric.CPM);
-	
-//	CPMXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	CPMXAxis.setLowerBound(lowerBound);
-//	CPMXAxis.setUpperBound(upperBound);
-//	CPMXAxis.setTickUnit(100000000);
-//	
-//	CPMYAxis.setAutoRanging(false);
-//	CPMYAxis.setUpperBound(2.0);
-//	CPMYAxis.setTickUnit(0.1);
-//	
-//	CPMXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
-	CPMGraph.getData().add(CPMSeries);
+		CPMSeries = dm.getSeries(Metric.CPM);	
+		CPMGraph.getData().add(CPMSeries);
 	
 	}
 	
 	public void getCPCsOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
-	CPCSeries = dm.getSeries(Metric.CPC);
-	
-//	CPCXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	CPCXAxis.setLowerBound(lowerBound);
-//	CPCXAxis.setUpperBound(upperBound);
-//	CPCXAxis.setTickUnit(100000000);
-//	
-//	CPCXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
-	CPCGraph.getData().add(CPCSeries);
+		CPCSeries = dm.getSeries(Metric.CPC);
+		CPCGraph.getData().add(CPCSeries);
 	
 	}
 	
 	public void getCTRsOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
-	CTRSeries = dm.getSeries(Metric.CTR);
-	
-//	CTRXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	CTRXAxis.setLowerBound(lowerBound);
-//	CTRXAxis.setUpperBound(upperBound);
-//	CTRXAxis.setTickUnit(100000000);
-//	
-//	CTRYAxis.setAutoRanging(false);
-//	CTRYAxis.setUpperBound(0.5);
-//	CTRXAxis.setTickUnit(0.005);
-//	
-//	CTRXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
-	CTRGraph.getData().add(CTRSeries);
+		CTRSeries = dm.getSeries(Metric.CTR);
+		CTRGraph.getData().add(CTRSeries);
 	
 	}
 	
 	public void getCPAsOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
-	CPASeries = dm.getSeries(Metric.CPA);
-	
-//	CPAXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	CPAXAxis.setLowerBound(lowerBound);
-//	CPAXAxis.setUpperBound(upperBound);
-//	CPAXAxis.setTickUnit(100000000);
-//	
-//	CPAXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
-	CPAGraph.getData().add(CPASeries);
+		CPASeries = dm.getSeries(Metric.CPA);
+		CPAGraph.getData().add(CPASeries);
 	
 	}
 	
 	public void getConversionsOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	conversionsSeries = dm.getSeries(Metric.CONVERSIONS);
-	
-//	conversionsXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	conversionsXAxis.setLowerBound(lowerBound);
-//	conversionsXAxis.setUpperBound(upperBound);
-//	conversionsXAxis.setTickUnit(100000000);
-//	
-//	conversionsXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
 	conversionsGraph.getData().add(conversionsSeries);
 	
 	}
 	
 	public void getTotalCostOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
-	totalCostSeries = dm.getSeries(Metric.TOTAL_COST);
-	
-//	totalCostXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	totalCostXAxis.setLowerBound(lowerBound);
-//	totalCostXAxis.setUpperBound(upperBound);
-//	totalCostXAxis.setTickUnit(100000000);
-//	
-//	totalCostXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
-	totalCostGraph.getData().add(totalCostSeries);
+		totalCostSeries = dm.getSeries(Metric.TOTAL_COST);
+		totalCostGraph.getData().add(totalCostSeries);
 	
 	}
-//	
-//	public void getUniquesOverTime(){
-//		uniqueSeries = new XYChart.Series();
+	
+	public void getUniquesOverTime(){
+		uniqueSeries = new XYChart.Series();
 //		uniqueXAxis.setAutoRanging(false);
 //		double lowerBound = (double)1420130859000L;
 //		double upperBound = (double)1421227547000L;
@@ -887,12 +772,12 @@ public class AdDashboard extends Application{
 //                return null;
 //            }
 //	    });
-//		
-//		uniqueGraph.getData().add(uniqueSeries);
-//	}
-//	
-//	public void getBouncesOverTime(){
-//		bounceSeries = new XYChart.Series();
+		
+		uniqueGraph.getData().add(uniqueSeries);
+	}
+	
+	public void getBouncesOverTime(){
+		bounceSeries = new XYChart.Series();
 //		bounceXAxis.setAutoRanging(false);
 //		double lowerBound = (double)1420130859000L;
 //		double upperBound = (double)1421227547000L;
@@ -923,9 +808,9 @@ public class AdDashboard extends Application{
 //                return null;
 //            }
 //	    });
-//		
-//		bounceGraph.getData().add(bounceSeries);
-//	}
+		
+		bounceGraph.getData().add(bounceSeries);
+	}
 	
 
 }

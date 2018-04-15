@@ -33,7 +33,7 @@
                            <children>
                               <LineChart fx:id="impressionGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="impressionXAxis"/>
+                                  <CategoryAxis fx:id="impressionXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="impressionYAxis"/>
@@ -103,7 +103,7 @@
                            <children>
                               <LineChart fx:id="clickGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="clickXAxis"/>
+                                   <CategoryAxis fx:id="clickXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="clickYAxis"/>
@@ -173,7 +173,7 @@
                            <children>
                               <LineChart fx:id="uniqueGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="uniqueXAxis"/>
+                                   <CategoryAxis fx:id="uniqueXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="uniqueYAxis"/>
@@ -243,7 +243,7 @@
                            <children>
                               <LineChart fx:id="bounceGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="bounceXAxis"/>
+                                   <CategoryAxis fx:id="bounceXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="bounceYAxis"/>
@@ -313,7 +313,7 @@
                            <children>
                               <LineChart fx:id="CPMGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
 								<xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="CPMXAxis"/>
+                                   <CategoryAxis fx:id="CPMXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPMYAxis"/>
@@ -383,7 +383,7 @@
                            <children>
                               <LineChart fx:id="totalCostGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="totalCostXAxis"/>
+                                   <CategoryAxis fx:id="totalCostXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="totalCostYAxis"/>
@@ -453,7 +453,7 @@
                            <children>
                               <LineChart fx:id="CTRGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="CTRXAxis"/>
+                                   <CategoryAxis fx:id="CTRXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CTRYAxis"/>
@@ -523,7 +523,7 @@
                            <children>
                               <LineChart fx:id="CPCGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="CPCXAxis"/>
+                                   <CategoryAxis fx:id="CPCXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPCYAxis"/>
@@ -593,7 +593,7 @@
                            <children>
                               <LineChart fx:id="CPAGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="CPAXAxis"/>
+                                   <CategoryAxis fx:id="CPAXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="CPAYAxis"/>
@@ -663,7 +663,7 @@
                            <children>
                               <LineChart fx:id="conversionsGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="conversionsXAxis"/>
+                                   <CategoryAxis fx:id="conversionsXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="conversionsYAxis"/>
@@ -733,7 +733,7 @@
                            <children>
                               <LineChart fx:id="bounceRateGraph" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <xAxis>
-                                  <NumberAxis side="BOTTOM" fx:id="bounceRateXAxis"/>
+                                   <CategoryAxis fx:id="bounceRateXAxis"/>
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis prefHeight="400.0" side="LEFT" fx:id="bounceRateYAxis"/>
