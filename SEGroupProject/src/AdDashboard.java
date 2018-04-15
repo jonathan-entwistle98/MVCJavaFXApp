@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
@@ -173,94 +174,94 @@ public class AdDashboard extends Application{
 	private StackedBarChart<?, ?> Histogram;
 
 	@FXML
-	private LineChart<Long, Integer> impressionGraph;
+	private LineChart<String, Integer> impressionGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> clickGraph;
+	private LineChart<String, Integer> clickGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> uniqueGraph;
+	private LineChart<String, Integer> uniqueGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> bounceGraph;
+	private LineChart<String, Integer> bounceGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> CPMGraph;
+	private LineChart<String, Integer> CPMGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> CPCGraph;
+	private LineChart<String, Integer> CPCGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> CPAGraph;
+	private LineChart<String, Integer> CPAGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> CTRGraph;
+	private LineChart<String, Integer> CTRGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> totalCostGraph;
+	private LineChart<String, Integer> totalCostGraph;
 	
 	@FXML
-	private LineChart<Long, Integer> conversionsGraph;
+	private LineChart<String, Integer> conversionsGraph;
 	
 	@FXML
 	private NumberAxis impressionYAxis;
 	
 	@FXML
-	private NumberAxis impressionXAxis;
+	private CategoryAxis impressionXAxis;
 	
 	@FXML
 	private NumberAxis clickYAxis;
 	
 	@FXML
-	private NumberAxis clickXAxis;
+	private CategoryAxis clickXAxis;
 	
 	@FXML
 	private NumberAxis uniqueYAxis;
 	
 	@FXML
-	private NumberAxis uniqueXAxis;
+	private CategoryAxis uniqueXAxis;
 	
 	@FXML
 	private NumberAxis bounceYAxis;
 	
 	@FXML
-	private NumberAxis bounceXAxis;
+	private CategoryAxis bounceXAxis;
 	
 	@FXML
 	private NumberAxis CPMYAxis;
 	
 	@FXML
-	private NumberAxis CPMXAxis;
+	private CategoryAxis CPMXAxis;
 	
 	@FXML
 	private NumberAxis CPCYAxis;
 	
 	@FXML
-	private NumberAxis CPCXAxis;
+	private CategoryAxis CPCXAxis;
 	
 	@FXML
 	private NumberAxis CPAYAxis;
 	
 	@FXML
-	private NumberAxis CPAXAxis;
+	private CategoryAxis CPAXAxis;
 	
 	@FXML
 	private NumberAxis CTRYAxis;
 	
 	@FXML
-	private NumberAxis CTRXAxis;
+	private CategoryAxis CTRXAxis;
 	
 	@FXML
 	private NumberAxis totalCostYAxis;
 	
 	@FXML
-	private NumberAxis totalCostXAxis;
+	private CategoryAxis totalCostXAxis;
 	
 	@FXML
 	private NumberAxis conversionsYAxis;
 	
 	@FXML
-	private NumberAxis conversionsXAxis;
+	private CategoryAxis conversionsXAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -299,25 +300,25 @@ public class AdDashboard extends Application{
 	
 	private OverviewItems overview;
 	
-	private Series<Long, Integer> impressionSeries;
+	private Series<String, Integer> impressionSeries;
 	
-	private Series<Long, Integer> clickSeries;
+	private Series<String, Integer> clickSeries;
 	
-	private Series<Long, Integer> uniqueSeries;
+	private Series<String, Integer> uniqueSeries;
 	
-	private Series<Long, Integer> bounceSeries;
+	private Series<String, Integer> bounceSeries;
 	
-	private Series<Long, Integer> CPMSeries;
+	private Series<String, Integer> CPMSeries;
 	
-	private Series<Long, Integer> CPCSeries;
+	private Series<String, Integer> CPCSeries;
 	
-	private Series<Long, Integer> CPASeries;
+	private Series<String, Integer> CPASeries;
 	
-	private Series<Long, Integer> CTRSeries;
+	private Series<String, Integer> CTRSeries;
 	
-	private Series<Long, Integer> totalCostSeries;
+	private Series<String, Integer> totalCostSeries;
 	
-	private Series<Long, Integer> conversionsSeries;
+	private Series<String, Integer> conversionsSeries;
 	
 	
 	public static void main(String[] args) {
@@ -604,27 +605,27 @@ public class AdDashboard extends Application{
 		// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 		impressionSeries = dm.getSeries(Metric.IMPRESSIONS);
 		
-		impressionXAxis.setAutoRanging(false);
-		double lowerBound = (double)1420130859000L;
-		double upperBound = (double)1421227547000L;
-		impressionXAxis.setLowerBound(lowerBound);
-		impressionXAxis.setUpperBound(upperBound);
-		impressionXAxis.setTickUnit(100000000);
+//		impressionXAxis.setAutoRanging(false);
+//		double lowerBound = (double)1420130859000L;
+//		double upperBound = (double)1421227547000L;
+//		impressionXAxis.setLowerBound(lowerBound);
+//		impressionXAxis.setUpperBound(upperBound);
+//		impressionXAxis.setTickUnit(100000000);
 		
-		impressionXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-	        @Override
-	        public String toString(Number number) {
-	        	Long l = number.longValue();
-	        	Date date = new Date(l);
-	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	        	String stringDate = formatter.format(date);
-	            return stringDate;
-	        }
-	        @Override
-	        public Number fromString(String string) {
-                return null;
-            }
-	    });
+//		impressionXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//	        @Override
+//	        public String toString(Number number) {
+//	        	Long l = number.longValue();
+//	        	Date date = new Date(l);
+//	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	        	String stringDate = formatter.format(date);
+//	            return stringDate;
+//	        }
+//	        @Override
+//	        public Number fromString(String string) {
+//                return null;
+//            }
+//	    });
 		
 		impressionGraph.getData().add(impressionSeries);
 	}
@@ -634,27 +635,27 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	clickSeries = dm.getSeries(Metric.CLICKS);
 	
-	clickXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	clickXAxis.setLowerBound(lowerBound);
-	clickXAxis.setUpperBound(upperBound);
-	clickXAxis.setTickUnit(100000000);
-	
-	clickXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	clickXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	clickXAxis.setLowerBound(lowerBound);
+//	clickXAxis.setUpperBound(upperBound);
+//	clickXAxis.setTickUnit(100000000);
+//	
+//	clickXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	clickGraph.getData().add(clickSeries);
 	
@@ -665,31 +666,31 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	CPMSeries = dm.getSeries(Metric.CPM);
 	
-	CPMXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	CPMXAxis.setLowerBound(lowerBound);
-	CPMXAxis.setUpperBound(upperBound);
-	CPMXAxis.setTickUnit(100000000);
-	
-	CPMYAxis.setAutoRanging(false);
-	CPMYAxis.setUpperBound(2.0);
-	CPMYAxis.setTickUnit(0.1);
-	
-	CPMXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	CPMXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	CPMXAxis.setLowerBound(lowerBound);
+//	CPMXAxis.setUpperBound(upperBound);
+//	CPMXAxis.setTickUnit(100000000);
+//	
+//	CPMYAxis.setAutoRanging(false);
+//	CPMYAxis.setUpperBound(2.0);
+//	CPMYAxis.setTickUnit(0.1);
+//	
+//	CPMXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	CPMGraph.getData().add(CPMSeries);
 	
@@ -700,27 +701,27 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	CPCSeries = dm.getSeries(Metric.CPC);
 	
-	CPCXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	CPCXAxis.setLowerBound(lowerBound);
-	CPCXAxis.setUpperBound(upperBound);
-	CPCXAxis.setTickUnit(100000000);
-	
-	CPCXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	CPCXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	CPCXAxis.setLowerBound(lowerBound);
+//	CPCXAxis.setUpperBound(upperBound);
+//	CPCXAxis.setTickUnit(100000000);
+//	
+//	CPCXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	CPCGraph.getData().add(CPCSeries);
 	
@@ -731,31 +732,31 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	CTRSeries = dm.getSeries(Metric.CTR);
 	
-	CTRXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	CTRXAxis.setLowerBound(lowerBound);
-	CTRXAxis.setUpperBound(upperBound);
-	CTRXAxis.setTickUnit(100000000);
-	
-	CTRYAxis.setAutoRanging(false);
-	CTRYAxis.setUpperBound(0.5);
-	CTRXAxis.setTickUnit(0.005);
-	
-	CTRXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	CTRXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	CTRXAxis.setLowerBound(lowerBound);
+//	CTRXAxis.setUpperBound(upperBound);
+//	CTRXAxis.setTickUnit(100000000);
+//	
+//	CTRYAxis.setAutoRanging(false);
+//	CTRYAxis.setUpperBound(0.5);
+//	CTRXAxis.setTickUnit(0.005);
+//	
+//	CTRXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	CTRGraph.getData().add(CTRSeries);
 	
@@ -766,27 +767,27 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	CPASeries = dm.getSeries(Metric.CPA);
 	
-	CPAXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	CPAXAxis.setLowerBound(lowerBound);
-	CPAXAxis.setUpperBound(upperBound);
-	CPAXAxis.setTickUnit(100000000);
-	
-	CPAXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	CPAXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	CPAXAxis.setLowerBound(lowerBound);
+//	CPAXAxis.setUpperBound(upperBound);
+//	CPAXAxis.setTickUnit(100000000);
+//	
+//	CPAXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	CPAGraph.getData().add(CPASeries);
 	
@@ -797,27 +798,27 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	conversionsSeries = dm.getSeries(Metric.CONVERSIONS);
 	
-	conversionsXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	conversionsXAxis.setLowerBound(lowerBound);
-	conversionsXAxis.setUpperBound(upperBound);
-	conversionsXAxis.setTickUnit(100000000);
-	
-	conversionsXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	conversionsXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	conversionsXAxis.setLowerBound(lowerBound);
+//	conversionsXAxis.setUpperBound(upperBound);
+//	conversionsXAxis.setTickUnit(100000000);
+//	
+//	conversionsXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	conversionsGraph.getData().add(conversionsSeries);
 	
@@ -828,27 +829,27 @@ public class AdDashboard extends Application{
 	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	totalCostSeries = dm.getSeries(Metric.TOTAL_COST);
 	
-	totalCostXAxis.setAutoRanging(false);
-	double lowerBound = (double)1420130859000L;
-	double upperBound = (double)1421227547000L;
-	totalCostXAxis.setLowerBound(lowerBound);
-	totalCostXAxis.setUpperBound(upperBound);
-	totalCostXAxis.setTickUnit(100000000);
-	
-	totalCostXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-        @Override
-        public String toString(Number number) {
-        	Long l = number.longValue();
-        	Date date = new Date(l);
-        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        	String stringDate = formatter.format(date);
-            return stringDate;
-        }
-        @Override
-        public Number fromString(String string) {
-            return null;
-        }
-    });
+//	totalCostXAxis.setAutoRanging(false);
+//	double lowerBound = (double)1420130859000L;
+//	double upperBound = (double)1421227547000L;
+//	totalCostXAxis.setLowerBound(lowerBound);
+//	totalCostXAxis.setUpperBound(upperBound);
+//	totalCostXAxis.setTickUnit(100000000);
+//	
+//	totalCostXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//        @Override
+//        public String toString(Number number) {
+//        	Long l = number.longValue();
+//        	Date date = new Date(l);
+//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        	String stringDate = formatter.format(date);
+//            return stringDate;
+//        }
+//        @Override
+//        public Number fromString(String string) {
+//            return null;
+//        }
+//    });
 	
 	totalCostGraph.getData().add(totalCostSeries);
 	
