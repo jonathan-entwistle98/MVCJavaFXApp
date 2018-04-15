@@ -1,3 +1,5 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -6,6 +8,7 @@ public class Calculator {
 	private MetricStorage metrics;
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
+	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private int range;
 	
 	public Calculator(MetricStorage metrics, 
@@ -16,12 +19,13 @@ public class Calculator {
 		this.clicks = clicks;
 	}
 	
-	public long[] calcDates(int range, Date date) {
-		long[] dates = new long[range];
+	public String[] calcDates(int range, Date date) {
+		String[] dates = new String[range];
 		long startTime = date.getTime();
 		for(int i = 0; i < range; i++) {
-			dates[i] = startTime + i * 3600000;
+			dates[i] = df.format((new Date(startTime + i * 3600000)));
 		}
+		System.out.println(dates[0]);
 		return dates;
 	}
 	

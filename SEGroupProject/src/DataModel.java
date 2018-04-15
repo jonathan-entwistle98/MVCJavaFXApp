@@ -1,9 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import javafx.scene.chart.XYChart;
 
@@ -12,7 +9,7 @@ public class DataModel {
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
 	private MetricStorage metrics;
-	private long[] dates;
+	private String[] dates;
 	private OverviewItems overview;
 	
 	private DBManager dbm;

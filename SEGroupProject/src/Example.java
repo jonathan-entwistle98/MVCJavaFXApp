@@ -44,7 +44,7 @@ public class Example {
 		// 	File file2 = click_log.CSV
 		//  File file3 = server_log.CSV
 		// Doing so will create a new campaign and allocate it an ID.
-		dm.exportCSVs(file1, file2, file3);
+//		dm.exportCSVs(file1, file2, file3);
 		
 		// Get IDs of all existing campaigns.
 		ArrayList<Integer> campaignIDs = dm.getCampaigns();
@@ -58,7 +58,7 @@ public class Example {
 		dm.fetchData(start, end);
 		
 		// Returns XYChart.Series for defined metric.
-//		XYChart.Series series = dm.getSeries(Metric.IMPRESSIONS);
+		XYChart.Series series = dm.getSeries(Metric.IMPRESSIONS);
 	}
 
 }
