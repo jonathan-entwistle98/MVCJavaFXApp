@@ -27,7 +27,7 @@
             <Button mnemonicParsing="false" onAction="#returnToOverviewClicked" prefHeight="41.0" prefWidth="136.0" text="Return to Overview" />
             <TabPane fx:id="metricsDetailsTabPane" maxHeight="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
               <tabs>
-                <Tab text="Impressions">
+                <Tab fx:id="impressionTab" text="Impressions">
                   <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -97,7 +97,7 @@
                         </HBox>
                   </content>
                 </Tab>
-                  <Tab text="Clicks">
+                  <Tab fx:id="clickTab" text="Clicks">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -167,7 +167,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="Uniques">
+                  <Tab fx:id="uniqueTab" text="Uniques">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -237,7 +237,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="Bounces">
+                  <Tab fx:id="bounceTab" text="Bounces">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -307,7 +307,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="CPM">
+                  <Tab fx:id="CPMTab" text="CPM">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -377,7 +377,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="Total Cost">
+                  <Tab fx:id="totalCostTab" text="Total Cost">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -447,7 +447,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="CTR">
+                  <Tab fx:id="CTRTab" text="CTR">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -517,7 +517,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="CPC">
+                  <Tab fx:id="CPCTab" text="CPC">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -587,7 +587,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="CPA">
+                  <Tab fx:id="CPATab" text="CPA">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -657,7 +657,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="Conversions">
+                  <Tab fx:id="conversionsTab" text="Conversions">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
@@ -727,7 +727,7 @@
                         </HBox>
                      </content>
                   </Tab>
-                  <Tab text="Bounce Rate">
+                  <Tab fx:id="bounceRateTab" text="Bounce Rate">
                      <content>
                         <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                            <children>
