@@ -109,4 +109,21 @@ public class DataModel {
 		return dbm.getCampaigns();
 	}
 	
+	/**
+	 * Changes bounce criteria to pages and sets max count.
+	 * 
+	 * @param n - max number of pages for bounce to be registered.
+	 */
+	public void bouncePages(int n) {
+		calc.bouncePages(n);
+	}
+	
+	/**
+	 * Changes bounce criteria to seconds and sets max count.
+	 * 
+	 * @param n - max number of seconds for bounce to be registered.
+	 */
+	public void bounceSeconds(int n) {
+		calc.bounceSeconds(n);
+	}
 }

@@ -2,9 +2,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 public class Calculator {
 
+	private enum BounceCrit{PAGES, SECONDS};
 	private MetricStorage metrics;
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
@@ -19,13 +21,23 @@ public class Calculator {
 		this.clicks = clicks;
 	}
 	
+	public void bouncePages(int n) {
+		calcBounces(BounceCrit.PAGES, n);
+		calcBounceRate();
+	}
+	
+	public void bounceSeconds(int n) {
+		calcBounces(BounceCrit.SECONDS, n);
+		calcBounceRate();
+	}
+	
+	
 	public String[] calcDates(int range, Date date) {
 		String[] dates = new String[range];
 		long startTime = date.getTime();
 		for(int i = 0; i < range; i++) {
 			dates[i] = df.format((new Date(startTime + i * 3600000)));
 		}
-		System.out.println(dates[0]);
 		return dates;
 	}
 	
@@ -34,7 +46,7 @@ public class Calculator {
 		calcImpressions();
 		calcClicks();
 		calcUniques();
-		calcBounces();
+//		calcBounces(BounceCrit.PAGES, 5);
 		calcConversions();
 		calcCosts();
 		calcTotalCost();
@@ -42,7 +54,7 @@ public class Calculator {
 		calcCPA();
 		calcCPC();
 		calcCPM();
-		calcBounceRate();
+//		calcBounceRate();
 	}
 	
 	private void calcImpressions() {
@@ -60,8 +72,40 @@ public class Calculator {
 		metrics.setClicks(arr);
 	}
 	private void calcUniques() { //TODO
+		int[] arr = new int[range];
+ 		ArrayList<HashSet> IDs = new ArrayList<HashSet>(range);
+ 		for(int i = 0; i < range; i++) {
+ 			IDs.add(new HashSet());
+ 		}
+		for(ClickEntry e : clicks) {
+			IDs.get((int)e.getDate()).add(e.getId());
+		}
+		
+		for(int i = 0; i < range; i++) {
+			arr[i] = IDs.get(i).size();
+		}
+		metrics.setUniques(arr);
 	}
-	private void calcBounces() { //TODO
+	private void calcBounces(BounceCrit crit, int n) {
+		int[] arr = new int[range];
+		switch (crit) {
+		case PAGES:
+			for(ClickEntry e : clicks) {
+				if (e.getPagesViewed() < n && !e.isConverted()) {
+					arr[(int)e.getDate()]++;
+				}
+			}
+			metrics.setBounces(arr);
+			break;
+		case SECONDS:
+			for(ClickEntry e : clicks) {
+				if (e.getSecondsViewed() < n && !e.isConverted()) {
+					arr[(int)e.getDate()]++;
+				}
+			}
+			metrics.setBounces(arr);
+			break;
+		}
 	}
 	private void calcConversions() {
 		int[] arr = new int[range];
@@ -138,7 +182,15 @@ public class Calculator {
 		}
 		metrics.setCpm(arr);
 	}
-	private void calcBounceRate() {//TODO
+	private void calcBounceRate() {
+		float[] arr = new float[range];
+		int[] bounces = metrics.getBounces();
+		int[] clicks = metrics.getClicks();
+	
+		for(int i = 0; i < range; i++) {
+			arr[i] = bounces[i] / (float) clicks[i];
+		}
+		metrics.setBounceRate(arr);
 	}
 	
 }
