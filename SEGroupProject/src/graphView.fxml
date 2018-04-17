@@ -44,7 +44,7 @@
                               </ImageView>
                            </graphic></MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Save as image">
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsImageClicked" text="Save as image">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -52,15 +52,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="View gallery">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../bin/gallery.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" text="Print ">
+                        <MenuItem mnemonicParsing="false" onAction="#printClicked" text="Print ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -68,8 +60,6 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Settings">
@@ -285,9 +275,9 @@
                               </LineChart>
                            </content>
                         </Tab>
-                        <Tab text="CPC - Histogram">
+                        <Tab fx:id="CPCHistogramTab" text="CPC - Histogram">
                            <content>
-                              <BarChart>
+                              <BarChart fx:id="CPCHistogram">
                                 <xAxis>
                                   <CategoryAxis fx:id="CPCHistogramXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -446,7 +436,4 @@
          </children>
       </StackPane>
    </center>
-   <bottom>
-      <ToolBar prefHeight="159.0" prefWidth="1268.0" BorderPane.alignment="CENTER" />
-   </bottom>
 </BorderPane>

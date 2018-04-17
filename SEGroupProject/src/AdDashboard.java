@@ -5,17 +5,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+
 //import com.gluonhq.charm.glisten.control.TextField;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -35,6 +41,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -178,6 +185,9 @@ public class AdDashboard extends Application{
 	private LineChart<String, Integer> conversionsGraph;
 	
 	@FXML
+	private BarChart<String, Integer> CPCHistogram;
+	
+	@FXML
 	private NumberAxis impressionYAxis;
 	
 	@FXML
@@ -242,6 +252,12 @@ public class AdDashboard extends Application{
 	
 	@FXML
 	private CategoryAxis conversionsXAxis;
+	
+	@FXML
+	private NumberAxis CPCHistogramYAxis;
+	
+	@FXML
+	private CategoryAxis CPCHistogramXAxis;
 
 	@FXML
 	private TitledPane SettingsPane;
@@ -293,6 +309,9 @@ public class AdDashboard extends Application{
 	
 	@FXML
 	private Tab bounceRateTab;
+	
+	@FXML
+	private Tab CPCHistogramTab;
 	
 	@FXML
 	private MenuItem loadCampaign;
@@ -365,99 +384,6 @@ public class AdDashboard extends Application{
 		primaryStage.show();
 		this.stage = primaryStage;
 	//	File file = new File("graphLogo.jpg");
-		
-		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(impressionTab.isSelected()) {
-            		getImpressionsOverTime();
-            	}
-            }
-        });
-		clickTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(clickTab.isSelected()) {
-            		getClicksOverTime();
-            	}
-            }
-        });
-		uniqueTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(uniqueTab.isSelected()) {
-            		getUniquesOverTime();
-            	}
-            }
-        });
-		bounceTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceTab.isSelected()) {
-            		getBouncesOverTime();
-            	}
-            }
-        });
-		CPMTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPMTab.isSelected()) {
-            		getCPMsOverTime();
-            	}
-            }
-        });
-		totalCostTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(totalCostTab.isSelected()) {
-            		getTotalCostOverTime();
-            	}
-            }
-        });
-		CTRTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CTRTab.isSelected()) {
-            		getCTRsOverTime();
-            	}
-            }
-        });
-		CPCTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPCTab.isSelected()) {
-            		getCPCsOverTime();
-            		System.out.println("clickClicked?");
-            	}
-            }
-        });
-		CPATab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPATab.isSelected()) {
-            		getCPAsOverTime();
-            		System.out.println("clickClicked?");
-            	}
-            }
-        });
-		conversionsTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(conversionsTab.isSelected()) {
-            		getConversionsOverTime();
-            		System.out.println("clickClicked?");
-            	}
-            }
-        });
-		bounceRateTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceRateTab.isSelected()) {
-            		getBounceRatesOverTime();
-            		System.out.println("clickClicked?");
-            	}
-            }
-        });
 				
 	}
 	
@@ -480,17 +406,17 @@ public class AdDashboard extends Application{
 		bounces.wrapTextProperty().setValue(true);
 		bounceRate.wrapTextProperty().setValue(true);
 		
-		clicks.setText("Clicks \n" + overview.getClicks());
-		impressions.setText("Impressions \n" + overview.getImpressions());
-		uniques.setText("Unique Clicks \n" + overview.getUniques());
-		conversions.setText("Conversions \n" + overview.getConversions());
-		totalCost.setText("Total Cost \n" + round(overview.getTotalCost(),4));
-		ctr.setText("CTR \n" + round(overview.getCTR(),4));
-		cpa.setText("CPA \n" + round(overview.getCPA(),4));
-		cpc.setText("CPC \n" + round(overview.getCPC(),4));
-		cpm.setText("CPM \n" + round(overview.getCPM(),4));
-		bounces.setText("Bounces \n" + overview.getBounces());
-		bounceRate.setText("Bounce Rate \n" + round(overview.getBounceRate(),4));
+		clicks.setText("" + overview.getClicks());
+		impressions.setText("" + overview.getImpressions());
+		uniques.setText("" + overview.getUniques());
+		conversions.setText("" + overview.getConversions());
+		totalCost.setText("" + round(overview.getTotalCost(),4));
+		ctr.setText("" + round(overview.getCTR(),4));
+		cpa.setText("" + round(overview.getCPA(),4));
+		cpc.setText("" + round(overview.getCPC(),4));
+		cpm.setText("" + round(overview.getCPM(),4));
+		bounces.setText("" + overview.getBounces());
+		bounceRate.setText("" + round(overview.getBounceRate(),4));
 		
 //		if(overview.getBounceRate()==0 || overview.getBounces()==0 || overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0 || overview.getCTR()==0){
 //			divideByZeroError();
@@ -517,6 +443,50 @@ public class AdDashboard extends Application{
 	
 	public void viewAnalyticsClicked(){
 		
+		String dateFormat = "yyyy-MM-dd HH:mm:ss";
+		Date start = null;
+		Date end = null;
+		try {
+			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
+			end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dm = new DataModel();
+		dm.init();
+		
+		// Export campaign to the database by providing the following:
+		// 	File file1 = impression_log.CSV
+		// 	File file2 = click_log.CSV
+		//  File file3 = server_log.CSV
+		// Doing so will create a new campaign and allocate it an ID.
+		dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile);
+		
+		// Get IDs of all existing campaigns.
+		ArrayList<Integer> campaignIDs = dm.getCampaigns();
+		
+		// Select campaign by its ID from the database.
+		// This selects campaign for loading and returns overview metrics.
+		overview = dm.selectCampaign(1);
+		
+		// Gets data with set date range and stores it in DataModel.
+		// Must pass two Date objects (start and end) as parameters.
+		dm.fetchData(start, end);
+		
+		if(clickLogTextField.getText().equals("")
+			|| impressionLogTextField.getText().equals("")
+			|| serverLogTextField.getText().equals("")){
+		
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Blank Field");
+			alert.setHeaderText("Error, please select all files.");
+			alert.setContentText("Some fields are left blank.");
+			
+			alert.showAndWait();
+		}
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
 		
 		loader.setController(this);
@@ -531,6 +501,8 @@ public class AdDashboard extends Application{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		getTotalCostOverTime();
 		
 		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
             @Override
@@ -593,7 +565,6 @@ public class AdDashboard extends Application{
             public void handle(Event t) {
             	if(CPCTab.isSelected()) {
             		getCPCsOverTime();
-            		System.out.println("clickClicked?");
             	}
             }
         });
@@ -602,7 +573,6 @@ public class AdDashboard extends Application{
             public void handle(Event t) {
             	if(CPATab.isSelected()) {
             		getCPAsOverTime();
-            		System.out.println("clickClicked?");
             	}
             }
         });
@@ -611,7 +581,6 @@ public class AdDashboard extends Application{
             public void handle(Event t) {
             	if(conversionsTab.isSelected()) {
             		getConversionsOverTime();
-            		System.out.println("clickClicked?");
             	}
             }
         });
@@ -620,267 +589,19 @@ public class AdDashboard extends Application{
             public void handle(Event t) {
             	if(bounceRateTab.isSelected()) {
             		getBounceRatesOverTime();
-            		System.out.println("clickClicked?");
+            	}
+            }
+        });
+		CPCHistogramTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CPCHistogramTab.isSelected()) {
+            		getCPCHistogramsOverTime();
             	}
             }
         });
 		
-	//	double initialTime = System.currentTimeMillis();
-		
-		// New DataModel Set-Up
-//				File file1 = new File("impression_log.csv");
-//				File file2 = new File("click_log.csv");
-//				File file3 = new File("server_log.csv");
-				
-				String dateFormat = "yyyy-MM-dd HH:mm:ss";
-				Date start = null;
-				Date end = null;
-				try {
-					start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
-					end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				dm = new DataModel();
-				dm.init();
-				
-				// Export campaign to the database by providing the following:
-				// 	File file1 = impression_log.CSV
-				// 	File file2 = click_log.CSV
-				//  File file3 = server_log.CSV
-				// Doing so will create a new campaign and allocate it an ID.
-				dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile);
-				
-				// Get IDs of all existing campaigns.
-				ArrayList<Integer> campaignIDs = dm.getCampaigns();
-				
-				// Select campaign by its ID from the database.
-				// This selects campaign for loading and returns overview metrics.
-				overview = dm.selectCampaign(1);
-				
-				// Gets data with set date range and stores it in DataModel.
-				// Must pass two Date objects (start and end) as parameters.
-				dm.fetchData(start, end);
-		
-		if(clickLogTextField.getText().equals("")
-			|| impressionLogTextField.getText().equals("")
-			|| serverLogTextField.getText().equals("")){
-
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Blank Field");
-			alert.setHeaderText("Error, please select all files.");
-			alert.setContentText("Some fields are left blank.");
-			
-			alert.showAndWait();
-		}
-		
-		//model.loadCSVs(impressionLogFile, clickLogFile, serverLogFile);
-		
-		FXMLLoader loader2 = new FXMLLoader(getClass().getResource("mainView.fxml"));
-		loader2.setController(this);
-
-	//	double finalTime = System.currentTimeMillis();
-		
-		
-		Parent root2;
-		try {
-			root2 = loader2.load();
-			Scene scene = new Scene(root2, 1000, 600);
-			scene.getStylesheets().add("style.css");
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		updateOverview();	
-	}
-	
-	public void loadDetailedView() {
-		FXMLLoader loader3 = new FXMLLoader(getClass().getResource("detailedView.fxml"));
-		loader3.setController(this);
-		
-		Parent root3;
-		try {
-			root3 = loader3.load();
-			Scene scene = new Scene(root3, 1000, 600);
-			scene.getStylesheets().add("style.css");
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		 
-//		// starts here
-//		metricsDetailsTabPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() { 
-//
-//			@Override
-//			public void changed(ObservableValue<? extends Tab> arg0, Tab impressionTab, Tab clickTab) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
-		
-//		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(impressionTab.isSelected()) {
-//            		getImpressionsOverTime();
-//            	}
-//            }
-//        });
-//		clickTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(clickTab.isSelected()) {
-//            		getClicksOverTime();
-//            	}
-//            }
-//        });
-//		uniqueTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(uniqueTab.isSelected()) {
-//            		getUniquesOverTime();
-//            	}
-//            }
-//        });
-//		bounceTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(bounceTab.isSelected()) {
-//            		getBouncesOverTime();
-//            	}
-//            }
-//        });
-//		CPMTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(CPMTab.isSelected()) {
-//            		getCPMsOverTime();
-//            	}
-//            }
-//        });
-//		totalCostTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(totalCostTab.isSelected()) {
-//            		getTotalCostOverTime();
-//            	}
-//            }
-//        });
-//		CTRTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(CTRTab.isSelected()) {
-//            		getCTRsOverTime();
-//            	}
-//            }
-//        });
-//		CPCTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(CPCTab.isSelected()) {
-//            		getCPCsOverTime();
-//            		System.out.println("clickClicked?");
-//            	}
-//            }
-//        });
-//		CPATab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(CPATab.isSelected()) {
-//            		getCPAsOverTime();
-//            		System.out.println("clickClicked?");
-//            	}
-//            }
-//        });
-//		conversionsTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(conversionsTab.isSelected()) {
-//            		getConversionsOverTime();
-//            		System.out.println("clickClicked?");
-//            	}
-//            }
-//        });
-//		bounceRateTab.setOnSelectionChanged(new EventHandler<Event>() {
-//            @Override
-//            public void handle(Event t) {
-//            	if(bounceRateTab.isSelected()) {
-//            		getBounceRatesOverTime();
-//            		System.out.println("clickClicked?");
-//            	}
-//            }
-//        });
-		
-	}
-	
-	public void impressionsDetailClicked(){
-			loadDetailedView();
-			getImpressionsOverTime();
-	}
-	
-	public void clicksDetailClicked(){
-		loadDetailedView();
-		getClicksOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(1);	
-	}
-	
-	public void uniquesDetailClicked(){
-		loadDetailedView();
-		getUniquesOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(2);	
-	}
-	
-	public void bouncesDetailClicked(){
-		loadDetailedView();
-		getBouncesOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(3);	
-	}
-	
-	public void cpmDetailClicked(){
-		loadDetailedView();
-		getCPMsOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(4);	
-	}
-	
-	public void totalCostDetailClicked(){
-		loadDetailedView();
-		getTotalCostOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(5);	
-	}
-	
-	public void ctrDetailClicked(){
-		loadDetailedView();
-		getCTRsOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(6);	
-	}
-	
-	public void cpcDetailClicked(){
-		loadDetailedView();
-		getCPCsOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(7);	
-	}
-	
-	public void cpaDetailClicked(){
-		loadDetailedView();
-		getCPAsOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(8);	
-	}
-	
-	public void conversionsDetailClicked(){
-		loadDetailedView();
-		getConversionsOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(9);	
-	}
-	
-	public void bounceRateDetailClicked(){
-		loadDetailedView();
-		getBounceRatesOverTime();
-		metricsDetailsTabPane.getSelectionModel().select(10);	
 	}
 	
 	public void impressionLogFilePickerClicked(){
@@ -965,30 +686,40 @@ public class AdDashboard extends Application{
 	clickYAxis.setLabel("Clicks");
 	clickXAxis.setLabel("Time (Date)");
 	
-//	clickXAxis.setAutoRanging(false);
-//	double lowerBound = (double)1420130859000L;
-//	double upperBound = (double)1421227547000L;
-//	clickXAxis.setLowerBound(lowerBound);
-//	clickXAxis.setUpperBound(upperBound);
-//	clickXAxis.setTickUnit(100000000);
-//	
-//	clickXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//        @Override
-//        public String toString(Number number) {
-//        	Long l = number.longValue();
-//        	Date date = new Date(l);
-//        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        	String stringDate = formatter.format(date);
-//            return stringDate;
-//        }
-//        @Override
-//        public Number fromString(String string) {
-//            return null;
-//        }
-//    });
-	
 	clickGraph.getData().add(clickSeries);
+	System.out.println("Kappa");
+	}
 	
+	public void printClicked() {
+		Scene currentScene = stage.getScene();
+		WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
+		WritableImage snap = currentScene.snapshot(img); 
+		ImageView printNode = new ImageView(snap);
+		printNode.setFitWidth(500);
+		printNode.setFitHeight(500);
+		PrinterJob job = PrinterJob.createPrinterJob();
+		if(job != null){
+			job.showPrintDialog(stage); 
+			job.printPage(printNode);
+			job.endJob();
+		}
+	}
+	
+	public void saveAsImageClicked() {
+		
+			Scene currentScene = stage.getScene();
+			WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
+			currentScene.snapshot(img);   
+			FileChooser saveDialog = new FileChooser();
+			saveDialog.setTitle("Save image");
+			File file = saveDialog.showSaveDialog(stage);
+			
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 	}
 	
 	public void getCPMsOverTime(){
@@ -1068,37 +799,6 @@ public class AdDashboard extends Application{
 		uniqueYAxis.setLabel("Uniques");
 		uniqueXAxis.setLabel("Time (Date)");
 		
-//		uniqueXAxis.setAutoRanging(false);
-//		double lowerBound = (double)1420130859000L;
-//		double upperBound = (double)1421227547000L;
-//		uniqueXAxis.setLowerBound(lowerBound);
-//		uniqueXAxis.setUpperBound(upperBound);
-//		uniqueXAxis.setTickUnit(100000000);
-//		
-//		ArrayList<ArrayList<Object>> uniquesOverTime = items.getClicksOverTime();
-//		for(ArrayList<Object> uniqueOverTime : uniquesOverTime){
-//			for(int i=0; i<uniqueOverTime.size(); i++){
-//				Date d = (Date) uniqueOverTime.get(0);
-//				Long longDate = d.getTime();
-//				uniqueSeries.getData().add(new XYChart.Data(longDate, uniqueOverTime.get(1)));
-//			}
-//		}
-//		
-//		uniqueXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//	        @Override
-//	        public String toString(Number number) {
-//	        	Long l = number.longValue();
-//	        	Date date = new Date(l);
-//	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	        	String stringDate = formatter.format(date);
-//	            return stringDate;
-//	        }
-//	        @Override
-//	        public Number fromString(String string) {
-//                return null;
-//            }
-//	    });
-		
 		uniqueGraph.getData().add(uniqueSeries);
 	}
 	
@@ -1107,37 +807,6 @@ public class AdDashboard extends Application{
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
-		
-//		bounceXAxis.setAutoRanging(false);
-//		double lowerBound = (double)1420130859000L;
-//		double upperBound = (double)1421227547000L;
-//		bounceXAxis.setLowerBound(lowerBound);
-//		bounceXAxis.setUpperBound(upperBound);
-//		bounceXAxis.setTickUnit(100000000);
-//		
-//		ArrayList<ArrayList<Object>> bouncesOverTime = items.getClicksOverTime();
-//		for(ArrayList<Object> bounceOverTime : bouncesOverTime){
-//			for(int i=0; i<bounceOverTime.size(); i++){
-//				Date d = (Date) bounceOverTime.get(0);
-//				Long longDate = d.getTime();
-//				bounceSeries.getData().add(new XYChart.Data(longDate, bounceOverTime.get(1)));
-//			}
-//		}
-//		
-//		bounceXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//	        @Override
-//	        public String toString(Number number) {
-//	        	Long l = number.longValue();
-//	        	Date date = new Date(l);
-//	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	        	String stringDate = formatter.format(date);
-//	            return stringDate;
-//	        }
-//	        @Override
-//	        public Number fromString(String string) {
-//                return null;
-//            }
-//	    });
 		
 		bounceGraph.getData().add(bounceSeries);
 	}
@@ -1148,38 +817,18 @@ public class AdDashboard extends Application{
 		bounceRateYAxis.setLabel("Bounce Rate");
 		bounceRateXAxis.setLabel("Time (Date)");
 		
-//		bounceRateXAxis.setAutoRanging(false);
-//		double lowerBound = (double)1420130859000L;
-//		double upperBound = (double)1421227547000L;
-//		bounceRateXAxis.setLowerBound(lowerBound);
-//		bounceRateXAxis.setUpperBound(upperBound);
-//		bounceRateXAxis.setTickUnit(100000000);
-//		
-//		ArrayList<ArrayList<Object>> bounceRatesOverTime = items.getClicksOverTime();
-//		for(ArrayList<Object> bounceRateOverTime : bounceRatesOverTime){
-//			for(int i=0; i<bounceRateOverTime.size(); i++){
-//				Date d = (Date) bounceRateOverTime.get(0);
-//				Long longDate = d.getTime();
-//				bounceRateSeries.getData().add(new XYChart.Data(longDate, bounceRateOverTime.get(1)));
-//			}
-//		}
-//		
-//		bounceRateXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-//	        @Override
-//	        public String toString(Number number) {
-//	        	Long l = number.longValue();
-//	        	Date date = new Date(l);
-//	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	        	String stringDate = formatter.format(date);
-//	            return stringDate;
-//	        }
-//	        @Override
-//	        public Number fromString(String string) {
-//                return null;
-//            }
-//	    });
-		
 		bounceRateGraph.getData().add(bounceRateSeries);
+	}
+	
+	public void getCPCHistogramsOverTime(){
+		
+		CPCSeries = dm.getSeries(Metric.CPC);
+		CPCHistogram.setLegendVisible(false);
+		CPCHistogramYAxis.setLabel("CPC");
+		CPCHistogramXAxis.setLabel("Time (Date)");
+		
+		CPCHistogram.getData().add(CPCSeries);
+	
 	}
 	
 
