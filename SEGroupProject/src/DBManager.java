@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileReader;
+import java.io.LineNumberReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -160,13 +162,17 @@ public class DBManager {
 	 * @param servers
 	 * @return
 	 */
-	public void exportData(File impressions, File clicks, File servers) {
+	public void exportData(File impressions, File clicks, File servers, double[] progress) {
 		
 		getRowID();
 		
+		// Set filesize for progress bar.
+		double totalLength = (double)impressions.length() + (double)clicks.length();
+		progress[1] = (75000 / (double)impressions.length()) * ((double)impressions.length() / totalLength);
+		progress[2] = (51000 / (double)clicks.length()) * ((double)clicks.length() / totalLength);
 		// Parses CSV and updates database.
-		exportImpression(impressions);
-		exportRichClick(clicks, servers);
+		exportImpression(impressions, progress);
+		exportRichClick(clicks, servers, progress);
 		
 		//fetchAllData()
 		
@@ -176,7 +182,7 @@ public class DBManager {
 		
 	}
 		
-	private void exportImpression(File impressionFile) {
+	private void exportImpression(File impressionFile, double[] progress) {
 
 		// Create SQL statement
 		String SQL = "INSERT INTO IMPRESSION_LOG (CAMPAIGN, R_DATE, ID, GENDER, "
@@ -192,7 +198,8 @@ public class DBManager {
 			
 			CsvParser parser = parseCSV(impressionFile);
 			
-			int counter = 0;
+			int counter1 = 0;
+			int counter2 = 0;
 			boolean dateSet = false;
 			
 			String[] row;
@@ -214,18 +221,24 @@ public class DBManager {
 //				// Add it to the batch
 				pstmt.addBatch();
 				
-				counter++;
-				if(counter >= 100000) {
+				counter1++;
+				if(counter1 >= 100000) {
 					pstmt.executeBatch();
-					counter = 0;
+					counter1 = 0;
+				}
+				
+				counter2++;
+				if(counter2 >= 1000) {
+					pstmt.executeBatch();
+					counter2 = 0;
+					progress[0] += progress[1];
+					System.out.println(progress[0]);
 				}
 			}
-
 			pstmt.executeBatch();
 
 			//Explicitly commit statements to apply changes
 			conn.commit();
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -233,7 +246,7 @@ public class DBManager {
       
 	}
 	
-	private void exportRichClick(File clickFile, File serverFile) {
+	private void exportRichClick(File clickFile, File serverFile, double[] progress) {
 		
 		// Create SQL statement
 		String SQL = "INSERT INTO CLICK_LOG (CAMPAIGN, R_DATE, ID, CLICK_COST, ENTRY_DATE, EXIT_DATE,\n"
@@ -249,7 +262,9 @@ public class DBManager {
 			CsvParser clickParser = parseCSV(clickFile);
 			CsvParser serverParser = parseCSV(serverFile);
 			
-			int counter = 0;
+			int counter1 = 0;
+			int counter2 = 0;
+			
 			String[] cRow;
 			String[] sRow;
 			while ((cRow = clickParser.parseNext()) != null) {
@@ -269,11 +284,20 @@ public class DBManager {
 						// Add it to the batch
 						pstmt.addBatch();
 						
-						counter++;
-						if(counter >= 250000) {
+						counter1++;
+						if(counter1 >= 100000) {
 							pstmt.executeBatch();
-							counter = 0;
+							counter1 = 0;
 						}
+						
+						counter2++;
+						if(counter2 >= 1000) {
+							pstmt.executeBatch();
+							counter2 = 0;
+							progress[0] += progress[2];
+							System.out.println(progress[0]);
+						}
+						
 					} else {
 						System.err.println("Click and server log row mismatch. (User IDs differ on same rows) " + cRow[1] + " and " + sRow[1]);
 					}

@@ -58,7 +58,7 @@ public class Example {
 		dm.fetchData(start, end);
 		
 		// Returns XYChart.Series for defined metric.
-		XYChart.Series series = dm.getSeries(Metric.IMPRESSIONS);
+//		XYChart.Series series = dm.getSeries(Metric.IMPRESSIONS);
 		
 	}
 

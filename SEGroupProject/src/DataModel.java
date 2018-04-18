@@ -25,7 +25,8 @@ public class DataModel {
 	}
 	
 	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV) {
-		dbm.exportData(impressionCSV, clickCSV, serverCSV);
+		double[] progress = new double[3];
+		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress);
 	}
 	
 	public OverviewItems selectCampaign(int ID) {
