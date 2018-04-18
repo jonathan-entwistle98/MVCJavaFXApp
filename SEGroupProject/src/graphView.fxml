@@ -7,6 +7,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -27,15 +28,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="854.0" prefWidth="1268.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="854.0" prefWidth="1268.0" stylesheets="style.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <VBox prefHeight="75.0" prefWidth="969.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuBar>
+            <MenuBar id="menu">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu id="menuItem" mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem fx:id="loadCampaign" mnemonicParsing="false" onAction="#loadCampaignClicked" text="Load campaign">
+                    <MenuItem id="menuItem" fx:id="loadCampaign" mnemonicParsing="false" onAction="#loadCampaignClicked" text="Load campaign">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -44,7 +45,7 @@
                               </ImageView>
                            </graphic></MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveAsImageClicked" text="Save as image">
+                        <MenuItem id="menuItem" mnemonicParsing="false" onAction="#saveAsImageClicked" text="Save as image">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -52,7 +53,7 @@
                                  </image>
                               </ImageView>
                            </graphic></MenuItem>
-                        <MenuItem mnemonicParsing="false" onAction="#printClicked" text="Print ">
+                        <MenuItem id="menuItem" mnemonicParsing="false" onAction="#printClicked" text="Print ">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -62,9 +63,9 @@
                            </graphic></MenuItem>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Settings">
+                <Menu id="menuItem" mnemonicParsing="false" text="Settings">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Appearance">
+                    <MenuItem id="menuItem" mnemonicParsing="false" text="Appearance">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -74,9 +75,9 @@
                            </graphic></MenuItem>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu id="menuItem" mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Terminology">
+                    <MenuItem id="menuItem" mnemonicParsing="false" text="Terminology">
                            <graphic>
                               <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -85,26 +86,27 @@
                               </ImageView>
                            </graphic></MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem id="menuItem" mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <ToolBar prefHeight="136.0" prefWidth="1268.0">
+            <ToolBar id="menu" prefHeight="136.0" prefWidth="1268.0">
                <items>
-                  <Label prefHeight="21.0" prefWidth="43.0" text="From:" />
+                  <Label id="menuLabel" prefHeight="21.0" prefWidth="43.0" text="From:" />
                   <DatePicker fx:id="fromDatePicker" prefHeight="31.0" prefWidth="130.0" />
-                  <Label text="To:" />
+                  <Label id="menuLabel" text="To:" />
                   <DatePicker fx:id="toDatePicker" layoutX="87.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" />
-                  <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="76.0">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="20.0" mnemonicParsing="false" onAction="#datePickerButtonClicked" prefHeight="35.0" prefWidth="59.0" style="-fx-min-width: 60;" text="✓" textAlignment="CENTER" />
+                  <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="77.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                      <padding>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets left="20.0" right="20.0" />
                      </padding>
                   </Separator>
-                  <Label text="Bounce Definition:">
+                  <Label id="menuLabel" text="Bounce Definition:">
                      <padding>
                         <Insets right="30.0" />
                      </padding>
@@ -117,10 +119,10 @@
                         <Insets />
                      </opaqueInsets>
                      <padding>
-                        <Insets left="50.0" right="50.0" />
+                        <Insets left="20.0" right="20.0" />
                      </padding>
                   </Separator>
-                  <Label text="Time unit:" />
+                  <Label id="menuLabel" text="Time unit:" />
                   <ChoiceBox prefWidth="130.0" />
                </items>
             </ToolBar>
@@ -145,7 +147,7 @@
                     <tabs>
                       <Tab fx:id="totalCostTab" text="Total Cost">
                            <content>
-                              <LineChart fx:id="totalCostGraph" prefHeight="0.0" prefWidth="1268.0">
+                              <LineChart id="graphbg" fx:id="totalCostGraph" prefHeight="0.0" prefWidth="1268.0">
                                 <xAxis>
                                   <CategoryAxis fx:id="totalCostXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -157,7 +159,7 @@
                       </Tab>
                       <Tab fx:id="impressionTab" text="Impressions">
                            <content>
-                              <LineChart fx:id="impressionGraph">
+                              <LineChart id="graphbg" fx:id="impressionGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="impressionXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -169,7 +171,7 @@
                       </Tab>
                         <Tab fx:id="clickTab" text="Clicks">
                            <content>
-                              <LineChart fx:id="clickGraph">
+                              <LineChart id="graphbg" fx:id="clickGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="clickXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -181,7 +183,7 @@
                         </Tab>
                         <Tab fx:id="uniqueTab" text="Uniques">
                            <content>
-                              <LineChart fx:id="uniqueGraph">
+                              <LineChart id="graphbg" fx:id="uniqueGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="uniqueXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -193,7 +195,7 @@
                         </Tab>
                         <Tab fx:id="conversionsTab" text="Conversions">
                            <content>
-                              <LineChart fx:id="conversionsGraph">
+                              <LineChart id="graphbg" fx:id="conversionsGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="conversionsXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -205,7 +207,7 @@
                         </Tab>
                         <Tab fx:id="bounceTab" text="Bounces">
                            <content>
-                              <LineChart fx:id="bounceGraph">
+                              <LineChart id="graphbg" fx:id="bounceGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="bounceXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -217,7 +219,7 @@
                         </Tab>
                         <Tab fx:id="bounceRateTab" text="Bounce Rate">
                            <content>
-                              <LineChart fx:id="bounceRateGraph">
+                              <LineChart id="graphbg" fx:id="bounceRateGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="bounceRateXAxis" prefWidth="1207.0" side="BOTTOM" />
                                 </xAxis>
@@ -229,7 +231,7 @@
                         </Tab>
                         <Tab fx:id="CPMTab" text="CPM">
                            <content>
-                              <LineChart fx:id="CPMGraph">
+                              <LineChart id="graphbg" fx:id="CPMGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="CPMXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -241,7 +243,7 @@
                         </Tab>
                         <Tab fx:id="CTRTab" text="CTR">
                            <content>
-                              <LineChart fx:id="CTRGraph">
+                              <LineChart id="graphbg" fx:id="CTRGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="CTRXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -253,7 +255,7 @@
                         </Tab>
                         <Tab fx:id="CPATab" text="CPA">
                            <content>
-                              <LineChart fx:id="CPAGraph">
+                              <LineChart id="graphbg" fx:id="CPAGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="CPAXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -265,7 +267,7 @@
                         </Tab>
                         <Tab fx:id="CPCTab" text="CPC">
                            <content>
-                              <LineChart fx:id="CPCGraph">
+                              <LineChart id="graphbg" fx:id="CPCGraph">
                                 <xAxis>
                                   <CategoryAxis fx:id="CPCXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -277,7 +279,7 @@
                         </Tab>
                         <Tab fx:id="CPCHistogramTab" text="CPC - Histogram">
                            <content>
-                              <BarChart fx:id="CPCHistogram">
+                              <BarChart id="graphbg" fx:id="CPCHistogram">
                                 <xAxis>
                                   <CategoryAxis fx:id="CPCHistogramXAxis" side="BOTTOM" />
                                 </xAxis>
@@ -295,14 +297,14 @@
               <panes>
                 <TitledPane alignment="CENTER" animated="false" contentDisplay="CENTER" prefHeight="688.0" prefWidth="1268.0" text="Overview" textAlignment="CENTER">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox id="overview" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+                              <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <VBox alignment="CENTER">
+                                    <VBox id="overviewvbox" alignment="CENTER" prefHeight="100.0" prefWidth="483.0">
                                        <children>
-                                          <Label alignment="TOP_CENTER" text="Total Cost" />
-                                          <Label fx:id="totalCost" text="Label" />
+                                          <Label id="overviewtitlelabel" alignment="TOP_CENTER" text="Total Cost" />
+                                          <Label id="overviewmetric" fx:id="totalCost" text="Label" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -312,53 +314,53 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: white;">
+                                    <VBox id="overviewvbox2" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="500.0">
                                        <children>
-                                          <Label text="Individual metrics">
+                                          <Label id="overviewtitlelabel" text="Individual metrics">
                                              <VBox.margin>
                                                 <Insets bottom="30.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <VBox alignment="CENTER" prefHeight="42.0" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefHeight="43.0" prefWidth="411.0">
                                              <children>
-                                                <Label text="Impressions" />
-                                                <Label fx:id="impressions" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Impressions" />
+                                                <Label id="overviewmetric" fx:id="impressions" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="42.0" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefHeight="42.0" prefWidth="450.0">
                                              <children>
-                                                <Label text="Clicks" />
-                                                <Label fx:id="clicks" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Clicks" />
+                                                <Label id="overviewmetric" fx:id="clicks" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="42.0" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefHeight="42.0" prefWidth="450.0">
                                              <children>
-                                                <Label text="Uniques" />
-                                                <Label fx:id="uniques" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Uniques" />
+                                                <Label id="overviewmetric" fx:id="uniques" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefHeight="42.0" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefHeight="42.0" prefWidth="450.0">
                                              <children>
-                                                <Label text="Conversions" />
-                                                <Label fx:id="conversions" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Conversions" />
+                                                <Label id="overviewmetric" fx:id="conversions" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Bounces" />
-                                                <Label fx:id="bounces" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Bounces" />
+                                                <Label id="overviewmetric" fx:id="bounces" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
@@ -369,53 +371,53 @@
                                           <Insets right="50.0" />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white;">
+                                    <VBox id="overviewvbox2" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0">
                                        <children>
-                                          <Label text="Rate metrics">
+                                          <Label id="overviewtitlelabel" text="Rate metrics">
                                              <VBox.margin>
                                                 <Insets bottom="30.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Bounce rate" />
-                                                <Label fx:id="bounceRate" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Bounce rate" />
+                                                <Label id="overviewmetric" fx:id="bounceRate" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Cost-per-thousand (CPM)" />
-                                                <Label fx:id="cpm" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Cost-per-thousand (CPM)" />
+                                                <Label id="overviewmetric" fx:id="cpm" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Click-through rate (CTR)" />
-                                                <Label fx:id="ctr" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Click-through rate (CTR)" />
+                                                <Label id="overviewmetric" fx:id="ctr" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Cost-per-acquisition (CPA)" />
-                                                <Label fx:id="cpa" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Cost-per-acquisition (CPA)" />
+                                                <Label id="overviewmetric" fx:id="cpa" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />
                                              </VBox.margin>
                                           </VBox>
-                                          <VBox alignment="CENTER" prefWidth="450.0" style="-fx-border-style: solid;">
+                                          <VBox id="overviewlabel" alignment="CENTER" prefWidth="450.0">
                                              <children>
-                                                <Label text="Cost-per-click (CPC)" />
-                                                <Label fx:id="cpc" text="Label" />
+                                                <Label id="overviewmetrictitle" text="Cost-per-click (CPC)" />
+                                                <Label id="overviewmetric" fx:id="cpc" text="Label" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="15.0" />

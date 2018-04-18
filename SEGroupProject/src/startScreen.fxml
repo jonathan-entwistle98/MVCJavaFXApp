@@ -83,7 +83,6 @@
                                           <Insets right="30.0" />
                                        </HBox.margin>
                                     </ChoiceBox>
-                                    <Button mnemonicParsing="false" text="Browse" />
                                  </children>
                               </HBox>
                            </children>

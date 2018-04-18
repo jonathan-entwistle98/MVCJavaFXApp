@@ -419,18 +419,25 @@ public class AdDashboard extends Application{
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		fromDate = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
 		toDate = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+        System.out.println("1 fromDate is" + fromDate.toString());
+        System.out.println("1 toDate is" + toDate.toString());
 		
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
 		
+//		fromDatePicker.
+		
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
             fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
         });
 		
 		toDatePicker.setOnAction(event -> {
             LocalDate localDate = toDatePicker.getValue();
             toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
         });
 				
 	}
@@ -486,6 +493,19 @@ public class AdDashboard extends Application{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		fromDatePicker.setOnAction(event -> {
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
+        });
 		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
@@ -567,6 +587,9 @@ public class AdDashboard extends Application{
 		}
 		
 		getTotalCostOverTime();
+		
+		System.out.println(fromDate.toString());
+		System.out.println(toDate.toString());
 		
 		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
             @Override
@@ -665,6 +688,19 @@ public class AdDashboard extends Application{
             }
         });
 		
+		fromDatePicker.setOnAction(event -> {
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
+        });
+		
 		updateOverview();
 		
 	}
@@ -680,6 +716,140 @@ public class AdDashboard extends Application{
 			System.out.println(2);
 			dm.bouncePages(bouncePages);
 		}
+	}
+	
+	public void datePickerButtonClicked() {
+        System.out.println("inpicker toDate is" + toDate.toString());
+		dm.fetchData(fromDate, toDate);
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
+		
+		loader.setController(this);
+		
+		Parent root;
+		try {
+			root = loader.load();
+			Scene scene = new Scene(root, 1000, 600);
+//			scene.getStylesheets().add("style.css");
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		getTotalCostOverTime();
+		System.out.println("second" + fromDate.toString());
+		System.out.println("second" + toDate.toString());
+		
+		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(impressionTab.isSelected()) {
+            		getImpressionsOverTime();
+            	}
+            }
+        });
+		clickTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(clickTab.isSelected()) {
+            		getClicksOverTime();
+            	}
+            }
+        });
+		uniqueTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(uniqueTab.isSelected()) {
+            		getUniquesOverTime();
+            	}
+            }
+        });
+		bounceTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(bounceTab.isSelected()) {
+            		getBouncesOverTime();
+            	}
+            }
+        });
+		CPMTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CPMTab.isSelected()) {
+            		getCPMsOverTime();
+            	}
+            }
+        });
+		totalCostTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(totalCostTab.isSelected()) {
+            		getTotalCostOverTime();
+            	}
+            }
+        });
+		CTRTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CTRTab.isSelected()) {
+            		getCTRsOverTime();
+            	}
+            }
+        });
+		CPCTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CPCTab.isSelected()) {
+            		getCPCsOverTime();
+            	}
+            }
+        });
+		CPATab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CPATab.isSelected()) {
+            		getCPAsOverTime();
+            	}
+            }
+        });
+		conversionsTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(conversionsTab.isSelected()) {
+            		getConversionsOverTime();
+            	}
+            }
+        });
+		bounceRateTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(bounceRateTab.isSelected()) {
+            		getBounceRatesOverTime();
+            	}
+            }
+        });
+		CPCHistogramTab.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event t) {
+            	if(CPCHistogramTab.isSelected()) {
+            		getCPCHistogramsOverTime();
+            	}
+            }
+        });
+		
+		fromDatePicker.setOnAction(event -> {
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
+        });
 	}
 	
 	public void impressionLogFilePickerClicked(){
