@@ -17,7 +17,7 @@ public class DBManager {
 	
 	String dateFormat = "yyyy-MM-dd HH:mm:ss";
 	
-	public static String DBNAME = "jdbc:sqlite:test.db";
+	public static String DBNAME = "jdbc:sqlite:campaigns.db";
 	
 	public int selectedCampaign;
 	public long refDate = 0;
@@ -179,7 +179,7 @@ public class DBManager {
 		
 		//doCalculations()
 		
-		createCampaign("DefaultName");
+		createCampaign(campaignName);
 		
 	}
 		
