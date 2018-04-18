@@ -443,6 +443,23 @@ public class DBManager {
 			CTR = clicks / (float)impressions;
 			CPA = totalCost / (float)conversions;
 			
+			rs.close();
+			rs = stmt.executeQuery("SELECT MAX(R_DATE) FROM IMPRESSION_LOG WHERE CAMPAIGN == " + rowID);
+			if(rs.next()) {
+				endDate = rs.getInt(1);
+			}
+			rs.close();
+			rs = stmt.executeQuery("SELECT MAX(R_DATE) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
+			if(rs.next()) {
+				long newDate;
+				if (endDate < (newDate = rs.getInt(1))) {
+					endDate = newDate;
+				}
+			}
+			// Finalize endDate
+			endDate *= 3600000;
+			endDate += refDate;
+
 			pstmt.setInt(1, rowID);
 			pstmt.setString(2, name);
 			pstmt.setLong(3, refDate);
@@ -507,7 +524,9 @@ public class DBManager {
 						rs.getFloat("CTR"),
 						rs.getFloat("CPA"),
 						rs.getFloat("CPC"),
-						rs.getFloat("CPM"));
+						rs.getFloat("CPM"),
+						refDate,
+						endDate);
 			}
 			return null;
 

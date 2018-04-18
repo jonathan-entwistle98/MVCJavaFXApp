@@ -44,7 +44,7 @@ public class Example {
 		// 	File file2 = click_log.CSV
 		//  File file3 = server_log.CSV
 		// Doing so will create a new campaign and allocate it an ID.
-		dm.exportCSVs(file1, file2, file3, "SomeCampaign");
+//		dm.exportCSVs(file1, file2, file3, "SomeCampaign");
 		
 		// Get IDs of all existing campaigns.
 		ArrayList<Integer> campaignIDs = dm.getCampaigns();

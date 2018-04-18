@@ -17,10 +17,12 @@ public class OverviewItems {
 	private float CPC;
 	private float CPM;
 	private float bounceRate;
+	private long minDate;
+	private long maxDate;
 	public ArrayList<ArrayList<Object>> impressionsOverTime;
 	
 	public OverviewItems(int impressions, int clicks, int uniques, int conversions, float totalCost,
-			float CTR, float CPA, float CPC, float CPM) {
+			float CTR, float CPA, float CPC, float CPM, long minDate, long maxDate) {
 		this.impressions = impressions;
 		this.clicks = clicks;
 		this.uniques = uniques;
@@ -30,6 +32,8 @@ public class OverviewItems {
 		this.CPA = CPA;
 		this.CPC = CPC;
 		this.CPM = CPM;
+		this.setMinDate(minDate);
+		this.setMaxDate(maxDate);
 	}
 	
 	public int getImpressions() {
@@ -97,5 +101,21 @@ public class OverviewItems {
 	}
 	public void setBounceRate(float bounceRate) {
 		this.bounceRate = bounceRate;
+	}
+
+	public long getMinDate() {
+		return minDate;
+	}
+
+	public void setMinDate(long minDate) {
+		this.minDate = minDate;
+	}
+
+	public long getMaxDate() {
+		return maxDate;
+	}
+
+	public void setMaxDate(long maxDate) {
+		this.maxDate = maxDate;
 	}
 }
