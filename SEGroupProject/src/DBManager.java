@@ -158,9 +158,10 @@ public class DBManager {
 	 * @param impressions
 	 * @param clicks
 	 * @param servers
+	 * @param campaignName
 	 * @return
 	 */
-	public void exportData(File impressions, File clicks, File servers) {
+	public void exportData(File impressions, File clicks, File servers, String campaignName) {
 		
 		getRowID();
 		
@@ -508,6 +509,33 @@ public class DBManager {
 				campaigns.add(rs.getInt(1));
 			}
 			return campaigns;
+
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+		return null;
+		
+	}
+	
+	public ArrayList<ArrayList<Object>> getCampaignNamesAndIds() {
+		ArrayList<ArrayList<Object>> allIdAndNameLists = new ArrayList<ArrayList<Object>>();
+		
+		String sql = "SELECT rowid, name FROM CAMPAIGN\n";
+		ArrayList<Integer> campaigns = new ArrayList<Integer>();
+				
+		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				) {
+
+			while ( rs.next() ) {
+				ArrayList<Object> idAndNameList = new ArrayList<Object>();
+				idAndNameList.add(rs.getInt(1));
+				idAndNameList.add(rs.getString(2));
+				allIdAndNameLists.add(idAndNameList);
+			}
+			return allIdAndNameLists;
 
 		} catch ( Exception e ) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );

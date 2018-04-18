@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,6 +14,8 @@ import javax.imageio.ImageIO;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,6 +36,8 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -275,6 +281,9 @@ public class AdDashboard extends Application{
 	private TextField serverLogTextField;
 	
 	@FXML
+	private TextField bounceDefinitionTextField;
+	
+	@FXML
 	private ImageView graphLogo;
 	
 	@FXML
@@ -316,6 +325,20 @@ public class AdDashboard extends Application{
 	@FXML
 	private MenuItem loadCampaign;
 	
+	@FXML
+	private DatePicker fromDatePicker;
+	
+	@FXML
+	private DatePicker toDatePicker;
+	
+	@FXML
+	private ChoiceBox bounceDefinitionChoiceBox;
+	
+	@FXML
+	private ChoiceBox selectCampaignChoiceBox;
+	
+	@FXML
+	private TextField campaignNameTextField;
 
 	private OverviewItems items;
 	
@@ -357,6 +380,12 @@ public class AdDashboard extends Application{
 	
 	private Series<String, Integer> conversionsSeries;
 	
+	private Date fromDate;
+	
+	private Date toDate;
+	
+	private ArrayList<ArrayList<Object>> campaignNamesArrayList;
+	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -369,7 +398,10 @@ public class AdDashboard extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-			
+		
+		dm = new DataModel();
+		dm.init();
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
 		
 		loader.setController(this);
@@ -384,6 +416,22 @@ public class AdDashboard extends Application{
 		primaryStage.show();
 		this.stage = primaryStage;
 	//	File file = new File("graphLogo.jpg");
+		String dateFormat = "yyyy-MM-dd HH:mm:ss";
+		fromDate = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
+		toDate = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+		
+		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
+		bounceDefinitionChoiceBox.setItems(availableChoices);
+		
+		fromDatePicker.setOnAction(event -> {
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        });
 				
 	}
 	
@@ -439,6 +487,14 @@ public class AdDashboard extends Application{
 			e.printStackTrace();
 		}
 		
+		ArrayList<String> campaignNames = new ArrayList<String>();
+		campaignNamesArrayList = dm.getCampaignNamesAndIds();
+		for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+			campaignNames.add((String) campaignNamesAndIds.get(1));
+		}		
+		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
+		selectCampaignChoiceBox.setItems(campaignChoices);
+		
 	}
 	
 	public void viewAnalyticsClicked(){
@@ -446,45 +502,53 @@ public class AdDashboard extends Application{
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		Date start = null;
 		Date end = null;
-		try {
-			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
-			end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		dm = new DataModel();
-		dm.init();
+//		try {
+//			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
+//			end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		// Export campaign to the database by providing the following:
 		// 	File file1 = impression_log.CSV
 		// 	File file2 = click_log.CSV
 		//  File file3 = server_log.CSV
 		// Doing so will create a new campaign and allocate it an ID.
-		dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile);
-		
-		// Get IDs of all existing campaigns.
-		ArrayList<Integer> campaignIDs = dm.getCampaigns();
-		
-		// Select campaign by its ID from the database.
-		// This selects campaign for loading and returns overview metrics.
-		overview = dm.selectCampaign(1);
+		if(!clickLogTextField.getText().isEmpty()) {
+			dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile, campaignNameTextField.getText());
+			
+			// Select campaign by its ID from the database.
+			// This selects campaign for loading and returns overview metrics.
+			overview = dm.selectCampaign(1);
+		}
+		else if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+			String campaignName = selectCampaignChoiceBox.getValue().toString();
+			int campaignId = 0;
+			ArrayList<String> campaignNames = new ArrayList<String>();
+			for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+				String campaignNameFromList = (String) campaignNamesAndIds.get(1);
+				campaignNames.add(campaignNameFromList);
+				if(campaignNameFromList.equals(campaignName)){
+					campaignId = (int) campaignNamesAndIds.get(0);
+				}
+			}
+			overview = dm.selectCampaign(campaignId);
+		}
 		
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
-		dm.fetchData(start, end);
+		dm.fetchData(fromDate, toDate);
 		
-		if(clickLogTextField.getText().equals("")
-			|| impressionLogTextField.getText().equals("")
-			|| serverLogTextField.getText().equals("")){
-		
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Blank Field");
-			alert.setHeaderText("Error, please select all files.");
-			alert.setContentText("Some fields are left blank.");
-			
-			alert.showAndWait();
+		if(clickLogTextField.getText().equals("") || impressionLogTextField.getText().equals("") || serverLogTextField.getText().equals("")){
+			if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Blank Field");
+				alert.setHeaderText("Error, please select all files.");
+				alert.setContentText("Some fields are left blank.");
+				
+				alert.showAndWait();
+			}
 		}
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
@@ -601,7 +665,21 @@ public class AdDashboard extends Application{
             }
         });
 		
-		updateOverview();	
+		updateOverview();
+		
+	}
+	
+	public void bounceDefinitionDataEntered() {
+		int bounceChoiceIndex = bounceDefinitionChoiceBox.getSelectionModel().getSelectedIndex();
+		int bounceSeconds = Integer.parseInt(bounceDefinitionTextField.getText());
+		int bouncePages = Integer.parseInt(bounceDefinitionTextField.getText());
+		if(bounceChoiceIndex == 0) {
+			dm.bounceSeconds(bounceSeconds);
+			System.out.println(1);
+		}else if(bounceChoiceIndex == 1) {
+			System.out.println(2);
+			dm.bouncePages(bouncePages);
+		}
 	}
 	
 	public void impressionLogFilePickerClicked(){
@@ -824,7 +902,7 @@ public class AdDashboard extends Application{
 		
 		CPCSeries = dm.getSeries(Metric.CPC);
 		CPCHistogram.setLegendVisible(false);
-		CPCHistogramYAxis.setLabel("CPC");
+		CPCHistogramYAxis.setLabel("Frequency Density");
 		CPCHistogramXAxis.setLabel("Time (Date)");
 		
 		CPCHistogram.getData().add(CPCSeries);
