@@ -14,6 +14,7 @@ public class DataModel {
 	
 	private DBManager dbm;
 	private Calculator calc;
+	private String campaignName;
 	
 	public void init () {
 		metrics = new MetricStorage();
@@ -24,9 +25,9 @@ public class DataModel {
 		calc = new Calculator(metrics, impressions, clicks);
 	}
 	
-	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV) {
+	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV, String campaignName) {
 		double[] progress = new double[3];
-		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress);
+		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress, campaignName);
 	}
 	
 	public OverviewItems selectCampaign(int ID) {
@@ -108,6 +109,10 @@ public class DataModel {
 	
 	public ArrayList<Integer> getCampaigns() {
 		return dbm.getCampaigns();
+	}
+	
+	public ArrayList<ArrayList<Object>> getCampaignNamesAndIds() {
+		return dbm.getCampaignNamesAndIds();
 	}
 	
 	/**

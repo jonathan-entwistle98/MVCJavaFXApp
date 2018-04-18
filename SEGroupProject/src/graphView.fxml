@@ -93,9 +93,9 @@
             <ToolBar prefHeight="136.0" prefWidth="1268.0">
                <items>
                   <Label prefHeight="21.0" prefWidth="43.0" text="From:" />
-                  <DatePicker prefHeight="31.0" prefWidth="130.0" />
+                  <DatePicker fx:id="fromDatePicker" prefHeight="31.0" prefWidth="130.0" />
                   <Label text="To:" />
-                  <DatePicker layoutX="87.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" />
+                  <DatePicker fx:id="toDatePicker" layoutX="87.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" />
                   <Separator orientation="VERTICAL" prefHeight="31.0" prefWidth="76.0">
                      <opaqueInsets>
                         <Insets />
@@ -104,14 +104,14 @@
                         <Insets left="50.0" right="50.0" />
                      </padding>
                   </Separator>
-                  <Label text="Toggle bounce:">
+                  <Label text="Bounce Definition:">
                      <padding>
                         <Insets right="30.0" />
                      </padding>
                   </Label>
                   <ToggleButtonGroup selectionType="SINGLE" />
-                  <ChoiceBox layoutX="905.0" layoutY="10.0" prefWidth="130.0" />
-                  <TextField prefHeight="31.0" prefWidth="111.0" promptText="Enter value" />
+                  <ChoiceBox fx:id="bounceDefinitionChoiceBox" layoutX="905.0" layoutY="10.0" prefWidth="130.0" />
+                  <TextField fx:id="bounceDefinitionTextField" onAction="#bounceDefinitionDataEntered" prefHeight="31.0" prefWidth="111.0" promptText="Enter value" />
                   <Separator layoutX="466.0" layoutY="10.0" orientation="VERTICAL">
                      <opaqueInsets>
                         <Insets />

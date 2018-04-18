@@ -32,7 +32,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextField promptText="Name of campaign" />
+                                    <TextField fx:id="campaignNameTextField" promptText="Name of campaign" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -78,7 +78,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <ChoiceBox prefWidth="150.0">
+                                    <ChoiceBox fx:id="selectCampaignChoiceBox" prefWidth="150.0">
                                        <HBox.margin>
                                           <Insets right="30.0" />
                                        </HBox.margin>
