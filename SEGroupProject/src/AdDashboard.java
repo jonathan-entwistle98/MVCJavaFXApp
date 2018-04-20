@@ -425,8 +425,6 @@ public class AdDashboard extends Application{
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
 		
-//		fromDatePicker.
-		
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
             fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -522,18 +520,7 @@ public class AdDashboard extends Application{
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		Date start = null;
 		Date end = null;
-//		try {
-//			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
-//			end = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		// Export campaign to the database by providing the following:
-		// 	File file1 = impression_log.CSV
-		// 	File file2 = click_log.CSV
-		//  File file3 = server_log.CSV
+
 		// Doing so will create a new campaign and allocate it an ID.
 		if(!clickLogTextField.getText().isEmpty()) {
 			dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile, campaignNameTextField.getText());
@@ -579,7 +566,7 @@ public class AdDashboard extends Application{
 		try {
 			root = loader.load();
 			Scene scene = new Scene(root, 1000, 600);
-//			scene.getStylesheets().add("style.css");
+			scene.getStylesheets().add("style.css");
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
@@ -730,7 +717,7 @@ public class AdDashboard extends Application{
 		try {
 			root = loader.load();
 			Scene scene = new Scene(root, 1000, 600);
-//			scene.getStylesheets().add("style.css");
+			scene.getStylesheets().add("style.css");
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
@@ -738,8 +725,6 @@ public class AdDashboard extends Application{
 		}
 		
 		getTotalCostOverTime();
-		System.out.println("second" + fromDate.toString());
-		System.out.println("second" + toDate.toString());
 		
 		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
             @Override
@@ -847,8 +832,6 @@ public class AdDashboard extends Application{
 		toDatePicker.setOnAction(event -> {
             LocalDate localDate = toDatePicker.getValue();
             toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            System.out.println("localDate is" + localDate.toString());
-            System.out.println("toDate is" + toDate.toString());
         });
 	}
 	
@@ -895,7 +878,6 @@ public class AdDashboard extends Application{
 	
 	public void getImpressionsOverTime(){
 		
-		// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 		impressionSeries = dm.getSeries(Metric.IMPRESSIONS);
 		impressionGraph.setLegendVisible(false);
 		impressionYAxis.setLabel("Impressions");
@@ -928,14 +910,12 @@ public class AdDashboard extends Application{
 	
 	public void getClicksOverTime(){
 		
-	// Returns XYChart.Series<Long(representing Date), Number> for defined metric.
 	clickSeries = dm.getSeries(Metric.CLICKS);
 	clickGraph.setLegendVisible(false);
 	clickYAxis.setLabel("Clicks");
 	clickXAxis.setLabel("Time (Date)");
 	
 	clickGraph.getData().add(clickSeries);
-	System.out.println("Kappa");
 	}
 	
 	public void printClicked() {
