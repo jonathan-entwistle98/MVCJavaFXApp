@@ -439,6 +439,8 @@ public class AdDashboard extends Application{
             System.out.println("localDate is" + localDate.toString());
             System.out.println("toDate is" + toDate.toString());
         });
+		
+		dm.bounceSeconds(1);
 				
 	}
 	
@@ -1042,7 +1044,7 @@ public class AdDashboard extends Application{
 	}
 	
 	public void getUniquesOverTime(){
-		uniqueSeries = new XYChart.Series();
+		uniqueSeries = dm.getSeries(Metric.UNIQUES);
 		uniqueGraph.setLegendVisible(false);
 		uniqueYAxis.setLabel("Uniques");
 		uniqueXAxis.setLabel("Time (Date)");
@@ -1051,7 +1053,7 @@ public class AdDashboard extends Application{
 	}
 	
 	public void getBouncesOverTime(){
-		bounceSeries = new XYChart.Series();
+		bounceSeries = dm.getSeries(Metric.BOUNCES);
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
@@ -1060,7 +1062,7 @@ public class AdDashboard extends Application{
 	}
 	
 	public void getBounceRatesOverTime(){
-		bounceRateSeries = new XYChart.Series();
+		bounceRateSeries = dm.getSeries(Metric.BOUNCE_RATE);
 		bounceRateGraph.setLegendVisible(false);
 		bounceRateYAxis.setLabel("Bounce Rate");
 		bounceRateXAxis.setLabel("Time (Date)");

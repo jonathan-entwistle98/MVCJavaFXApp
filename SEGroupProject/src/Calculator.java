@@ -12,6 +12,9 @@ public class Calculator {
 	private ArrayList<ClickEntry> clicks;
 	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private int range;
+	private int bounceSeconds = -1;
+	private int bouncePages = -1;
+	private BounceCrit crit;
 	
 	public Calculator(MetricStorage metrics, 
 			ArrayList<ImpressionEntry> impressions,
@@ -22,12 +25,16 @@ public class Calculator {
 	}
 	
 	public void bouncePages(int n) {
-		calcBounces(BounceCrit.PAGES, n);
+		bouncePages = n;
+		crit = BounceCrit.PAGES;
+		calcBounces(BounceCrit.PAGES);
 		calcBounceRate();
 	}
 	
 	public void bounceSeconds(int n) {
-		calcBounces(BounceCrit.SECONDS, n);
+		bounceSeconds = n;
+		crit = BounceCrit.SECONDS;
+		calcBounces(BounceCrit.SECONDS);
 		calcBounceRate();
 	}
 	
@@ -46,7 +53,6 @@ public class Calculator {
 		calcImpressions();
 		calcClicks();
 		calcUniques();
-//		calcBounces(BounceCrit.PAGES, 5);
 		calcConversions();
 		calcCosts();
 		calcTotalCost();
@@ -54,7 +60,13 @@ public class Calculator {
 		calcCPA();
 		calcCPC();
 		calcCPM();
-//		calcBounceRate();
+		if(crit == BounceCrit.PAGES) {
+			calcBounces(BounceCrit.PAGES);
+			calcBounceRate();
+		} else if (crit == BounceCrit.SECONDS) {
+			calcBounces(BounceCrit.SECONDS);
+			calcBounceRate();
+		}
 	}
 	
 	private void calcImpressions() {
@@ -86,12 +98,12 @@ public class Calculator {
 		}
 		metrics.setUniques(arr);
 	}
-	private void calcBounces(BounceCrit crit, int n) {
+	private void calcBounces(BounceCrit crit) {
 		int[] arr = new int[range];
 		switch (crit) {
 		case PAGES:
 			for(ClickEntry e : clicks) {
-				if (e.getPagesViewed() < n && !e.isConverted()) {
+				if (e.getPagesViewed() < bouncePages && !e.isConverted()) {
 					arr[(int)e.getDate()]++;
 				}
 			}
@@ -99,7 +111,7 @@ public class Calculator {
 			break;
 		case SECONDS:
 			for(ClickEntry e : clicks) {
-				if (e.getSecondsViewed() < n && !e.isConverted()) {
+				if (e.getSecondsViewed() < bounceSeconds && !e.isConverted()) {
 					arr[(int)e.getDate()]++;
 				}
 			}
@@ -188,7 +200,11 @@ public class Calculator {
 		int[] clicks = metrics.getClicks();
 	
 		for(int i = 0; i < range; i++) {
-			arr[i] = bounces[i] / (float) clicks[i];
+			if(clicks[i] != 0) {
+				arr[i] = bounces[i] / (float) clicks[i];
+			} else {
+				arr[i] = 0;
+			}
 		}
 		metrics.setBounceRate(arr);
 	}

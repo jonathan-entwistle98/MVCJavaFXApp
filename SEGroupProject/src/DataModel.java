@@ -85,8 +85,8 @@ public class DataModel {
 			populateSeries(series, metrics.getCpm());
 			return series;
 		case BOUNCE_RATE:
-			
-			break;
+			populateSeries(series, metrics.getBounceRate());
+			return series;
 		}
 		return null;
 	}
