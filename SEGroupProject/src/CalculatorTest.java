@@ -11,14 +11,6 @@ import org.junit.Test;
 
 public class CalculatorTest{
 
-//	File testFileImpressions = new File("testImpressions.csv");
-//	List<Log> impressionLog = CSVLoader.loadCSVData(testFileImpressions, FileType.IMPRESSION_LOG);
-//	
-//	File testFileClicks = new File("testClicks.csv");
-//	List<Log> clickLog = CSVLoader.loadCSVData(testFileClicks, FileType.CLICK_LOG);
-//	
-//	File testFileServer = new File("testServer.csv");
-//	List<Log> serverLog = CSVLoader.loadCSVData(testFileServer, FileType.SERVER_LOG);
 	ArrayList<ImpressionEntry> imps;
 	ArrayList<ClickEntry> clicks;
 	MetricStorage metricStorage;
@@ -47,7 +39,6 @@ public class CalculatorTest{
 		clicks.add(cl2);
 		clicks.add(cl3);
 	}
-
 	
 	@Test
 	public void testcalcImpressionsOverTime() {
@@ -60,59 +51,79 @@ public class CalculatorTest{
 		assertArrayEquals(expectedImpressionDateArray, metricStorage.getImpressions());
 	}
 	
-//	@Test
-//	public void testcalcImpressions() {
-//		assertEquals(calcImpressions(impressionLog), 4);
-//	}
-//
-//	@Test
-//	public void testCalcClicks() {		
-//		assertEquals(calcClicks(clickLog), 2);
-//	}
-//
-//	@Test
-//	public void testcalcUniques() {
-//		assertEquals(calcUniques(clickLog), 1);
-//	}
-//
-//	@Test
-//	public void testcalcClickCost() {
-//		assertEquals(calcClickCost(clickLog), 23.5, 0.1);
-//	}
-//	
-//	@Test
-//	public void testcalcImpressionCost() {
-//		assertEquals(calcImprCost(impressionLog), 0.006, 0.001);
-//	}
-//	
-//	@Test
-//	public void testcalcCTR() {
-//		assertEquals(calcCTR(calcClicks(clickLog), calcImpressions(impressionLog)), 0.5, 0.1);
-//	}
-//	
-//	@Test
-//	public void testcalcCPA() {
-//		assertEquals(calcCPA(calcImprCost(impressionLog) + calcClickCost(clickLog), calcConversions(serverLog)), 23.5, 0.1);
-//	}
-//	
-//	@Test
-//	public void testcalcCPC() {
-//		assertEquals(calcCPC(calcClickCost(clickLog), calcClicks(clickLog)), 11.8, 0.1);
-//	}
-//
-//	@Test
-//	public void testcalcCPM() {
-//		assertEquals(calcCPM(calcImprCost(impressionLog), calcImpressions(impressionLog)), 1.5, 0.1);
-//	}
-//	
-//	@Test
-//	public void testcalcBounces() {
-//		assertEquals(calcBounces(serverLog, 1, 120), 1);
-//	}
-//	
-//	@Test
-//	public void testcalcBounceRate() {
-//		assertEquals(calcBounceRate(calcBounces(serverLog, 1, 120), calcClicks(clickLog)), 0.5, 0.1);
-//	}
-//	
+
+	@Test
+	public void testCalcClicksOverTime() {		
+		
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+
+		int[] expectedClickDateArray = {1,1,1};
+
+		assertArrayEquals(expectedClickDateArray, metricStorage.getClicks());
+	}
+
+	@Test
+	public void testcalcUniquesOverTime() {
+		
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+		
+		int[] expectedUniqueArray = {1,1,1};
+		
+		assertArrayEquals(expectedUniqueArray, metricStorage.getUniques());
+	}
+
+	@Test
+	public void testcalcClickCostOverTime() {
+		
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+		
+		float expectedCost = (float) 0.0014;
+		
+		assertEquals(expectedCost,(float)metricStorage.getCosts()[1],0.01);
+	}
+	
+	@Test
+	public void testcalcCTROverTime() {
+
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+
+		float[] expectedCTRDateArray = {1.0f,1.0f,1.0f};
+
+		assertArrayEquals(expectedCTRDateArray, metricStorage.getCtr(), 0.001f);
+	}
+	@Test
+	public void testcalcCPAOverTime() {
+
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+
+		float[] expectedCPADateArray = {0.0005f,0.000625f,0.000235f};
+
+		assertArrayEquals(expectedCPADateArray, metricStorage.getCpa(), 0.001f);
+	}
+	@Test
+	public void testcalcCPCOverTime() {
+
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+
+		float[] expectedCPCDateArray = {0.0005f,0.000625f,0.000235f};
+
+		assertArrayEquals(expectedCPCDateArray, metricStorage.getCpc(), 0.001f);
+	}
+	@Test
+	public void testcalcCPMOverTime() {
+
+		Calculator testingCalculator = new Calculator(metricStorage, imps, clicks);
+		testingCalculator.calcMetrics(3);
+
+		float[] expectedCPMDateArray = {0.5f,0.625f,0.235f};
+
+		assertArrayEquals(expectedCPMDateArray, metricStorage.getCpm(), 0.001f);
+	}
+	
 }
