@@ -456,19 +456,26 @@ public class AdDashboard extends Application{
 		if(overview != null) {
 			LocalDate localDateMaxDate;
 			LocalDate localDateMinDate;
+			minDateLong = overview.getMinDate();
+			maxDateLong = overview.getMaxDate();
+			DatePicker overallMinDate = new DatePicker();
+			DatePicker overallMaxDate = new DatePicker();
+			Date dateMinDate = new Date(minDateLong);
+			Date dateMaxDate = new Date(maxDateLong);
+			localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();			
+			overallMinDate.setValue(localDateMinDate);
+			overallMaxDate.setValue(localDateMaxDate);
+			
 			if(fromDate == null) {
-				minDateLong = overview.getMinDate();
 				minDate = new DatePicker();
-				Date dateMinDate = new Date(minDateLong);
 				localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			}else {
 				minDate = new DatePicker();
 				localDateMinDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			}
 			if(toDate == null) {
-				maxDateLong = overview.getMaxDate();
 				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
-				Date dateMaxDate = new Date(maxDateLong);
 				localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			}else {
 				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
@@ -484,10 +491,10 @@ public class AdDashboard extends Application{
 			    @Override
 			    public void updateItem(LocalDate item, boolean empty) {
 			        super.updateItem(item, empty);
-			        if (item.isAfter(maxDate.getValue())) { //Disable all dates after required date
+			        if (item.isAfter(overallMaxDate.getValue())) { //Disable all dates after required date
 			            setDisable(true);
 			            setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
-			        }if(item.isBefore(minDate.getValue())) {
+			        }if(item.isBefore(overallMinDate.getValue())) {
 			        	 setDisable(true);
 				         setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
 			        }
@@ -495,7 +502,6 @@ public class AdDashboard extends Application{
 			};
 			fromDatePicker.setValue(localDateMinDate);
 			toDatePicker.setValue(localDateMaxDate);
-			//Finally, we just need to update our DatePicker cell factory as follow:
 			fromDatePicker.setDayCellFactory(dayCellFactory);
 			toDatePicker.setDayCellFactory(dayCellFactory);
 		}
