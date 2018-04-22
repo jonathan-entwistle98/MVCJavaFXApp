@@ -29,6 +29,10 @@ public class DataModel {
 		double[] progress = new double[3];
 		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress, campaignName);
 	}
+	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV, String campaignName, double[] progress) {
+//		progress = new double[3];
+		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress, campaignName);
+	}
 	
 	public OverviewItems selectCampaign(int ID) {
 		overview = dbm.selectCampaign(ID);
