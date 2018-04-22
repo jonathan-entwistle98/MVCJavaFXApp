@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,6 +38,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
@@ -51,6 +53,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class AdDashboard extends Application{
 	
@@ -339,8 +342,6 @@ public class AdDashboard extends Application{
 	
 	@FXML
 	private TextField campaignNameTextField;
-
-	private OverviewItems items;
 	
 //	private Controller controller; 
 	
@@ -379,6 +380,10 @@ public class AdDashboard extends Application{
 	private Series<String, Integer> totalCostSeries;
 	
 	private Series<String, Integer> conversionsSeries;
+	
+	private Long minDateLong;
+	
+	private Long maxDateLong;
 	
 	private Date fromDate;
 	
@@ -438,8 +443,47 @@ public class AdDashboard extends Application{
             System.out.println("toDate is" + toDate.toString());
         });
 		
+		
 		dm.bounceSeconds(1);
 				
+	}
+	
+	public void restrictDatePicker() {
+		if(overview != null) {
+			
+			minDateLong = overview.getMinDate();
+			maxDateLong = overview.getMaxDate();
+			System.out.println("restrict date picker clicked");
+	//		DatePicker myDatePicker = new DatePicker(); // This DatePicker is shown to user
+			DatePicker maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
+			DatePicker minDate = new DatePicker();
+			Date dateMinDate = new Date(minDateLong);
+			Date dateMaxDate = new Date(maxDateLong);
+			LocalDate localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			minDate.setValue(localDateMinDate);
+			maxDate.setValue(localDateMaxDate); // Max date available will be 2015-01-01
+			
+			final Callback<DatePicker, DateCell> dayCellFactory;
+			dayCellFactory = (final DatePicker datePicker) -> new DateCell() {
+			    @Override
+			    public void updateItem(LocalDate item, boolean empty) {
+			        super.updateItem(item, empty);
+			        if (item.isAfter(maxDate.getValue())) { //Disable all dates after required date
+			            setDisable(true);
+			            setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
+			        }if(item.isBefore(minDate.getValue())) {
+			        	 setDisable(true);
+				         setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
+			        }
+			    }
+			};
+			fromDatePicker.setValue(localDateMinDate);
+			toDatePicker.setValue(localDateMaxDate);
+			//Finally, we just need to update our DatePicker cell factory as follow:
+			fromDatePicker.setDayCellFactory(dayCellFactory);
+			toDatePicker.setDayCellFactory(dayCellFactory);
+		}
 	}
 	
 	
@@ -506,6 +550,8 @@ public class AdDashboard extends Application{
             System.out.println("localDate is" + localDate.toString());
             System.out.println("toDate is" + toDate.toString());
         });
+		
+		restrictDatePicker();
 		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
@@ -576,6 +622,7 @@ public class AdDashboard extends Application{
 		}
 		
 		getTotalCostOverTime();
+		restrictDatePicker();
 		
 		System.out.println(fromDate.toString());
 		System.out.println(toDate.toString());
