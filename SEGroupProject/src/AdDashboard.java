@@ -642,108 +642,24 @@ public class AdDashboard extends Application{
 			e.printStackTrace();
 		}
 		
-		getTotalCostOverTime();
 		restrictDatePicker();
 		
 		System.out.println(fromDate.toString());
 		System.out.println(toDate.toString());
 		
-		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(impressionTab.isSelected()) {
-            		getImpressionsOverTime();
-            	}
-            }
-        });
-		clickTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(clickTab.isSelected()) {
-            		getClicksOverTime();
-            	}
-            }
-        });
-		uniqueTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(uniqueTab.isSelected()) {
-            		getUniquesOverTime();
-            	}
-            }
-        });
-		bounceTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceTab.isSelected()) {
-            		getBouncesOverTime();
-            	}
-            }
-        });
-		CPMTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPMTab.isSelected()) {
-            		getCPMsOverTime();
-            	}
-            }
-        });
-		totalCostTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(totalCostTab.isSelected()) {
-            		getTotalCostOverTime();
-            	}
-            }
-        });
-		CTRTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CTRTab.isSelected()) {
-            		getCTRsOverTime();
-            	}
-            }
-        });
-		CPCTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPCTab.isSelected()) {
-            		getCPCsOverTime();
-            	}
-            }
-        });
-		CPATab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPATab.isSelected()) {
-            		getCPAsOverTime();
-            	}
-            }
-        });
-		conversionsTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(conversionsTab.isSelected()) {
-            		getConversionsOverTime();
-            	}
-            }
-        });
-		bounceRateTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceRateTab.isSelected()) {
-            		getBounceRatesOverTime();
-            	}
-            }
-        });
-		CPCHistogramTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPCHistogramTab.isSelected()) {
-            		getCPCHistogramsOverTime();
-            	}
-            }
-        });
+		getTotalCostOverTime();
+		getImpressionsOverTime();
+		getClicksOverTime();
+		getUniquesOverTime();
+		getBouncesOverTime();
+		getCPMsOverTime();
+		getTotalCostOverTime();
+		getCTRsOverTime();
+		getCPCsOverTime();
+		getCPAsOverTime();
+		getConversionsOverTime();
+		getBounceRatesOverTime();
+		getCPCHistogramsOverTime();
 		
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
@@ -797,104 +713,19 @@ public class AdDashboard extends Application{
 		}
 		
 		getTotalCostOverTime();
-		
-		impressionTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(impressionTab.isSelected()) {
-            		getImpressionsOverTime();
-            	}
-            }
-        });
-		clickTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(clickTab.isSelected()) {
-            		getClicksOverTime();
-            	}
-            }
-        });
-		uniqueTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(uniqueTab.isSelected()) {
-            		getUniquesOverTime();
-            	}
-            }
-        });
-		bounceTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceTab.isSelected()) {
-            		getBouncesOverTime();
-            	}
-            }
-        });
-		CPMTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPMTab.isSelected()) {
-            		getCPMsOverTime();
-            	}
-            }
-        });
-		totalCostTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(totalCostTab.isSelected()) {
-            		getTotalCostOverTime();
-            	}
-            }
-        });
-		CTRTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CTRTab.isSelected()) {
-            		getCTRsOverTime();
-            	}
-            }
-        });
-		CPCTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPCTab.isSelected()) {
-            		getCPCsOverTime();
-            	}
-            }
-        });
-		CPATab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPATab.isSelected()) {
-            		getCPAsOverTime();
-            	}
-            }
-        });
-		conversionsTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(conversionsTab.isSelected()) {
-            		getConversionsOverTime();
-            	}
-            }
-        });
-		bounceRateTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(bounceRateTab.isSelected()) {
-            		getBounceRatesOverTime();
-            	}
-            }
-        });
-		CPCHistogramTab.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event t) {
-            	if(CPCHistogramTab.isSelected()) {
-            		getCPCHistogramsOverTime();
-            	}
-            }
-        });
-		
+		getImpressionsOverTime();
+		getClicksOverTime();
+		getUniquesOverTime();
+		getBouncesOverTime();
+		getCPMsOverTime();
+		getTotalCostOverTime();
+		getCTRsOverTime();
+		getCPCsOverTime();
+		getCPAsOverTime();
+		getConversionsOverTime();
+		getBounceRatesOverTime();
+		getCPCHistogramsOverTime();
+
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
             fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -905,7 +736,7 @@ public class AdDashboard extends Application{
             LocalDate localDate = toDatePicker.getValue();
             toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         });
-		
+		updateOverview();
 		restrictDatePicker();
 	}
 	
