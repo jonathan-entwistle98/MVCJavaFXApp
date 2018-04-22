@@ -29,7 +29,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane fx:id="windowStackPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane fx:id="graphViewBorderPane" prefHeight="854.0" prefWidth="1268.0" stylesheets="style.css">
@@ -72,7 +71,7 @@
                       </Menu>
                       <Menu id="menuItem" mnemonicParsing="false" text="Settings">
                         <items>
-                          <MenuItem id="menuItem" mnemonicParsing="false" text="Appearance">
+                          <MenuItem id="menuItem" fx:id="appearanceMenuItem" mnemonicParsing="false" text="Appearance">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -85,7 +84,7 @@
                       </Menu>
                       <Menu id="menuItem" mnemonicParsing="false" text="Help">
                         <items>
-                          <MenuItem id="menuItem" mnemonicParsing="false" text="Terminology">
+                          <MenuItem id="menuItem" fx:id="terminologyMenuItem" mnemonicParsing="false" text="Terminology">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -95,7 +94,7 @@
                                  </graphic>
                               </MenuItem>
                               <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem id="menuItem" mnemonicParsing="false" text="About" />
+                              <MenuItem id="menuItem" fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
                         </items>
                       </Menu>
                     </menus>
@@ -106,7 +105,7 @@
                         <DatePicker fx:id="fromDatePicker" prefHeight="31.0" prefWidth="130.0" />
                         <Label id="menuLabel" text="To:" />
                         <DatePicker fx:id="toDatePicker" layoutX="87.0" layoutY="10.0" prefHeight="31.0" prefWidth="130.0" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="20.0" mnemonicParsing="false" onAction="#datePickerButtonClicked" prefHeight="35.0" prefWidth="59.0" style="-fx-min-width: 60;" text="✓" textAlignment="CENTER" />
+                        <Button minWidth="20.0" mnemonicParsing="false" onAction="#datePickerButtonClicked" style="-fx-min-width: 50;" text="✓" textAlignment="CENTER" />
                         <Separator orientation="VERTICAL" prefHeight="39.0" prefWidth="77.0">
                            <opaqueInsets>
                               <Insets />
@@ -123,17 +122,7 @@
                         <ToggleButtonGroup selectionType="SINGLE" />
                         <ChoiceBox fx:id="bounceDefinitionChoiceBox" layoutX="905.0" layoutY="10.0" prefWidth="130.0" />
                         <TextField fx:id="bounceDefinitionTextField" prefHeight="31.0" prefWidth="111.0" promptText="Enter value" />
-                        <Button mnemonicParsing="false" onAction="#bounceDefinitionDataEntered" text="✓" />
-                        <Separator layoutX="466.0" layoutY="10.0" orientation="VERTICAL">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="20.0" right="20.0" />
-                           </padding>
-                        </Separator>
-                        <Label id="menuLabel" text="Time unit:" />
-                        <ChoiceBox prefWidth="130.0" />
+                        <Button mnemonicParsing="false" onAction="#bounceDefinitionDataEntered" style="-fx-min-width: 50;" text="✓" />
                      </items>
                   </ToolBar>
                </children>
@@ -450,16 +439,29 @@
             </StackPane>
          </center>
       </BorderPane>
-      <BorderPane fx:id="selectCampaignBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="863.0">
+      <BorderPane fx:id="selectCampaignBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0" prefWidth="863.0">
          <center>
-            <VBox alignment="CENTER" prefHeight="414.0" prefWidth="863.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="412.0" prefWidth="863.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="126.0" prefWidth="863.0">
-                     <children>
-                        <Button fx:id="backButton" mnemonicParsing="false" minHeight="40.0" prefHeight="40.0" prefWidth="83.0" text="Back" />
-                        <ImageView fitHeight="144.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
+                  <BorderPane prefHeight="65.0" prefWidth="846.0" style="-fx-background-color: #e4e6e7;">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <left>
+                        <Button fx:id="backButton" minHeight="40.0" mnemonicParsing="false" onAction="#returnToGraphView" prefHeight="40.0" prefWidth="83.0" text="Back" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets left="10.0" />
+                           </BorderPane.margin>
+                        </Button>
+                     </left>
+                     <center>
+                        <Label style="-fx-font-size: 30;" text="Campaign Loader" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets right="80.0" />
+                           </BorderPane.margin>
+                        </Label>
+                     </center>
+                  </BorderPane>
                   <SplitPane dividerPositions="0.5" prefHeight="267.0" prefWidth="863.0">
                      <items>
                         <BorderPane prefHeight="180.0" prefWidth="435.0">
@@ -530,11 +532,20 @@
                         </BorderPane>
                      </items>
                   </SplitPane>
-                  <HBox alignment="CENTER" prefHeight="69.0" prefWidth="863.0">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="View Analytics" />
-                     </children>
-                  </HBox>
+                  <SplitPane dividerPositions="0.5">
+                     <items>
+                        <BorderPane prefHeight="55.0" prefWidth="427.0">
+                           <center>
+                              <Button fx:id="loadNewCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="Load New Campaign" />
+                           </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="55.0">
+                           <center>
+                              <Button fx:id="loadExistingCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="Load Existing Campaign" />
+                           </center>
+                        </BorderPane>
+                     </items>
+                  </SplitPane>
                </children>
             </VBox>
          </center>

@@ -356,6 +356,16 @@ public class AdDashboard extends Application{
 	@FXML
 	private BorderPane selectCampaignBorderPane;
 	
+	@FXML
+	private MenuItem appearanceMenuItem;
+	
+	@FXML
+	private MenuItem terminologyMenuItem;
+	
+	@FXML
+	private MenuItem aboutMenuItem;
+	
+	
 	private Stage stage;
 	
 	private File impressionLogFile;
@@ -429,7 +439,7 @@ public class AdDashboard extends Application{
 		Parent root = loader.load();
 
 		primaryStage.setTitle("Dashboard");
-		Scene scene = new Scene(root, 800, 600);
+		Scene scene = new Scene(root, 850, 600);
 		
 		//scene.getStylesheets().add("style.css");
 		primaryStage.setScene(scene);
@@ -466,21 +476,18 @@ public class AdDashboard extends Application{
 		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
 		selectCampaignChoiceBox.setItems(campaignChoices);
 		
+		appearanceMenuItem.setDisable(true);
+		terminologyMenuItem.setDisable(true);
+		aboutMenuItem.setDisable(true);
+		
 		graphViewBorderPane.setDisable(true);
 		dm.bounceSeconds(1);
-//		
-//		
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startScreen.fxml"));
-//            fxmlLoader.setController(this);
-//            Parent root1 = (Parent) fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.initModality(Modality.WINDOW_MODAL);
-//            stage.initStyle(StageStyle.UNDECORATED);
-//            stage.setTitle("ABC");
-//            stage.setScene(new Scene(root1));  
-//            stage.show();
-          
 				
+	}
+	
+	public void returnToGraphView(){
+		graphViewBorderPane.setDisable(false);
+		selectCampaignBorderPane.setVisible(false);
 	}
 	
 	public void restrictDatePicker() {
@@ -634,41 +641,25 @@ public class AdDashboard extends Application{
 			}
 			overview = dm.selectCampaign(campaignId);
 		}
+		if(selectCampaignChoiceBox.getValue().toString()=="" || selectCampaignChoiceBox.getValue().toString()==null) {
+			if(clickLogTextField.getText().equals("") || impressionLogTextField.getText().equals("") || serverLogTextField.getText().equals("")){
+				if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Blank Field");
+					alert.setHeaderText("Error, please select all files.");
+					alert.setContentText("Some fields are left blank.");
+					
+					alert.showAndWait();
+				}
+			}
+		}
+		
 		
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
 		dm.fetchData(fromDate, toDate);
 		
-		if(clickLogTextField.getText().equals("") || impressionLogTextField.getText().equals("") || serverLogTextField.getText().equals("")){
-			if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Blank Field");
-				alert.setHeaderText("Error, please select all files.");
-				alert.setContentText("Some fields are left blank.");
-				
-				alert.showAndWait();
-			}
-		}
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
-		
-		loader.setController(this);
-		
-		Parent root;
-		try {
-			root = loader.load();
-			Scene scene = new Scene(root, 1000, 600);
-			scene.getStylesheets().add("style.css");
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		restrictDatePicker();
-		
-		System.out.println(fromDate.toString());
-		System.out.println(toDate.toString());
 		
 		getTotalCostOverTime();
 		getImpressionsOverTime();
@@ -706,19 +697,30 @@ public class AdDashboard extends Application{
 	
 	public void bounceDefinitionDataEntered() {
 		int bounceChoiceIndex = bounceDefinitionChoiceBox.getSelectionModel().getSelectedIndex();
-		int bounceSeconds = Integer.parseInt(bounceDefinitionTextField.getText());
-		int bouncePages = Integer.parseInt(bounceDefinitionTextField.getText());
-		if(bounceChoiceIndex == 0) {
-			dm.bounceSeconds(bounceSeconds);
-			System.out.println(1);
-		}else if(bounceChoiceIndex == 1) {
-			System.out.println(2);
-			dm.bouncePages(bouncePages);
+		if(!bounceDefinitionTextField.getText().matches("[0-9]+")) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Invalid Input");
+			alert.setHeaderText("Error. Please enter a valid bounce definition number");
+			alert.setContentText("Only positive numbers are valid inputs");
+			
+			alert.showAndWait();
+		}else {
+			
+			int bounceSeconds = Integer.parseInt(bounceDefinitionTextField.getText());
+			int bouncePages = Integer.parseInt(bounceDefinitionTextField.getText());
+			
+	
+			if(bounceChoiceIndex == 0) {
+				dm.bounceSeconds(bounceSeconds);
+				System.out.println(1);
+			}else if(bounceChoiceIndex == 1) {
+				System.out.println(2);
+				dm.bouncePages(bouncePages);
+			}
+			
+			getBouncesOverTime();
+			getBounceRatesOverTime();
 		}
-		
-		getBouncesOverTime();
-		getBounceRatesOverTime();
-		
 	}
 	
 	public void datePickerButtonClicked() {
