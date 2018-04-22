@@ -343,8 +343,6 @@ public class AdDashboard extends Application{
 	@FXML
 	private TextField campaignNameTextField;
 	
-//	private Controller controller; 
-	
 	private Stage stage;
 	
 	private File impressionLogFile;
@@ -538,6 +536,9 @@ public class AdDashboard extends Application{
 		bounces.setText("" + overview.getBounces());
 		bounceRate.setText("" + round(overview.getBounceRate(),4));
 		
+		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
+		bounceDefinitionChoiceBox.setItems(availableChoices);
+		
 //		if(overview.getBounceRate()==0 || overview.getBounces()==0 || overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0 || overview.getCTR()==0){
 //			divideByZeroError();
 //		}
@@ -689,6 +690,10 @@ public class AdDashboard extends Application{
 			System.out.println(2);
 			dm.bouncePages(bouncePages);
 		}
+		
+		getBouncesOverTime();
+		getBounceRatesOverTime();
+		
 	}
 	
 	public void datePickerButtonClicked() {
@@ -940,8 +945,9 @@ public class AdDashboard extends Application{
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
-		
+		bounceGraph.getData().clear();
 		bounceGraph.getData().add(bounceSeries);
+		
 	}
 	
 	public void getBounceRatesOverTime(){

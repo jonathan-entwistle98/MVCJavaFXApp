@@ -113,7 +113,8 @@
                   </Label>
                   <ToggleButtonGroup selectionType="SINGLE" />
                   <ChoiceBox fx:id="bounceDefinitionChoiceBox" layoutX="905.0" layoutY="10.0" prefWidth="130.0" />
-                  <TextField fx:id="bounceDefinitionTextField" onAction="#bounceDefinitionDataEntered" prefHeight="31.0" prefWidth="111.0" promptText="Enter value" />
+                  <TextField fx:id="bounceDefinitionTextField" prefHeight="31.0" prefWidth="111.0" promptText="Enter value" />
+                  <Button mnemonicParsing="false" onAction="#bounceDefinitionDataEntered" text="✓" />
                   <Separator layoutX="466.0" layoutY="10.0" orientation="VERTICAL">
                      <opaqueInsets>
                         <Insets />
