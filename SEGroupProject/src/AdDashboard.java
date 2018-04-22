@@ -51,8 +51,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 public class AdDashboard extends Application{
@@ -343,6 +347,15 @@ public class AdDashboard extends Application{
 	@FXML
 	private TextField campaignNameTextField;
 	
+	@FXML
+	private StackPane windowStackPane;
+	
+	@FXML
+	private BorderPane graphViewBorderPane;
+	
+	@FXML
+	private BorderPane selectCampaignBorderPane;
+	
 	private Stage stage;
 	
 	private File impressionLogFile;
@@ -445,8 +458,28 @@ public class AdDashboard extends Application{
             System.out.println("toDate is" + toDate.toString());
         });
 		
+		ArrayList<String> campaignNames = new ArrayList<String>();
+		campaignNamesArrayList = dm.getCampaignNamesAndIds();
+		for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+			campaignNames.add((String) campaignNamesAndIds.get(1));
+		}		
+		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
+		selectCampaignChoiceBox.setItems(campaignChoices);
 		
+		graphViewBorderPane.setDisable(true);
 		dm.bounceSeconds(1);
+//		
+//		
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startScreen.fxml"));
+//            fxmlLoader.setController(this);
+//            Parent root1 = (Parent) fxmlLoader.load();
+//            Stage stage = new Stage();
+//            stage.initModality(Modality.WINDOW_MODAL);
+//            stage.initStyle(StageStyle.UNDECORATED);
+//            stage.setTitle("ABC");
+//            stage.setScene(new Scene(root1));  
+//            stage.show();
+          
 				
 	}
 	
@@ -546,20 +579,6 @@ public class AdDashboard extends Application{
 	
 	public void loadCampaignClicked() {
 		
-		FXMLLoader loader3 = new FXMLLoader(getClass().getResource("startScreen.fxml"));
-		loader3.setController(this);
-		
-		Parent root3;
-		try {
-			root3 = loader3.load();
-			Scene scene = new Scene(root3, 1000, 600);
-//			scene.getStylesheets().add("style.css");
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
             fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -572,6 +591,9 @@ public class AdDashboard extends Application{
             System.out.println("localDate is" + localDate.toString());
             System.out.println("toDate is" + toDate.toString());
         });
+		
+		graphViewBorderPane.setDisable(true);
+		selectCampaignBorderPane.setVisible(true);
 		
 		restrictDatePicker();
 		
@@ -674,6 +696,9 @@ public class AdDashboard extends Application{
             System.out.println("localDate is" + localDate.toString());
             System.out.println("toDate is" + toDate.toString());
         });
+		
+		graphViewBorderPane.setDisable(false);
+		selectCampaignBorderPane.setVisible(false);
 		
 		updateOverview();
 		
