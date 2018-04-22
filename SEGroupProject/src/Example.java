@@ -10,9 +10,9 @@ public class Example {
 
 	public static void main (String[] args) {
 		
-		File file1 = new File("impression_log.csv");
-		File file2 = new File("click_log.csv");
-		File file3 = new File("server_log.csv");
+		File file1 = new File("impression_log2.csv");
+		File file2 = new File("click_log2.csv");
+		File file3 = new File("server_log2.csv");
 		
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		Date start = null;
@@ -44,18 +44,38 @@ public class Example {
 		// 	File file2 = click_log.CSV
 		//  File file3 = server_log.CSV
 		// Doing so will create a new campaign and allocate it an ID.
-//		dm.exportCSVs(file1, file2, file3, "SomeCampaign");
+		double[] progress = new double[3];
+		
+		Thread t1 = new Thread(new Runnable() {
+	         public void run() {
+	        	 while(true) {
+	     			System.out.println(progress[0]);
+	     			try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+					}
+	     		}
+	         }
+	    });  
+	    System.out.println("Loading campaign");
+	    t1.start();
+	    long time = System.currentTimeMillis();
+		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
+		t1.stop();
+		System.out.println((System.currentTimeMillis() - time) + "ms passed");
+		
+		
 		
 		// Get IDs of all existing campaigns.
-		ArrayList<Integer> campaignIDs = dm.getCampaigns();
-		
-		// Select campaign by its ID from the database.
-		// This selects campaign for loading and returns overview metrics.
-		OverviewItems overview = dm.selectCampaign(1);
-		
-		// Gets data with set date range and stores it in DataModel.
-		// Must pass two Date objects (start and end) as parameters.
-		dm.fetchData(start, end);
+//		ArrayList<Integer> campaignIDs = dm.getCampaigns();
+//		
+//		// Select campaign by its ID from the database.
+//		// This selects campaign for loading and returns overview metrics.
+//		OverviewItems overview = dm.selectCampaign(1);
+//		
+//		// Gets data with set date range and stores it in DataModel.
+//		// Must pass two Date objects (start and end) as parameters.
+//		dm.fetchData(start, end);
 		
 		// Returns XYChart.Series for defined metric.
 //		XYChart.Series series = dm.getSeries(Metric.BOUNCES);

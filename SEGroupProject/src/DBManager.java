@@ -75,7 +75,6 @@ public class DBManager {
 						rs.getString("INCOME"),
 						rs.getString("CONTEXT"),
 						rs.getFloat("IMPRESSION_COST")};
-				
 				impressions.add(DataParser.makeImpression(attributes));
 			}
 
@@ -167,6 +166,8 @@ public class DBManager {
 		
 		getRowID();
 		
+		// Dropping and recreating index when inserting data somehow increases performance?
+		setIndex(false);
 		// Set filesize for progress bar.
 		double totalLength = (double)impressions.length() + (double)clicks.length();
 		progress[1] = (75000 / (double)impressions.length()) * ((double)impressions.length() / totalLength);
@@ -175,14 +176,32 @@ public class DBManager {
 		exportImpression(impressions, progress);
 		exportRichClick(clicks, servers, progress);
 		
-		//fetchAllData()
-		
-		//doCalculations()
-		
+		setIndex(true);
 		createCampaign(campaignName);
 		
 	}
 		
+	// This should not improve performance but it somehow does. WTF
+	private void setIndex(boolean b) {
+
+		String sql = "";
+		if(b) {
+			sql = "CREATE INDEX IF NOT EXISTS ID_I ON IMPRESSION_LOG (ID)";
+		} else {
+			sql = "DROP INDEX IF EXISTS ID_I";
+		}
+		
+		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
+				Statement stmt = conn.createStatement();
+				) {
+			stmt.executeUpdate(sql);
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+	}
+
+
 	private void exportImpression(File impressionFile, double[] progress) {
 
 		// Create SQL statement
@@ -230,10 +249,9 @@ public class DBManager {
 				
 				counter2++;
 				if(counter2 >= 1000) {
-					pstmt.executeBatch();
 					counter2 = 0;
 					progress[0] += progress[1];
-					System.out.println(progress[0]);
+//					System.out.println(progress[0]);
 				}
 			}
 			pstmt.executeBatch();
@@ -286,17 +304,16 @@ public class DBManager {
 						pstmt.addBatch();
 						
 						counter1++;
-						if(counter1 >= 100000) {
+						if(counter1 >= 10000) {
 							pstmt.executeBatch();
 							counter1 = 0;
 						}
 						
 						counter2++;
 						if(counter2 >= 1000) {
-							pstmt.executeBatch();
 							counter2 = 0;
 							progress[0] += progress[2];
-							System.out.println(progress[0]);
+//							System.out.println(progress[0]);
 						}
 						
 					} else {
