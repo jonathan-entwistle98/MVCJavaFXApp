@@ -419,7 +419,7 @@ public class DBManager {
 				clicks = rs.getInt(1);
 			}
 			rs.close();
-			rs = stmt.executeQuery("SELECT COUNT(id) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
+			rs = stmt.executeQuery("SELECT COUNT(DISTINCT id) FROM CLICK_LOG WHERE CAMPAIGN == " + rowID);
 			if(rs.next()) {
 				uniques = rs.getInt(1);
 			}
