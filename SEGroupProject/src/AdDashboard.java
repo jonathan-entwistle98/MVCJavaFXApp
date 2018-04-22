@@ -343,8 +343,6 @@ public class AdDashboard extends Application{
 	@FXML
 	private TextField campaignNameTextField;
 	
-//	private Controller controller; 
-	
 	private Stage stage;
 	
 	private File impressionLogFile;
@@ -538,6 +536,9 @@ public class AdDashboard extends Application{
 		bounces.setText("" + overview.getBounces());
 		bounceRate.setText("" + round(overview.getBounceRate(),4));
 		
+		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
+		bounceDefinitionChoiceBox.setItems(availableChoices);
+		
 //		if(overview.getBounceRate()==0 || overview.getBounces()==0 || overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0 || overview.getCTR()==0){
 //			divideByZeroError();
 //		}
@@ -689,28 +690,15 @@ public class AdDashboard extends Application{
 			System.out.println(2);
 			dm.bouncePages(bouncePages);
 		}
+		
+		getBouncesOverTime();
+		getBounceRatesOverTime();
+		
 	}
 	
 	public void datePickerButtonClicked() {
         System.out.println("inpicker toDate is" + toDate.toString());
 		dm.fetchData(fromDate, toDate);
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
-		
-		loader.setController(this);
-		
-		
-		
-		Parent root;
-		try {
-			root = loader.load();
-			Scene scene = new Scene(root, 1000, 600);
-			scene.getStylesheets().add("style.css");
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		getTotalCostOverTime();
 		getImpressionsOverTime();
@@ -725,19 +713,6 @@ public class AdDashboard extends Application{
 		getConversionsOverTime();
 		getBounceRatesOverTime();
 		getCPCHistogramsOverTime();
-
-		fromDatePicker.setOnAction(event -> {
-            LocalDate localDate = fromDatePicker.getValue();
-            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            
-        });
-		
-		toDatePicker.setOnAction(event -> {
-            LocalDate localDate = toDatePicker.getValue();
-            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        });
-		updateOverview();
-		restrictDatePicker();
 	}
 	
 	public void impressionLogFilePickerClicked(){
@@ -809,7 +784,7 @@ public class AdDashboard extends Application{
 //                return null;
 //            }
 //	    });
-		
+		impressionGraph.getData().clear();
 		impressionGraph.getData().add(impressionSeries);
 	}
 	
@@ -819,7 +794,7 @@ public class AdDashboard extends Application{
 	clickGraph.setLegendVisible(false);
 	clickYAxis.setLabel("Clicks");
 	clickXAxis.setLabel("Time (Date)");
-	
+	clickGraph.getData().clear();
 	clickGraph.getData().add(clickSeries);
 	}
 	
@@ -866,7 +841,7 @@ public class AdDashboard extends Application{
 		CPMYAxis.setLowerBound(0);
 		CPMYAxis.setUpperBound(2.0);
 		CPMYAxis.setTickUnit(0.05);
-		
+		CPMGraph.getData().clear();
 		CPMGraph.getData().add(CPMSeries);
 	
 	}
@@ -877,7 +852,7 @@ public class AdDashboard extends Application{
 		CPCGraph.setLegendVisible(false);
 		CPCYAxis.setLabel("CPC");
 		CPCXAxis.setLabel("Time (Date)");
-		
+		CPCGraph.getData().clear();
 		CPCGraph.getData().add(CPCSeries);
 	
 	}
@@ -888,7 +863,7 @@ public class AdDashboard extends Application{
 		CTRGraph.setLegendVisible(false);
 		CTRYAxis.setLabel("CTR");
 		CTRXAxis.setLabel("Time (Date)");
-		
+		CTRGraph.getData().clear();
 		CTRGraph.getData().add(CTRSeries);
 	
 	}
@@ -899,7 +874,7 @@ public class AdDashboard extends Application{
 		CPAGraph.setLegendVisible(false);
 		CPAYAxis.setLabel("CPA");
 		CPAXAxis.setLabel("Time (Date)");
-		
+		CPAGraph.getData().clear();
 		CPAGraph.getData().add(CPASeries);
 	
 	}
@@ -910,7 +885,7 @@ public class AdDashboard extends Application{
 	conversionsGraph.setLegendVisible(false);
 	conversionsYAxis.setLabel("Conversions");
 	conversionsXAxis.setLabel("Time (Date)");
-	
+	conversionsGraph.getData().clear();
 	conversionsGraph.getData().add(conversionsSeries);
 	
 	}
@@ -921,7 +896,7 @@ public class AdDashboard extends Application{
 		totalCostGraph.setLegendVisible(false);
 		totalCostYAxis.setLabel("Total Cost");
 		totalCostXAxis.setLabel("Time (Date)");
-		
+		totalCostGraph.getData().clear();
 		totalCostGraph.getData().add(totalCostSeries);
 	
 	}
@@ -931,7 +906,7 @@ public class AdDashboard extends Application{
 		uniqueGraph.setLegendVisible(false);
 		uniqueYAxis.setLabel("Uniques");
 		uniqueXAxis.setLabel("Time (Date)");
-		
+		uniqueGraph.getData().clear();
 		uniqueGraph.getData().add(uniqueSeries);
 	}
 	
@@ -940,8 +915,9 @@ public class AdDashboard extends Application{
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
-		
+		bounceGraph.getData().clear();
 		bounceGraph.getData().add(bounceSeries);
+		
 	}
 	
 	public void getBounceRatesOverTime(){
@@ -949,7 +925,7 @@ public class AdDashboard extends Application{
 		bounceRateGraph.setLegendVisible(false);
 		bounceRateYAxis.setLabel("Bounce Rate");
 		bounceRateXAxis.setLabel("Time (Date)");
-		
+		bounceRateGraph.getData().clear();
 		bounceRateGraph.getData().add(bounceRateSeries);
 	}
 	
@@ -959,7 +935,7 @@ public class AdDashboard extends Application{
 		CPCHistogram.setLegendVisible(false);
 		CPCHistogramYAxis.setLabel("Frequency Density");
 		CPCHistogramXAxis.setLabel("Time (Date)");
-		
+		CPCHistogram.getData().clear();
 		CPCHistogram.getData().add(CPCSeries);
 	
 	}
