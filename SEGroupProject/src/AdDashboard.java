@@ -905,7 +905,7 @@ public class AdDashboard extends Application{
             LocalDate localDate = toDatePicker.getValue();
             toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         });
-		
+		updateOverview();
 		restrictDatePicker();
 	}
 	
