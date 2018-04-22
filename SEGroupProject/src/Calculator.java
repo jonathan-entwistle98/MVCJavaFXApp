@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Calculator {
 
@@ -85,16 +86,8 @@ public class Calculator {
 	}
 	private void calcUniques() { //TODO
 		int[] arr = new int[range];
- 		ArrayList<HashSet> IDs = new ArrayList<HashSet>(range);
- 		for(int i = 0; i < range; i++) {
- 			IDs.add(new HashSet());
- 		}
-		for(ClickEntry e : clicks) {
-			IDs.get((int)e.getDate()).add(e.getId());
-		}
-		
-		for(int i = 0; i < range; i++) {
-			arr[i] = IDs.get(i).size();
+		for(ClickEntry e : clicks.stream().distinct().collect(Collectors.toList())) {
+			arr[(int)e.getDate()]++;
 		}
 		metrics.setUniques(arr);
 	}
