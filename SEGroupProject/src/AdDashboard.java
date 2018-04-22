@@ -391,6 +391,10 @@ public class AdDashboard extends Application{
 	
 	private ArrayList<ArrayList<Object>> campaignNamesArrayList;
 	
+	private DatePicker minDate = null;
+	
+	private DatePicker maxDate = null;
+	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -450,17 +454,28 @@ public class AdDashboard extends Application{
 	
 	public void restrictDatePicker() {
 		if(overview != null) {
+			LocalDate localDateMaxDate;
+			LocalDate localDateMinDate;
+			if(fromDate == null) {
+				minDateLong = overview.getMinDate();
+				minDate = new DatePicker();
+				Date dateMinDate = new Date(minDateLong);
+				localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			}else {
+				minDate = new DatePicker();
+				localDateMinDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			}
+			if(toDate == null) {
+				maxDateLong = overview.getMaxDate();
+				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
+				Date dateMaxDate = new Date(maxDateLong);
+				localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			}else {
+				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
+				localDateMaxDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+			}
 			
-			minDateLong = overview.getMinDate();
-			maxDateLong = overview.getMaxDate();
-			System.out.println("restrict date picker clicked");
-	//		DatePicker myDatePicker = new DatePicker(); // This DatePicker is shown to user
-			DatePicker maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
-			DatePicker minDate = new DatePicker();
-			Date dateMinDate = new Date(minDateLong);
-			Date dateMaxDate = new Date(maxDateLong);
-			LocalDate localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			LocalDate localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			minDate.setValue(localDateMinDate);
 			maxDate.setValue(localDateMaxDate); // Max date available will be 2015-01-01
 			
@@ -762,6 +777,8 @@ public class AdDashboard extends Application{
 		
 		loader.setController(this);
 		
+		
+		
 		Parent root;
 		try {
 			root = loader.load();
@@ -882,6 +899,8 @@ public class AdDashboard extends Application{
             LocalDate localDate = toDatePicker.getValue();
             toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         });
+		
+		restrictDatePicker();
 	}
 	
 	public void impressionLogFilePickerClicked(){
