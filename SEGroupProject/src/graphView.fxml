@@ -536,12 +536,12 @@
                      <items>
                         <BorderPane prefHeight="55.0" prefWidth="427.0">
                            <center>
-                              <Button fx:id="loadNewCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="Load New Campaign" />
+                              <Button fx:id="loadNewCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadNewCampaignClicked" text="Load New Campaign" />
                            </center>
                         </BorderPane>
                         <BorderPane prefHeight="55.0">
                            <center>
-                              <Button fx:id="loadExistingCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewAnalyticsClicked" text="Load Existing Campaign" />
+                              <Button fx:id="loadExistingCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadExistingCampaignClicked" text="Load Existing Campaign" />
                            </center>
                         </BorderPane>
                      </items>

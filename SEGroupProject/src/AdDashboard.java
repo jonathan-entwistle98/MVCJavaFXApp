@@ -614,11 +614,7 @@ public class AdDashboard extends Application{
 		
 	}
 	
-	public void viewAnalyticsClicked(){
-		
-		String dateFormat = "yyyy-MM-dd HH:mm:ss";
-		Date start = null;
-		Date end = null;
+	public void loadNewCampaignClicked(){
 
 		// Doing so will create a new campaign and allocate it an ID.
 		if(!clickLogTextField.getText().isEmpty()) {
@@ -628,7 +624,61 @@ public class AdDashboard extends Application{
 			// This selects campaign for loading and returns overview metrics.
 			overview = dm.selectCampaign(1);
 		}
-		else if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+
+		
+		if(clickLogTextField.getText().equals("") || impressionLogTextField.getText().equals("") || serverLogTextField.getText().equals("")){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Blank Field");
+				alert.setHeaderText("Error, please select all files.");
+				alert.setContentText("Some fields are left blank.");
+				
+				alert.showAndWait();
+		}else {
+		
+			// Gets data with set date range and stores it in DataModel.
+			// Must pass two Date objects (start and end) as parameters.
+			dm.fetchData(fromDate, toDate);
+			
+			restrictDatePicker();
+			
+			getTotalCostOverTime();
+			getImpressionsOverTime();
+			getClicksOverTime();
+			getUniquesOverTime();
+			getBouncesOverTime();
+			getCPMsOverTime();
+			getTotalCostOverTime();
+			getCTRsOverTime();
+			getCPCsOverTime();
+			getCPAsOverTime();
+			getConversionsOverTime();
+			getBounceRatesOverTime();
+			getCPCHistogramsOverTime();
+			
+			fromDatePicker.setOnAction(event -> {
+	            LocalDate localDate = fromDatePicker.getValue();
+	            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	            
+	        });
+			
+			toDatePicker.setOnAction(event -> {
+	            LocalDate localDate = toDatePicker.getValue();
+	            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	            System.out.println("localDate is" + localDate.toString());
+	            System.out.println("toDate is" + toDate.toString());
+	        });
+			
+			graphViewBorderPane.setDisable(false);
+			selectCampaignBorderPane.setVisible(false);
+			
+			updateOverview();
+		}
+		
+	}
+	
+	public void loadExistingCampaignClicked(){
+		
+		if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
 			String campaignName = selectCampaignChoiceBox.getValue().toString();
 			int campaignId = 0;
 			ArrayList<String> campaignNames = new ArrayList<String>();
@@ -640,20 +690,7 @@ public class AdDashboard extends Application{
 				}
 			}
 			overview = dm.selectCampaign(campaignId);
-		}
-		if(selectCampaignChoiceBox.getValue().toString()=="" || selectCampaignChoiceBox.getValue().toString()==null) {
-			if(clickLogTextField.getText().equals("") || impressionLogTextField.getText().equals("") || serverLogTextField.getText().equals("")){
-				if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Blank Field");
-					alert.setHeaderText("Error, please select all files.");
-					alert.setContentText("Some fields are left blank.");
-					
-					alert.showAndWait();
-				}
-			}
-		}
-		
+		}	
 		
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
