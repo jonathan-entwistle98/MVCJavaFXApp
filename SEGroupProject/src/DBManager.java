@@ -114,12 +114,12 @@ public class DBManager {
 						rs.getLong(2) - start, 	//R_DATE -  Accounting for offset
 						rs.getLong(3),			//ID
 						rs.getFloat(4),			//CLICK_COST
-						rs.getString(8),		//GENDER
-						rs.getString(9),		//AGE
-						rs.getString(10),		//INCOME
-						rs.getInt(5),			//SECONDS
-						rs.getInt(6),			//PAGES
-						rs.getString(7)			//CONVERSION
+						rs.getString(9),		//GENDER
+						rs.getString(10),		//AGE
+						rs.getString(11),		//INCOME
+						rs.getInt(6),			//SECONDS
+						rs.getInt(7),			//PAGES
+						rs.getString(8)			//CONVERSION
 						};
 				dbTime += System.nanoTime() - time;
 				time = System.nanoTime();
