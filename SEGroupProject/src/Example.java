@@ -58,7 +58,7 @@ public class Example {
 	         }
 	    });  
 	    System.out.println("Loading campaign");
-//	    t1.start();
+	    t1.start();
 	    long time = System.currentTimeMillis();
 		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
 		t1.stop();
