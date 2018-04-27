@@ -410,6 +410,18 @@ public class AdDashboard extends Application{
 	
 	private Date toDate;
 	
+	private Date datePickerFromCheck;
+	
+	private Date datePickerToCheck;
+	
+	private Date initialMinDate;
+	
+	private Date initialMaxDate;
+	
+	private boolean fromPickerChanged;
+	
+	private boolean toPickerChanged;
+	
 	private ArrayList<ArrayList<Object>> campaignNamesArrayList;
 	
 	private DatePicker minDate = null;
@@ -454,19 +466,6 @@ public class AdDashboard extends Application{
 		
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
-		
-		fromDatePicker.setOnAction(event -> {
-            LocalDate localDate = fromDatePicker.getValue();
-            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            
-        });
-		
-		toDatePicker.setOnAction(event -> {
-            LocalDate localDate = toDatePicker.getValue();
-            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            System.out.println("localDate is" + localDate.toString());
-            System.out.println("toDate is" + toDate.toString());
-        });
 		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
@@ -540,6 +539,9 @@ public class AdDashboard extends Application{
 			};
 			fromDatePicker.setValue(localDateMinDate);
 			toDatePicker.setValue(localDateMaxDate);
+			System.out.println("Day of week" + fromDatePicker.getValue().getDayOfWeek());
+			initialMinDate = Date.from(localDateMinDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			initialMaxDate = Date.from(localDateMaxDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			fromDatePicker.setDayCellFactory(dayCellFactory);
 			toDatePicker.setDayCellFactory(dayCellFactory);
 		}
@@ -677,6 +679,34 @@ public class AdDashboard extends Application{
 			updateOverview();
 		}
 		
+		preventDatePickerDoubleClick();
+		
+	}
+	
+	public void preventDatePickerDoubleClick() {
+		restrictDatePicker();
+		fromDatePicker.setOnAction(event -> {
+			
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            if(fromDate == datePickerFromCheck || fromDate == initialMaxDate) {
+            	fromPickerChanged = false;
+            }else {
+            	fromPickerChanged = true;
+            	datePickerFromCheck = fromDate;
+            }
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            if(toDate == datePickerToCheck || toDate == initialMinDate) {
+            	toPickerChanged = false;
+            }else {
+            	toPickerChanged = true;
+            	datePickerToCheck = toDate;
+            }
+        });
 	}
 	
 	public void loadExistingCampaignClicked(){
@@ -733,6 +763,9 @@ public class AdDashboard extends Application{
 		
 		updateOverview();
 		
+		preventDatePickerDoubleClick();
+		
+		
 	}
 	
 	public void bounceDefinitionDataEntered() {
@@ -764,22 +797,25 @@ public class AdDashboard extends Application{
 	}
 	
 	public void datePickerButtonClicked() {
-        System.out.println("inpicker toDate is" + toDate.toString());
-		dm.fetchData(fromDate, toDate);
 		
-		getTotalCostOverTime();
-		getImpressionsOverTime();
-		getClicksOverTime();
-		getUniquesOverTime();
-		getBouncesOverTime();
-		getCPMsOverTime();
-		getTotalCostOverTime();
-		getCTRsOverTime();
-		getCPCsOverTime();
-		getCPAsOverTime();
-		getConversionsOverTime();
-		getBounceRatesOverTime();
-		getCPCHistogramsOverTime();
+		if(fromPickerChanged || toPickerChanged) {
+	        System.out.println("inpicker toDate is" + toDate.toString());
+			dm.fetchData(fromDate, toDate);
+			
+			getTotalCostOverTime();
+			getImpressionsOverTime();
+			getClicksOverTime();
+			getUniquesOverTime();
+			getBouncesOverTime();
+			getCPMsOverTime();
+			getTotalCostOverTime();
+			getCTRsOverTime();
+			getCPCsOverTime();
+			getCPAsOverTime();
+			getConversionsOverTime();
+			getBounceRatesOverTime();
+			getCPCHistogramsOverTime();
+		}
 	}
 	
 	public void impressionLogFilePickerClicked(){
