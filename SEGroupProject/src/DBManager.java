@@ -268,7 +268,7 @@ public class DBManager {
 				if(counter2 >= 1000) {
 					counter2 = 0;
 					progress[0] += progress[1];
-					System.out.println(progress[0]);
+					//System.out.println(progress[0]);
 				}
 			}
 			pstmt.executeBatch();
@@ -330,7 +330,7 @@ public class DBManager {
 						if(counter2 >= 1000) {
 							counter2 = 0;
 							progress[0] += progress[2];
-							System.out.println(progress[0]);
+							//System.out.println(progress[0]);
 						}
 						
 					} else {
