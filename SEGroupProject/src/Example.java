@@ -74,10 +74,14 @@ public class Example {
 //		// Gets data with set date range and stores it in DataModel.
 //		// Must pass two Date objects (start and end) as parameters.
 		dm.fetchData(start, end);
-		ArrayList<Gender> genders = new ArrayList<>();
-		DataFilter df = new DataFilter(Metric.IMPRESSIONS,null,null,null,null);
 		
-		System.out.println(dm.getSeries(df).getData().get(0));
+		
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
+		dm.getSeries(df);
+		
+		
 		// Returns XYChart.Series for defined metric.
 //		XYChart.Series series = dm.getSeries(Metric.BOUNCES);
 		
