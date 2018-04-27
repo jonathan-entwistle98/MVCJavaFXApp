@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import sun.awt.image.ImageRepresentation;
+
 public class Calculator {
 
 	private enum BounceCrit{PAGES, SECONDS};
@@ -71,27 +73,40 @@ public class Calculator {
 	}
 	
 	private void calcImpressions() {
+		metrics.setImpressions(calcImpressions(impressions));
+	}
+	private int[] calcImpressions(ArrayList<ImpressionEntry> impressions) {
 		int[] arr = new int[range];
 		for(ImpressionEntry e : impressions) {
 			arr[(int)e.getDate()]++;
 		}
-		metrics.setImpressions(arr);
+		return arr;
 	}
+	
 	private void calcClicks() {
+		metrics.setClicks(calcClicks(clicks));
+	}
+	private int[] calcClicks(ArrayList<ClickEntry> clicks) {
 		int[] arr = new int[range];
 		for(ClickEntry e : clicks) {
 			arr[(int)e.getDate()]++;
 		}
-		metrics.setClicks(arr);
+		return arr;
 	}
-	private void calcUniques() { //TODO
+	private void calcUniques() {
+		metrics.setUniques(calcUniques(clicks));
+	}
+	private int[] calcUniques(ArrayList<ClickEntry> clicks) { //TODO
 		int[] arr = new int[range];
 		for(ClickEntry e : clicks.stream().distinct().collect(Collectors.toList())) {
 			arr[(int)e.getDate()]++;
 		}
-		metrics.setUniques(arr);
+		return arr;
 	}
 	private void calcBounces(BounceCrit crit) {
+		metrics.setBounces(calcBounces(crit, clicks));
+	}
+	private int[] calcBounces(BounceCrit crit, ArrayList<ClickEntry> clicks) {
 		int[] arr = new int[range];
 		switch (crit) {
 		case PAGES:
@@ -100,28 +115,33 @@ public class Calculator {
 					arr[(int)e.getDate()]++;
 				}
 			}
-			metrics.setBounces(arr);
-			break;
+			return arr;
 		case SECONDS:
 			for(ClickEntry e : clicks) {
 				if (e.getSecondsViewed() < bounceSeconds && !e.isConverted()) {
 					arr[(int)e.getDate()]++;
 				}
 			}
-			metrics.setBounces(arr);
-			break;
+			return arr;
 		}
+		return null;
 	}
 	private void calcConversions() {
+		metrics.setConversions(calcConversions(clicks));
+	}
+	private int[] calcConversions(ArrayList<ClickEntry> clicks) {
 		int[] arr = new int[range];
 		for(ClickEntry e : clicks) {
 			if (e.isConverted()) {
 				arr[(int)e.getDate()]++;
 			}
 		}
-		metrics.setConversions(arr);
-	}	
+		return arr;
+	}
 	private void calcCosts() {
+		metrics.setCosts(calcCosts(impressions, clicks));
+	}
+	private float[] calcCosts(ArrayList<ImpressionEntry> impressions, ArrayList<ClickEntry> clicks) {
 		float[] costs = new float[range];
 		for(ImpressionEntry e : impressions) {
 			costs[(int) e.getDate()] += e.getImpressionCost();
@@ -129,42 +149,49 @@ public class Calculator {
 		for(ClickEntry e : clicks) {
 			costs[(int) e.getDate()] += e.getClickCost();
 		}
-		metrics.setCosts(costs);
+		return costs;
 	}
 	private void calcTotalCost() {
+		metrics.setTotalCost(calcTotalCost(metrics.getCosts()));
+	}
+	private float calcTotalCost(float[] costs) {
 		float totalCost = 0;
-		float[] costs = metrics.getCosts();
+		metrics.getCosts();
 		for(int i = 0; i < range; i++) {
 			totalCost += costs[i];
 		}
-		metrics.setTotalCost(totalCost);
+		return totalCost;
 	}
 	private void calcCTR() {
+		metrics.setCtr(calcCTR(metrics.getClicks(), metrics.getImpressions()));
+	}
+	private float[] calcCTR(int[] cl, int[] im) {
 		float[] arr = new float[range];
-		int[] cl = metrics.getClicks();
-		int[] im = metrics.getImpressions();
 		for(int i = 0; i < range; i++) {
 			if(im[i] != 0) {
 				arr[i] = cl[i] / (float)im[i];
 			}
 		}
-		metrics.setCtr(arr);
+		return arr;
 	}
 	private void calcCPA() {
+		metrics.setCpa(calcCPA(metrics.getCosts(), metrics.getConversions()));
+	}
+	private float[] calcCPA(float[] costs, int[] conv) {
 		float[] arr = new float[range];
-		float[] costs = metrics.getCosts();
-		int[] conv = metrics.getConversions();
 		for(int i = 0; i < range; i++) {
 			if(conv[i] != 0) {
 				arr[i] = costs[i] / conv[i];
 			}
 		}
-		metrics.setCpa(arr);
+		return arr;
 	}
 	private void calcCPC() {
+		metrics.setCpc(calcCPC(metrics.getClicks(), impressions));
+	}
+	private float[] calcCPC(int[] clicks, ArrayList<ImpressionEntry> impressions) {
 		float[] arr = new float[range];
 		float[] costs = new float[range];
-		int[] clicks = metrics.getClicks();
 		for(ImpressionEntry e : impressions) {
 			costs[(int) e.getDate()] += e.getImpressionCost();
 		}
@@ -173,25 +200,27 @@ public class Calculator {
 				arr[i] = costs[i] / clicks[i];
 			}
 		}
-		metrics.setCpc(arr);
+		return arr;
 	}
 	private void calcCPM() {
+		metrics.setCpm(calcCPM(metrics.getImpressions(), impressions));
+	}
+	private float[] calcCPM(int[] impr, ArrayList<ImpressionEntry> impressions) {
 		float[] arr = new float[range];
 		float[] costs = new float[range];
-		int[] impr = metrics.getImpressions();
 		for(ImpressionEntry e : impressions) {
 			costs[(int) e.getDate()] += e.getImpressionCost();
 		}
 		for(int i = 0; i < range; i++) {
 			arr[i] = costs[i] / (impr[i] / 1000.0f);
 		}
-		metrics.setCpm(arr);
+		return arr;
 	}
 	private void calcBounceRate() {
+		metrics.setBounceRate(calcBounceRate(metrics.getBounces(), metrics.getClicks()));
+	}
+	private float[] calcBounceRate(int[] bounces, int[] clicks) {
 		float[] arr = new float[range];
-		int[] bounces = metrics.getBounces();
-		int[] clicks = metrics.getClicks();
-	
 		for(int i = 0; i < range; i++) {
 			if(clicks[i] != 0) {
 				arr[i] = bounces[i] / (float) clicks[i];
@@ -199,7 +228,47 @@ public class Calculator {
 				arr[i] = 0;
 			}
 		}
-		metrics.setBounceRate(arr);
+		return arr;
+	}
+	
+	public int[] calcFilterInt(DataFilter f) {
+		switch(f.getMetric()) {
+		case IMPRESSIONS:
+			return calcImpressions(f.filterImpressions(impressions));
+		case BOUNCES:
+			return calcBounces(crit, f.filterClicks(clicks));
+		case CLICKS:
+			return calcClicks(f.filterClicks(clicks));
+		case CONVERSIONS:
+			return calcConversions(f.filterClicks(clicks));
+		case UNIQUES:
+			return calcUniques(f.filterClicks(clicks));
+		default:
+			break;
+		}
+		return new int[]{0};
+	}
+	
+	public float[] calcFilter(DataFilter f) {
+		ArrayList<ClickEntry> c;
+		switch(f.getMetric()) {
+		case BOUNCE_RATE:
+			c = f.filterClicks(clicks);
+			return calcBounceRate(calcBounces(crit, c), calcClicks(c));
+		case CPA:
+			c = f.filterClicks(clicks);
+			return calcCPA(calcCosts(f.filterImpressions(impressions), c), calcConversions(c));
+		case CPC:
+			return calcCPC(calcClicks(f.filterClicks(clicks)), f.filterImpressions(impressions));
+		case CPM:
+			ArrayList<ImpressionEntry> i = f.filterImpressions(impressions);
+			return calcCPM(calcImpressions(i), i);
+		case CTR:
+			return calcCTR(calcClicks(f.filterClicks(clicks)), calcImpressions(f.filterImpressions(impressions)));
+		default:
+			break;
+		}
+		return new float[]{0};
 	}
 	
 }

@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.scene.chart.XYChart;
-
 public class Example {
 
 	public static void main (String[] args) {
@@ -60,7 +58,7 @@ public class Example {
 	    System.out.println("Loading campaign");
 //	    t1.start();
 	    long time = System.currentTimeMillis();
-		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
+//		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
 		t1.stop();
 		System.out.println((System.currentTimeMillis() - time) + "ms passed");
 		
@@ -71,12 +69,15 @@ public class Example {
 //		
 //		// Select campaign by its ID from the database.
 //		// This selects campaign for loading and returns overview metrics.
-//		OverviewItems overview = dm.selectCampaign(1);
+		OverviewItems overview = dm.selectCampaign(1);
 //		
 //		// Gets data with set date range and stores it in DataModel.
 //		// Must pass two Date objects (start and end) as parameters.
-//		dm.fetchData(start, end);
+		dm.fetchData(start, end);
+		ArrayList<Gender> genders = new ArrayList<>();
+		DataFilter df = new DataFilter(Metric.IMPRESSIONS,null,null,null,null);
 		
+		System.out.println(dm.getSeries(df).getData().get(0));
 		// Returns XYChart.Series for defined metric.
 //		XYChart.Series series = dm.getSeries(Metric.BOUNCES);
 		

@@ -55,6 +55,28 @@ public class DataModel {
 		calc.calcMetrics(range);
 		dates = calc.calcDates(range, startD);
 	}
+
+	public XYChart.Series getSeries(DataFilter f) {
+		XYChart.Series series = new XYChart.Series();
+		switch (f.getMetric()) {
+		case UNIQUES:
+		case CONVERSIONS:
+		case CLICKS:
+		case BOUNCES:
+		case IMPRESSIONS:
+			populateSeries(series, calc.calcFilterInt(f));
+			return series;
+		case BOUNCE_RATE:
+		case CPC:
+		case CPA:
+		case CPM:
+		case CTR:
+			populateSeries(series, calc.calcFilter(f));
+			return series;
+		default:
+			return series;
+		}
+	}
 	
 	public XYChart.Series getSeries(Metric m) {
 		XYChart.Series series = new XYChart.Series();
@@ -137,4 +159,5 @@ public class DataModel {
 	public void bounceSeconds(int n) {
 		calc.bounceSeconds(n);
 	}
+	
 }
