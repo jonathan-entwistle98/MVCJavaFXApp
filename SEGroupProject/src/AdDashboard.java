@@ -618,11 +618,14 @@ public class AdDashboard extends Application{
 
 		// Doing so will create a new campaign and allocate it an ID.
 		if(!clickLogTextField.getText().isEmpty()) {
+			ArrayList<Integer> before = dm.getCampaigns();
 			dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile, campaignNameTextField.getText());
+			ArrayList<Integer> after = dm.getCampaigns();
+			after.removeAll(before);
 			
 			// Select campaign by its ID from the database.
 			// This selects campaign for loading and returns overview metrics.
-			overview = dm.selectCampaign(1);
+			overview = dm.selectCampaign(after.get(0));
 		}
 
 		

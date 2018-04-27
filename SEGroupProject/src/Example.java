@@ -10,9 +10,9 @@ public class Example {
 
 	public static void main (String[] args) {
 		
-		File file1 = new File("impression_log2.csv");
-		File file2 = new File("click_log2.csv");
-		File file3 = new File("server_log2.csv");
+		File file1 = new File("impression_log.csv");
+		File file2 = new File("click_log.csv");
+		File file3 = new File("server_log.csv");
 		
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		Date start = null;
@@ -58,7 +58,7 @@ public class Example {
 	         }
 	    });  
 	    System.out.println("Loading campaign");
-	    t1.start();
+//	    t1.start();
 	    long time = System.currentTimeMillis();
 		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
 		t1.stop();

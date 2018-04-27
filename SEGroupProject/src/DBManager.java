@@ -62,27 +62,41 @@ public class DBManager {
 					+ condition;
 			
 			rs = stmt.executeQuery(sql);
-			
+			long objTime = 0;
+			long dbTime = 0;
+			long time;
 			ArrayList<ImpressionEntry> impressions = new ArrayList<ImpressionEntry>();
 			//TODO Use original types instead of string to improve performance.
+			long imprTime = System.currentTimeMillis();
 			while ( rs.next() ) {
-				
+				time = System.nanoTime();
 				Object[] attributes = {
-						rs.getLong("R_DATE") - start, // Accounting for offset
-						rs.getLong("ID"),
-						rs.getString("GENDER"),
-						rs.getString("AGE"),
-						rs.getString("INCOME"),
-						rs.getString("CONTEXT"),
-						rs.getFloat("IMPRESSION_COST")};
+						rs.getLong(2) - start, 	//R_DATE - Accounting for offset
+						rs.getLong(3),			//ID
+//						"MALE",
+//						"25-34",
+//						"HIGH",
+//						"BLOG",
+						rs.getString(4),		//GENDER
+						rs.getString(5),		//AGE
+						rs.getString(6),		//INCOME
+						rs.getString(7),		//CONTEXT
+						rs.getFloat(8)};		//IMPRESSION_COST
+				dbTime += System.nanoTime() - time;
+				time = System.nanoTime();
 				impressions.add(DataParser.makeImpression(attributes));
+				objTime += System.nanoTime() - time;
 			}
 
+			System.out.println("ImprTime:" + (System.currentTimeMillis() - imprTime) + ":" + (objTime/1000000) + ":" + (dbTime/1000000));
+			objTime = 0;
+			dbTime = 0;
+
 			// Get Click Log
-			sql = "SELECT DISTINCT c.ROWID, c.R_DATE, c.ID, c.CLICK_COST, c.CAMPAIGN,\n"
+			sql = "SELECT DISTINCT c.ROWID, c.R_DATE, c.ID, c.CLICK_COST,\n"
 					+ "c.CAMPAIGN, strftime('%s', c.EXIT_DATE) - strftime('%s', c.ENTRY_DATE) AS SECONDS_VIEWED,\n" 
 					+ "c.PAGES_VIEWED, c.CONVERSION,\n"
-					+ "i.GENDER, i.AGE, i.INCOME, i.CONTEXT\n"
+					+ "i.GENDER, i.AGE, i.INCOME\n"
 					+ "FROM CLICK_LOG c\n"
 					+ "LEFT JOIN IMPRESSION_LOG i\n"
 					+ "WHERE c.ID = i.ID\n"
@@ -90,26 +104,29 @@ public class DBManager {
 					+ conditionClick;
 			rs.close();
 			rs = stmt.executeQuery(sql);
-			
 			ArrayList<ClickEntry> clicks = new ArrayList<ClickEntry>();
 			//TODO Use original types instead of string to improve performance.
 			//TODO Make new table to reduce query complexity.
+			long clickTime = System.currentTimeMillis();
 			while ( rs.next() ) {
-				
+				time = System.nanoTime();
 				Object[] attributes = {
-						rs.getLong("R_DATE") - start, // Accounting for offset
-						rs.getLong("ID"),
-						rs.getFloat("CLICK_COST"),
-						rs.getString("GENDER"),
-						rs.getString("AGE"),
-						rs.getString("INCOME"),
-						rs.getInt("SECONDS_VIEWED"),
-						rs.getInt("PAGES_VIEWED"),
-						rs.getString("CONVERSION")
+						rs.getLong(2) - start, 	//R_DATE -  Accounting for offset
+						rs.getLong(3),			//ID
+						rs.getFloat(4),			//CLICK_COST
+						rs.getString(8),		//GENDER
+						rs.getString(9),		//AGE
+						rs.getString(10),		//INCOME
+						rs.getInt(5),			//SECONDS
+						rs.getInt(6),			//PAGES
+						rs.getString(7)			//CONVERSION
 						};
-
+				dbTime += System.nanoTime() - time;
+				time = System.nanoTime();
 				clicks.add(DataParser.makeClick(attributes));
+				objTime += System.nanoTime() - time;
 			}
+			System.out.println("ClickTime:" + (System.currentTimeMillis() - clickTime) + ":" + (objTime/1000000) + ":" + (dbTime/1000000));
 			
 //			// Get Server Log
 //			sql = "SELECT *\n"
@@ -251,7 +268,7 @@ public class DBManager {
 				if(counter2 >= 1000) {
 					counter2 = 0;
 					progress[0] += progress[1];
-//					System.out.println(progress[0]);
+					System.out.println(progress[0]);
 				}
 			}
 			pstmt.executeBatch();
@@ -313,7 +330,7 @@ public class DBManager {
 						if(counter2 >= 1000) {
 							counter2 = 0;
 							progress[0] += progress[2];
-//							System.out.println(progress[0]);
+							System.out.println(progress[0]);
 						}
 						
 					} else {

@@ -42,8 +42,9 @@ public class DataModel {
 	@SuppressWarnings("unchecked")
 	public void fetchData(Date startD, Date endD) {
 		// Get data from server.
+		long time = System.currentTimeMillis();
 		Object[] logs = dbm.fetchData(startD, endD);
-		
+		System.out.println(System.currentTimeMillis() - time);
 		impressions.clear();
 		clicks.clear();
 		impressions.addAll((ArrayList<ImpressionEntry>) logs[0]);
