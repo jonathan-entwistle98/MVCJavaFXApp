@@ -41,10 +41,12 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
@@ -54,8 +56,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -372,6 +376,144 @@ public class AdDashboard extends Application{
 	@FXML
 	private ProgressBar progressBarNewCampaign;
 	
+	@FXML
+	private HBox filterHBox1;
+	
+	@FXML
+	private Label filterLabel1;
+	
+	@FXML
+	private Button deleteFilter1;
+	
+	@FXML
+	private HBox filterHBox2;
+	
+	@FXML
+	private Label filterLabel2;
+	
+	@FXML
+	private Button deleteFilter2;
+	
+	@FXML
+	private HBox filterHBox3;
+	
+	@FXML
+	private Label filterLabel3;
+	
+	@FXML
+	private Button deleteFilter3;
+	
+	@FXML
+	private HBox filterHBox4;
+	
+	@FXML
+	private Label filterLabel4;
+	
+	@FXML
+	private Button deleteFilter4;
+	
+	@FXML
+	private HBox filterHBox5;
+	
+	@FXML
+	private Label filterLabel5;
+	
+	@FXML
+	private Button deleteFilter5;
+	
+	@FXML
+	private HBox filterHBox6;
+	
+	@FXML
+	private Label filterLabel6;
+	
+	@FXML
+	private Button deleteFilter6;
+	
+	@FXML
+	private HBox filterHBox7;
+	
+	@FXML
+	private Label filterLabel7;
+	
+	@FXML
+	private Button deleteFilter7;
+	
+	@FXML
+	private HBox filterHBox8;
+	
+	@FXML
+	private Label filterLabel8;
+	
+	@FXML
+	private Button deleteFilter8;
+	
+	@FXML
+	private HBox filterHBox9;
+	
+	@FXML
+	private Label filterLabel9;
+	
+	@FXML
+	private Button deleteFilter9;
+	
+	@FXML
+	private HBox filterHBox10;
+	
+	@FXML
+	private Label filterLabel10;
+	
+	@FXML
+	private Button deleteFilter10;
+	
+	@FXML
+	private CheckBox genderMaleCheckbox;
+	
+	@FXML
+	private CheckBox genderFemaleCheckbox;
+	
+	@FXML
+	private CheckBox ageUnder25Checkbox;
+	
+	@FXML
+	private CheckBox age25To34Checkbox;
+	
+	@FXML
+	private CheckBox age35To44Checkbox;
+	
+	@FXML
+	private CheckBox age45To54Checkbox;
+	
+	@FXML
+	private CheckBox ageOver54Checkbox;
+	
+	@FXML
+	private CheckBox incomeLowCheckbox;
+	
+	@FXML
+	private CheckBox incomeMediumCheckbox;
+	
+	@FXML
+	private CheckBox incomeHighCheckbox;
+	
+	@FXML
+	private CheckBox contextNewsCheckbox;
+	
+	@FXML
+	private CheckBox contextShoppingCheckbox;
+	
+	@FXML
+	private CheckBox contextSocialMediaCheckbox;
+	
+	@FXML
+	private CheckBox contextBlogCheckbox;
+	
+	@FXML
+	private CheckBox contextHobbiesCheckbox;
+	
+	@FXML
+	private CheckBox contextTravelCheckbox;
+	
 	
 	private Stage stage;
 	
@@ -458,7 +600,8 @@ public class AdDashboard extends Application{
 		Parent root = loader.load();
 
 		primaryStage.setTitle("Dashboard");
-		Scene scene = new Scene(root, 850, 600);
+		primaryStage.setMaximized(true);
+		Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 		
 		//scene.getStylesheets().add("style.css");
 		primaryStage.setScene(scene);
@@ -487,6 +630,7 @@ public class AdDashboard extends Application{
 		aboutMenuItem.setDisable(true);
 		
 		graphViewBorderPane.setDisable(true);
+		impressionSeries = new Series<String, Integer>();
 		dm.bounceSeconds(1);
 				
 	}
@@ -766,7 +910,7 @@ public class AdDashboard extends Application{
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
 		
-		
+		dm.fetchData(fromDate, toDate);
 		restrictDatePicker();
 		
 		getTotalCostOverTime();
@@ -783,7 +927,7 @@ public class AdDashboard extends Application{
 		getBounceRatesOverTime();
 		getCPCHistogramsOverTime();
 		
-		dm.fetchData(fromDate, toDate);
+
 		
 		fromDatePicker.setOnAction(event -> {
             LocalDate localDate = fromDatePicker.getValue();
@@ -885,6 +1029,101 @@ public class AdDashboard extends Application{
 		  serverLogTextField.setText(serverLogFile.getName());
 	}
 	
+	public void addFilterClicked() {
+		ArrayList<Gender> genderList = new ArrayList<Gender>();
+		ArrayList<Income> incomeList = new ArrayList<Income>();
+		ArrayList<Age> ageList = new ArrayList<Age>();
+		ArrayList<Context> contextList = new ArrayList<Context>();
+		if(genderMaleCheckbox.isSelected()) {
+			genderList.add(Gender.MALE);
+		}if(genderFemaleCheckbox.isSelected()) {
+			genderList.add(Gender.FEMALE);
+		}if(incomeLowCheckbox.isSelected()) {
+			incomeList.add(Income.LOW);
+		}if(incomeMediumCheckbox.isSelected()) {
+			incomeList.add(Income.MEDIUM);
+		}if(incomeHighCheckbox.isSelected()) {
+			incomeList.add(Income.HIGH);
+		}if(ageUnder25Checkbox.isSelected()) {
+			ageList.add(Age.L25);
+		}if(age25To34Checkbox.isSelected()) {
+			ageList.add(Age.A25TO34);
+		}if(age35To44Checkbox.isSelected()) {
+			ageList.add(Age.A35TO44);
+		}if(age45To54Checkbox.isSelected()) {
+			ageList.add(Age.A45TO54);
+		}if(ageOver54Checkbox.isSelected()) {
+			ageList.add(Age.M54);
+		}if(contextNewsCheckbox.isSelected()) {
+			contextList.add(Context.NEWS);
+		}if(contextShoppingCheckbox.isSelected()) {
+			contextList.add(Context.SHOPPING);
+		}if(contextSocialMediaCheckbox.isSelected()) {
+			contextList.add(Context.SOCIAL_MEDIA);
+		}if(contextBlogCheckbox.isSelected()) {
+			contextList.add(Context.BLOG);
+		}if(contextHobbiesCheckbox.isSelected()) {
+			contextList.add(Context.HOBBIES);
+		}if(contextTravelCheckbox.isSelected()) {
+			contextList.add(Context.TRAVEL);
+		}
+		String genderFilterString ="";
+		String incomeFilterString ="";
+		String ageFilterString ="";
+		String contextFilterString ="";
+		
+		String filterText = genderFilterString+", "+incomeFilterString+", "+ageFilterString+", "+contextFilterString;
+		filterLabel1.setText(filterText);
+	}
+	
+	public void deleteFilterClicked(MouseEvent e) {
+		String buttonID = ((Labeled) e.getSource()).getId();
+		if(buttonID == "deleteFilter1") {
+			filterHBox1.setVisible(false);
+		}
+		if(buttonID == "deleteFilter2") {
+			filterHBox2.setVisible(false);
+		}
+		if(buttonID == "deleteFilter3") {
+			filterHBox3.setVisible(false);
+		}
+		if(buttonID == "deleteFilter4") {
+			filterHBox4.setVisible(false);
+		}
+		if(buttonID == "deleteFilter5") {
+			filterHBox5.setVisible(false);
+		}
+		if(buttonID == "deleteFilter6") {
+			filterHBox6.setVisible(false);
+		}
+		if(buttonID == "deleteFilter7") {
+			filterHBox7.setVisible(false);
+		}
+		if(buttonID == "deleteFilter8") {
+			filterHBox8.setVisible(false);
+		}
+		if(buttonID == "deleteFilter9") {
+			filterHBox9.setVisible(false);
+		}
+		if(buttonID == "deleteFilter10") {
+			filterHBox10.setVisible(false);
+		}
+	}
+	
+	
+	public void deleteAllFiltersClicked() {
+		filterHBox1.setVisible(false);
+		filterHBox2.setVisible(false);
+		filterHBox3.setVisible(false);
+		filterHBox4.setVisible(false);
+		filterHBox5.setVisible(false);
+		filterHBox6.setVisible(false);
+		filterHBox7.setVisible(false);
+		filterHBox8.setVisible(false);
+		filterHBox9.setVisible(false);
+		filterHBox10.setVisible(false);
+	}
+	
 	public void divideByZeroError(){
         
         Alert alert = new Alert(AlertType.ERROR);
@@ -905,7 +1144,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
-		impressionSeries = dm.getSeries(df);
+		impressionSeries = dm.getSeries(df, Granularity.HOURLY);
 		impressionGraph.setLegendVisible(false);
 		impressionYAxis.setLabel("Impressions");
 		impressionXAxis.setLabel("Time (Date)");
@@ -941,7 +1180,7 @@ public class AdDashboard extends Application{
 	ArrayList<Gender> genders = new ArrayList<>();
 	genders.add(Gender.MALE);
 	DataFilter df = new DataFilter(Metric.CLICKS,genders,null,null,null);
-	clickSeries = dm.getSeries(df);
+	clickSeries = dm.getSeries(df, Granularity.HOURLY);
 	clickGraph.setLegendVisible(false);
 	clickYAxis.setLabel("Clicks");
 	clickXAxis.setLabel("Time (Date)");
@@ -987,7 +1226,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.CPM,genders,null,null,null);
-		CPMSeries = dm.getSeries(df);
+		CPMSeries = dm.getSeries(df, Granularity.HOURLY);
 		CPMGraph.setLegendVisible(false);
 		CPMYAxis.setLabel("CPM");
 		CPMXAxis.setLabel("Time (Date)");
@@ -1007,7 +1246,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.CPC,genders,null,null,null);
-		CPCSeries = dm.getSeries(df);
+		CPCSeries = dm.getSeries(df, Granularity.HOURLY);
 		CPCGraph.setLegendVisible(false);
 		CPCYAxis.setLabel("CPC");
 		CPCXAxis.setLabel("Time (Date)");
@@ -1022,7 +1261,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.CTR,genders,null,null,null);
-		CTRSeries = dm.getSeries(df);
+		CTRSeries = dm.getSeries(df, Granularity.HOURLY);
 		CTRGraph.setLegendVisible(false);
 		CTRYAxis.setLabel("CTR");
 		CTRXAxis.setLabel("Time (Date)");
@@ -1037,7 +1276,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.CPA,genders,null,null,null);
-		CPASeries = dm.getSeries(df);
+		CPASeries = dm.getSeries(df, Granularity.HOURLY);
 		CPAGraph.setLegendVisible(false);
 		CPAYAxis.setLabel("CPA");
 		CPAXAxis.setLabel("Time (Date)");
@@ -1052,7 +1291,7 @@ public class AdDashboard extends Application{
 	ArrayList<Gender> genders = new ArrayList<>();
 	genders.add(Gender.MALE);
 	DataFilter df = new DataFilter(Metric.CONVERSIONS,genders,null,null,null);
-	conversionsSeries = dm.getSeries(df);
+	conversionsSeries = dm.getSeries(df, Granularity.HOURLY);
 	conversionsGraph.setLegendVisible(false);
 	conversionsYAxis.setLabel("Conversions");
 	conversionsXAxis.setLabel("Time (Date)");
@@ -1067,7 +1306,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.TOTAL_COST,genders,null,null,null);
-		totalCostSeries = dm.getSeries(df);
+		totalCostSeries = dm.getSeries(df, Granularity.HOURLY);
 		totalCostGraph.setLegendVisible(false);
 		totalCostYAxis.setLabel("Total Cost");
 		totalCostXAxis.setLabel("Time (Date)");
@@ -1081,7 +1320,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.UNIQUES,genders,null,null,null);
-		uniqueSeries = dm.getSeries(df);
+		uniqueSeries = dm.getSeries(df, Granularity.HOURLY);
 		uniqueGraph.setLegendVisible(false);
 		uniqueYAxis.setLabel("Uniques");
 		uniqueXAxis.setLabel("Time (Date)");
@@ -1094,7 +1333,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.BOUNCES,genders,null,null,null);
-		bounceSeries = dm.getSeries(df);
+		bounceSeries = dm.getSeries(df, Granularity.HOURLY);
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
@@ -1108,7 +1347,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.BOUNCE_RATE,genders,null,null,null);
-		bounceRateSeries = dm.getSeries(df);
+		bounceRateSeries = dm.getSeries(df, Granularity.HOURLY);
 		bounceRateGraph.setLegendVisible(false);
 		bounceRateYAxis.setLabel("Bounce Rate");
 		bounceRateXAxis.setLabel("Time (Date)");
@@ -1122,7 +1361,7 @@ public class AdDashboard extends Application{
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.CPC,genders,null,null,null);
-		CPCSeries = dm.getSeries(df);
+		CPCSeries = dm.getSeries(df, Granularity.HOURLY);
 		CPCHistogram.setLegendVisible(false);
 		CPCHistogramYAxis.setLabel("Frequency Density");
 		CPCHistogramXAxis.setLabel("Time (Date)");

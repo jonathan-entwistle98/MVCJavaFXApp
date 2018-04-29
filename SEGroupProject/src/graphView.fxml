@@ -607,7 +607,7 @@
                         <CheckBox fx:id="age25To34Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="25-34 years old" />
                         <CheckBox fx:id="age35To44Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="35-44 years old" />
                         <CheckBox fx:id="age45To54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="45-54 years old" />
-                        <CheckBox fx:id="ageOver55Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&gt; 55 years old" />
+                        <CheckBox fx:id="ageOver54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&gt; 55 years old" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="170.0">
