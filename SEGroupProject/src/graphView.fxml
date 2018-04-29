@@ -454,12 +454,12 @@
             </StackPane>
          </center>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="149.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="151.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" prefHeight="149.0" prefWidth="288.0">
                      <children>
                         <Label text="Existing filters" />
-                        <ScrollPane prefHeight="128.0" prefWidth="220.0">
+                        <ScrollPane prefHeight="169.0" prefWidth="268.0">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="248.0">
                                  <children>
@@ -533,60 +533,56 @@
                      </padding>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <CheckBox fx:id="genderCheckbox" mnemonicParsing="false" text="Gender">
-                           <VBox.margin>
-                              <Insets bottom="30.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <ChoiceBox fx:id="genderDropdown" prefWidth="150.0" />
-                     </children>
                      <padding>
                         <Insets right="20.0" />
                      </padding>
+                     <children>
+                        <Label text="Gender" />
+                        <CheckBox fx:id="genderMaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" text="Male" />
+                        <CheckBox fx:id="genderFemaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" text="Female" />
+                     </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <CheckBox fx:id="ageCheckbox" mnemonicParsing="false" text="Age">
-                           <VBox.margin>
-                              <Insets bottom="30.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <ChoiceBox fx:id="ageDropdown" prefWidth="150.0" />
-                     </children>
                      <padding>
                         <Insets right="20.0" />
                      </padding>
+                     <children>
+                        <Label text="Income" />
+                        <CheckBox fx:id="incomeLowCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" text="Low" />
+                        <CheckBox fx:id="incomeMediumCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" text="Medium" />
+                        <CheckBox fx:id="incomeHighCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" text="High" />
+                     </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <CheckBox fx:id="incomeCheckbox" mnemonicParsing="false" text="Income">
-                           <VBox.margin>
-                              <Insets bottom="30.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <ChoiceBox fx:id="incomeDropdown" prefWidth="150.0" />
-                     </children>
                      <padding>
                         <Insets right="20.0" />
                      </padding>
+                     <children>
+                        <Label text="Age" />
+                        <CheckBox fx:id="ageUnder25Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" text="&lt; 25 years old" />
+                        <CheckBox fx:id="age25To34Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" text="25-34 years old" />
+                        <CheckBox fx:id="age35To44Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" text="35-44 years old" />
+                        <CheckBox fx:id="age45To54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" text="45-54 years old" />
+                        <CheckBox fx:id="ageOver55Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" text="&gt; 55 years old" />
+                     </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <CheckBox fx:id="contextCheckbox" mnemonicParsing="false" text="Context">
-                           <VBox.margin>
-                              <Insets bottom="30.0" />
-                           </VBox.margin>
-                        </CheckBox>
-                        <ChoiceBox fx:id="contextDropdown" prefWidth="150.0" />
-                     </children>
                      <padding>
                         <Insets right="20.0" />
                      </padding>
+                     <children>
+                        <Label text="Context" />
+                        <CheckBox fx:id="contextBlogCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" text="Blog" />
+                        <CheckBox fx:id="contextNewsCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" text="News" />
+                        <CheckBox fx:id="contextTravelCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" text="Travel" />
+                        <CheckBox fx:id="contextHobbiesCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" text="Hobbies" />
+                        <CheckBox fx:id="contextShoppingCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" text="Shopping" />
+                        <CheckBox fx:id="contextSocialMediaCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" text="Social media" />
+                     </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="149.0" prefWidth="171.0">
                      <children>
-                        <Button fx:id="addFilter" mnemonicParsing="false" onAction="#addFilterClicked" prefHeight="59.0" prefWidth="130.0" text="Add filter">
+                        <Button fx:id="addFilter" mnemonicParsing="false" onAction="#addFilterClicked" prefHeight="84.0" prefWidth="130.0" text="Add filter">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
