@@ -16,6 +16,8 @@ public class DataModel {
 	private Calculator calc;
 	private String campaignName;
 	
+
+	
 	public void init () {
 		metrics = new MetricStorage();
 		impressions = new ArrayList<ImpressionEntry>();
@@ -28,10 +30,14 @@ public class DataModel {
 	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV, String campaignName) {
 		double[] progress = new double[3];
 		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress, campaignName);
+		
+		
+		
 	}
 	public void exportCSVs(File impressionCSV, File clickCSV, File serverCSV, String campaignName, double[] progress) {
 //		progress = new double[3];
 		dbm.exportData(impressionCSV, clickCSV, serverCSV, progress, campaignName);
+		
 	}
 	
 	public OverviewItems selectCampaign(int ID) {
@@ -54,6 +60,28 @@ public class DataModel {
 		int range = DataParser.relativeDate(startD.getTime(), endD) + 1;
 		calc.calcMetrics(range);
 		dates = calc.calcDates(range, startD);
+	}
+
+	public XYChart.Series getSeries(DataFilter f) {
+		XYChart.Series series = new XYChart.Series();
+		switch (f.getMetric()) {
+		case UNIQUES:
+		case CONVERSIONS:
+		case CLICKS:
+		case BOUNCES:
+		case IMPRESSIONS:
+			populateSeries(series, calc.calcFilterInt(f));
+			return series;
+		case BOUNCE_RATE:
+		case CPC:
+		case CPA:
+		case CPM:
+		case CTR:
+			populateSeries(series, calc.calcFilter(f));
+			return series;
+		default:
+			return series;
+		}
 	}
 	
 	public XYChart.Series getSeries(Metric m) {
@@ -137,4 +165,5 @@ public class DataModel {
 	public void bounceSeconds(int n) {
 		calc.bounceSeconds(n);
 	}
+	
 }
