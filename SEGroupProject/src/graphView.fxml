@@ -73,7 +73,7 @@
                       </Menu>
                       <Menu id="menuItem" mnemonicParsing="false" text="Settings">
                         <items>
-                          <MenuItem id="menuItem" fx:id="appearanceMenuItem" mnemonicParsing="false" text="Appearance">
+                          <MenuItem id="menuItem" fx:id="appearanceMenuItem" mnemonicParsing="false" onAction="#customizeAppearanceClicked" text="Appearance">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
