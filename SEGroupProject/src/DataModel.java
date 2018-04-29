@@ -65,11 +65,13 @@ public class DataModel {
 	public XYChart.Series getSeries(DataFilter f) {
 		XYChart.Series series = new XYChart.Series();
 		switch (f.getMetric()) {
+
 		case UNIQUES:
 		case CONVERSIONS:
 		case CLICKS:
 		case BOUNCES:
 		case IMPRESSIONS:
+			System.out.println("test");
 			populateSeries(series, calc.calcFilterInt(f));
 			return series;
 		case BOUNCE_RATE:
