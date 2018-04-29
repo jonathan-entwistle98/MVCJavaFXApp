@@ -47,15 +47,7 @@ public class Calculator {
 	
 	public String[] calcDates(int range, Date date) {
 		DateFormat df = null;
-		if(range < 24 * 2) {
-			df = dfDay;
-		} else if (range < 24 * 7 * 2) {
-			df = dfWeek;
-		} else if (range < 24 * 7 * 4 * 24) {
-			df = dfMonth;
-		} else {
-			df = dfYear;
-		}
+		df = dfWeek;
 		String[] dates = new String[range];
 		long startTime = date.getTime();
 		for(int i = 0; i < range; i++) {
