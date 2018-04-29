@@ -626,8 +626,6 @@ public class AdDashboard extends Application{
 		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
 		selectCampaignChoiceBox.setItems(campaignChoices);
 		
-		terminologyMenuItem.setDisable(true);
-		aboutMenuItem.setDisable(true);
 		
 		graphViewBorderPane.setDisable(true);
 		impressionSeries = new Series<String, Integer>();
@@ -767,14 +765,51 @@ public class AdDashboard extends Application{
 		
 	}
 	
-	public void resetDefaultsClicked(){
-		
-	}
-	
-	public void applyChangesClicked(){
-		
-	}
-	
+public void resetDefaultsClicked(){
+        
+    }
+    
+    public void applyChangesClicked(){
+        
+    }
+    
+    public void terminologyClicked() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("terminologyView.fxml"));
+        loader.setController(this);
+        Parent termRoot = loader.load();
+        
+        Stage termStage = new Stage();
+        
+        termStage.setTitle("Terminology");
+        
+        Scene termScene = new Scene(termRoot,800,600);
+        
+        termStage.setScene(termScene);
+        termStage.initModality(Modality.WINDOW_MODAL);
+        termStage.initOwner(stage);
+        termStage.show();
+        
+
+    }
+    
+    public void aboutClicked() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("aboutView.fxml"));
+        loader.setController(this);
+        Parent aboutRoot = loader.load();
+        
+        Stage aboutStage = new Stage();
+        
+        aboutStage.setTitle("About");
+        
+        Scene aboutScene = new Scene(aboutRoot,700,400);
+        
+        aboutStage.setScene(aboutScene);
+        aboutStage.initModality(Modality.WINDOW_MODAL);
+        aboutStage.initOwner(stage);
+        aboutStage.show();
+        
+    }
+    
 public void customizeAppearanceClicked() throws IOException{
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("appearanceView.fxml"));
@@ -800,8 +835,6 @@ public void customizeAppearanceClicked() throws IOException{
                  graphViewBorderPane.setDisable(false);
              }
          });
-
-        
         
     }
     
