@@ -65,6 +65,7 @@ public class DataModel {
 	public XYChart.Series getSeries(DataFilter f, Granularity g) {
 		XYChart.Series series = new XYChart.Series();
 		switch (f.getMetric()) {
+
 		case UNIQUES:
 		case CONVERSIONS:
 		case CLICKS:

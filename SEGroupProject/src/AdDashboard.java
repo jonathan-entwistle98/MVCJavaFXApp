@@ -6,11 +6,10 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import javafx.scene.control.ProgressBar;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
-
-import com.sun.management.jmx.Trace;
 
 //import com.gluonhq.charm.glisten.control.TextField;
 
@@ -22,7 +21,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -64,31 +62,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
 
-public class AdDashboard extends Application {
-
+public class AdDashboard extends Application{
+	
 	private volatile boolean finished = false;
-
-	@FXML
-	private Button backButton;
-
-	@FXML
-	private Button loadNewCampaignButton;
-
-	@FXML
-	private ProgressBar progressBarNewCampaign;
-
-	@FXML
-	private Button loadExistingCampaignButton;
-
-	@FXML
-	private ProgressBar progressBarExistingCampaign;
-
 	@FXML
 	private AnchorPane mainAnchorPane;
 
@@ -97,7 +74,7 @@ public class AdDashboard extends Application {
 
 	@FXML
 	private TabPane metricsDetailsTabPane;
-
+	
 	@FXML
 	private TitledPane titletPane;
 
@@ -106,37 +83,37 @@ public class AdDashboard extends Application {
 
 	@FXML
 	private Button viewAnalytics;
-
+	
 	@FXML
 	private Label impressions;
-
+	
 	@FXML
 	private Label clicks;
-
+	
 	@FXML
 	private Label uniques;
-
+	
 	@FXML
 	private Label bounces;
-
+	
 	@FXML
 	private Label cpm;
-
+	
 	@FXML
 	private Label totalCost;
-
+	
 	@FXML
 	private Label ctr;
-
+	
 	@FXML
 	private Label cpc;
-
+	
 	@FXML
 	private Label cpa;
-
+	
 	@FXML
 	private Label conversions;
-
+	
 	@FXML
 	private Label bounceRate;
 
@@ -193,109 +170,109 @@ public class AdDashboard extends Application {
 
 	@FXML
 	private LineChart<String, Integer> impressionGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> clickGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> uniqueGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> bounceGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> bounceRateGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> CPMGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> CPCGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> CPAGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> CTRGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> totalCostGraph;
-
+	
 	@FXML
 	private LineChart<String, Integer> conversionsGraph;
-
+	
 	@FXML
 	private BarChart<String, Integer> CPCHistogram;
-
+	
 	@FXML
 	private NumberAxis impressionYAxis;
-
+	
 	@FXML
 	private CategoryAxis impressionXAxis;
-
+	
 	@FXML
 	private NumberAxis clickYAxis;
-
+	
 	@FXML
 	private CategoryAxis clickXAxis;
-
+	
 	@FXML
 	private NumberAxis uniqueYAxis;
-
+	
 	@FXML
 	private CategoryAxis uniqueXAxis;
-
+	
 	@FXML
 	private NumberAxis bounceYAxis;
-
+	
 	@FXML
 	private CategoryAxis bounceXAxis;
-
+	
 	@FXML
 	private NumberAxis bounceRateYAxis;
-
+	
 	@FXML
 	private CategoryAxis bounceRateXAxis;
-
+	
 	@FXML
 	private NumberAxis CPMYAxis;
-
+	
 	@FXML
 	private CategoryAxis CPMXAxis;
-
+	
 	@FXML
 	private NumberAxis CPCYAxis;
-
+	
 	@FXML
 	private CategoryAxis CPCXAxis;
-
+	
 	@FXML
 	private NumberAxis CPAYAxis;
-
+	
 	@FXML
 	private CategoryAxis CPAXAxis;
-
+	
 	@FXML
 	private NumberAxis CTRYAxis;
-
+	
 	@FXML
 	private CategoryAxis CTRXAxis;
-
+	
 	@FXML
 	private NumberAxis totalCostYAxis;
-
+	
 	@FXML
 	private CategoryAxis totalCostXAxis;
-
+	
 	@FXML
 	private NumberAxis conversionsYAxis;
-
+	
 	@FXML
 	private CategoryAxis conversionsXAxis;
-
+	
 	@FXML
 	private NumberAxis CPCHistogramYAxis;
-
+	
 	@FXML
 	private CategoryAxis CPCHistogramXAxis;
 
@@ -304,241 +281,223 @@ public class AdDashboard extends Application {
 
 	@FXML
 	private AnchorPane SettingsAnchor;
-
+	
 	@FXML
 	private TextField clickLogTextField;
-
+	
 	@FXML
 	private TextField impressionLogTextField;
-
+	
 	@FXML
 	private TextField serverLogTextField;
-
+	
 	@FXML
 	private TextField bounceDefinitionTextField;
-
+	
 	@FXML
 	private ImageView graphLogo;
-
+	
 	@FXML
 	private Tab impressionTab;
-
+	
 	@FXML
 	private Tab clickTab;
-
+	
 	@FXML
 	private Tab uniqueTab;
-
+	
 	@FXML
 	private Tab bounceTab;
-
+	
 	@FXML
 	private Tab CPMTab;
-
+	
 	@FXML
 	private Tab totalCostTab;
-
+	
 	@FXML
 	private Tab CPCTab;
-
+	
 	@FXML
 	private Tab CPATab;
-
+	
 	@FXML
 	private Tab CTRTab;
-
+	
 	@FXML
 	private Tab conversionsTab;
-
+	
 	@FXML
 	private Tab bounceRateTab;
-
+	
 	@FXML
 	private Tab CPCHistogramTab;
-
+	
 	@FXML
 	private MenuItem loadCampaign;
-
+	
 	@FXML
 	private DatePicker fromDatePicker;
-
+	
 	@FXML
 	private DatePicker toDatePicker;
-
+	
 	@FXML
 	private ChoiceBox bounceDefinitionChoiceBox;
-
+	
 	@FXML
 	private ChoiceBox selectCampaignChoiceBox;
-
+	
 	@FXML
 	private TextField campaignNameTextField;
-
+	
 	@FXML
 	private StackPane windowStackPane;
-
+	
 	@FXML
 	private BorderPane graphViewBorderPane;
-
+	
 	@FXML
 	private BorderPane selectCampaignBorderPane;
-
+	
 	@FXML
 	private MenuItem appearanceMenuItem;
-
+	
 	@FXML
 	private MenuItem terminologyMenuItem;
-
+	
 	@FXML
 	private MenuItem aboutMenuItem;
-
+	
+	@FXML
+	private ProgressBar progressBarNewCampaign;
+	
+	
 	private Stage stage;
-
+	
 	private File impressionLogFile;
-
+	
 	private File clickLogFile;
-
+	
 	private File serverLogFile;
-
-	// private Model model;
-
+	
+//	private Model model;
+	
 	private DataModel dm;
-
+	
 	private OverviewItems overview;
-
+	
 	private Series<String, Integer> impressionSeries;
-
+	
 	private Series<String, Integer> clickSeries;
-
+	
 	private Series<String, Integer> uniqueSeries;
-
+	
 	private Series<String, Integer> bounceSeries;
-
+	
 	private Series<String, Integer> bounceRateSeries;
-
+	
 	private Series<String, Integer> CPMSeries;
-
+	
 	private Series<String, Integer> CPCSeries;
-
+	
 	private Series<String, Integer> CPASeries;
-
+	
 	private Series<String, Integer> CTRSeries;
-
+	
 	private Series<String, Integer> totalCostSeries;
-
+	
 	private Series<String, Integer> conversionsSeries;
-
+	
 	private Long minDateLong;
-
+	
 	private Long maxDateLong;
-
+	
 	private Date fromDate;
-
+	
 	private Date toDate;
-
+	
+	private Date datePickerFromCheck;
+	
+	private Date datePickerToCheck;
+	
+	private Date initialMinDate;
+	
+	private Date initialMaxDate;
+	
+	private boolean fromPickerChanged;
+	
+	private boolean toPickerChanged;
+	
 	private ArrayList<ArrayList<Object>> campaignNamesArrayList;
-
+	
 	private DatePicker minDate = null;
-
+	
 	private DatePicker maxDate = null;
-
-	// Task loadDatabase;
-
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	/*
-	 * public Task newCampaignWorker(){ return new Task() {
-	 * 
-	 * @Override protected Object call() throws Exception {
-	 * dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile,
-	 * campaignNameTextField.getText()); return true; }
-	 * 
-	 * 
-	 * }; }
-	 * 
-	 * public Task existingCampaignWorker(){ return new Task() {
-	 * 
-	 * @Override protected Object call() throws Exception {
-	 * dm.exportCSVs(impressionLogFile, clickLogFile, serverLogFile,
-	 * campaignNameTextField.getText()); return true; }
-	 * 
-	 * 
-	 * }; }
-	 */
-
+	
 	/**
-	 * Creates a new Scene, adds this scene to the stage and sets the css and
-	 * fxml files to be used. Controller and Model classes instantiated, and
-	 * reference to model passed to controller
+	 * Creates a new Scene, adds this scene to the stage and sets the css and fxml files to be used.
+	 * Controller and Model classes instantiated, and reference to model passed to controller
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		
 		dm = new DataModel();
 		dm.init();
-
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("graphView.fxml"));
-
+		
 		loader.setController(this);
-
+		
 		Parent root = loader.load();
 
 		primaryStage.setTitle("Dashboard");
 		Scene scene = new Scene(root, 850, 600);
-
-		// scene.getStylesheets().add("style.css");
+		
+		//scene.getStylesheets().add("style.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		this.stage = primaryStage;
-		// File file = new File("graphLogo.jpg");
+	//	File file = new File("graphLogo.jpg");
 		String dateFormat = "yyyy-MM-dd HH:mm:ss";
 		fromDate = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
 		toDate = new SimpleDateFormat(dateFormat).parse("2015-01-15 13:59:08");
-		System.out.println("1 fromDate is" + fromDate.toString());
-		System.out.println("1 toDate is" + toDate.toString());
-
-		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited");
+        System.out.println("1 fromDate is" + fromDate.toString());
+        System.out.println("1 toDate is" + toDate.toString());
+		
+		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
-
-		fromDatePicker.setOnAction(event -> {
-			LocalDate localDate = fromDatePicker.getValue();
-			fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-		});
-
-		toDatePicker.setOnAction(event -> {
-			LocalDate localDate = toDatePicker.getValue();
-			toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			System.out.println("localDate is" + localDate.toString());
-			System.out.println("toDate is" + toDate.toString());
-		});
-
+		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
-		for (ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+		for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
 			campaignNames.add((String) campaignNamesAndIds.get(1));
-		}
+		}		
 		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
 		selectCampaignChoiceBox.setItems(campaignChoices);
-
+		
 		appearanceMenuItem.setDisable(true);
 		terminologyMenuItem.setDisable(true);
 		aboutMenuItem.setDisable(true);
-
+		
 		graphViewBorderPane.setDisable(true);
 		dm.bounceSeconds(1);
-
+				
 	}
-
-	public void returnToGraphView() {
+	
+	public void returnToGraphView(){
 		graphViewBorderPane.setDisable(false);
 		selectCampaignBorderPane.setVisible(false);
 	}
-
+	
 	public void restrictDatePicker() {
-		if (overview != null) {
+		if(overview != null) {
 			LocalDate localDateMaxDate;
 			LocalDate localDateMinDate;
 			minDateLong = overview.getMinDate();
@@ -548,76 +507,60 @@ public class AdDashboard extends Application {
 			Date dateMinDate = new Date(minDateLong);
 			Date dateMaxDate = new Date(maxDateLong);
 			localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();			
 			overallMinDate.setValue(localDateMinDate);
 			overallMaxDate.setValue(localDateMaxDate);
-
-			if (fromDate == null) {
+			
+			if(fromDate == null) {
 				minDate = new DatePicker();
 				localDateMinDate = dateMinDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			} else {
+			}else {
 				minDate = new DatePicker();
 				localDateMinDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			}
-			if (toDate == null) {
-				maxDate = new DatePicker(); // DatePicker, used to define max
-											// date available, you can also
-											// create another for minimum date
+			if(toDate == null) {
+				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
 				localDateMaxDate = dateMaxDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			} else {
-				maxDate = new DatePicker(); // DatePicker, used to define max
-											// date available, you can also
-											// create another for minimum date
+			}else {
+				maxDate = new DatePicker(); // DatePicker, used to define max date available, you can also create another for minimum date
 				localDateMaxDate = toDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 			}
-
+			
 			minDate.setValue(localDateMinDate);
-			maxDate.setValue(localDateMaxDate); // Max date available will be
-												// 2015-01-01
-
+			maxDate.setValue(localDateMaxDate); // Max date available will be 2015-01-01
+			
 			final Callback<DatePicker, DateCell> dayCellFactory;
 			dayCellFactory = (final DatePicker datePicker) -> new DateCell() {
-				@Override
-				public void updateItem(LocalDate item, boolean empty) {
-					super.updateItem(item, empty);
-					if (item.isAfter(overallMaxDate.getValue())) { // Disable
-																	// all dates
-																	// after
-																	// required
-																	// date
-						setDisable(true);
-						setStyle("-fx-background-color: #ffc0cb;"); // To set
-																	// background
-																	// on
-																	// different
-																	// color
-					}
-					if (item.isBefore(overallMinDate.getValue())) {
-						setDisable(true);
-						setStyle("-fx-background-color: #ffc0cb;"); // To set
-																	// background
-																	// on
-																	// different
-																	// color
-					}
-				}
+			    @Override
+			    public void updateItem(LocalDate item, boolean empty) {
+			        super.updateItem(item, empty);
+			        if (item.isAfter(overallMaxDate.getValue())) { //Disable all dates after required date
+			            setDisable(true);
+			            setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
+			        }if(item.isBefore(overallMinDate.getValue())) {
+			        	 setDisable(true);
+				         setStyle("-fx-background-color: #ffc0cb;"); //To set background on different color
+			        }
+			    }
 			};
 			fromDatePicker.setValue(localDateMinDate);
 			toDatePicker.setValue(localDateMaxDate);
+			System.out.println("Day of week" + fromDatePicker.getValue().getDayOfWeek());
+			initialMinDate = Date.from(localDateMinDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			initialMaxDate = Date.from(localDateMaxDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 			fromDatePicker.setDayCellFactory(dayCellFactory);
 			toDatePicker.setDayCellFactory(dayCellFactory);
 		}
 	}
-
+	
+	
 	/**
-	 * Uses data from model class to set all required metrics to be added to the
-	 * sidebar in the view
-	 * 
+	 * Uses data from model class to set all required metrics to be added to the sidebar in the view
 	 * @param model
 	 */
 	public void updateOverview() {
-
+		
 		clicks.wrapTextProperty().setValue(true);
 		impressions.wrapTextProperty().setValue(true);
 		uniques.wrapTextProperty().setValue(true);
@@ -629,59 +572,57 @@ public class AdDashboard extends Application {
 		cpm.wrapTextProperty().setValue(true);
 		bounces.wrapTextProperty().setValue(true);
 		bounceRate.wrapTextProperty().setValue(true);
-
+		
 		clicks.setText("" + overview.getClicks());
 		impressions.setText("" + overview.getImpressions());
 		uniques.setText("" + overview.getUniques());
 		conversions.setText("" + overview.getConversions());
-		totalCost.setText("" + round(overview.getTotalCost(), 4));
-		ctr.setText("" + round(overview.getCTR(), 4));
-		cpa.setText("" + round(overview.getCPA(), 4));
-		cpc.setText("" + round(overview.getCPC(), 4));
-		cpm.setText("" + round(overview.getCPM(), 4));
+		totalCost.setText("" + round(overview.getTotalCost(),4));
+		ctr.setText("" + round(overview.getCTR(),4));
+		cpa.setText("" + round(overview.getCPA(),4));
+		cpc.setText("" + round(overview.getCPC(),4));
+		cpm.setText("" + round(overview.getCPM(),4));
 		bounces.setText("" + overview.getBounces());
-		bounceRate.setText("" + round(overview.getBounceRate(), 4));
-
-		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited");
+		bounceRate.setText("" + round(overview.getBounceRate(),4));
+		
+		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
-
-		// if(overview.getBounceRate()==0 || overview.getBounces()==0 ||
-		// overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0
-		// || overview.getCTR()==0){
-		// divideByZeroError();
-		// }
+		
+//		if(overview.getBounceRate()==0 || overview.getBounces()==0 || overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0 || overview.getCTR()==0){
+//			divideByZeroError();
+//		}
 	}
-
+	
 	public void loadCampaignClicked() {
-
+		
 		fromDatePicker.setOnAction(event -> {
-			LocalDate localDate = fromDatePicker.getValue();
-			fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-		});
-
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+        });
+		
 		toDatePicker.setOnAction(event -> {
-			LocalDate localDate = toDatePicker.getValue();
-			toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			System.out.println("localDate is" + localDate.toString());
-			System.out.println("toDate is" + toDate.toString());
-		});
-
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
+        });
+		
 		graphViewBorderPane.setDisable(true);
 		selectCampaignBorderPane.setVisible(true);
-
+		
 		restrictDatePicker();
-
+		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
-		for (ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+		for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
 			campaignNames.add((String) campaignNamesAndIds.get(1));
-		}
+		}		
 		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
 		selectCampaignChoiceBox.setItems(campaignChoices);
-
+		
 	}
-
+	
 	public void loadNewCampaignClicked(){
 
 		
@@ -775,35 +716,59 @@ public class AdDashboard extends Application {
 					
 		        }
 	    	});
+	    	preventDatePickerDoubleClick();
 	    	t2.start();
 		}
+		}
+	
+	public void preventDatePickerDoubleClick() {
+		restrictDatePicker();
+		fromDatePicker.setOnAction(event -> {
+			
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            if(fromDate == datePickerFromCheck || fromDate == initialMaxDate) {
+            	fromPickerChanged = false;
+            }else {
+            	fromPickerChanged = true;
+            	datePickerFromCheck = fromDate;
+            }
+        });
+		
+		toDatePicker.setOnAction(event -> {
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            if(toDate == datePickerToCheck || toDate == initialMinDate) {
+            	toPickerChanged = false;
+            }else {
+            	toPickerChanged = true;
+            	datePickerToCheck = toDate;
+            }
+        });
 	}
-
-	public void loadExistingCampaignClicked() {
-
-		if (selectCampaignChoiceBox.getValue().toString() != ""
-				|| selectCampaignChoiceBox.getValue().toString() != null) {
-
-			// progressBarExistingCampaign.progressProperty().bind();
-
+	
+	public void loadExistingCampaignClicked(){
+		
+		if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
 			String campaignName = selectCampaignChoiceBox.getValue().toString();
 			int campaignId = 0;
 			ArrayList<String> campaignNames = new ArrayList<String>();
-			for (ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
+			for(ArrayList<Object> campaignNamesAndIds : campaignNamesArrayList) {
 				String campaignNameFromList = (String) campaignNamesAndIds.get(1);
 				campaignNames.add(campaignNameFromList);
-				if (campaignNameFromList.equals(campaignName)) {
+				if(campaignNameFromList.equals(campaignName)){
 					campaignId = (int) campaignNamesAndIds.get(0);
 				}
 			}
 			overview = dm.selectCampaign(campaignId);
-		}
-
+		}	
+		
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
-
+		
+		
 		restrictDatePicker();
-
+		
 		getTotalCostOverTime();
 		getImpressionsOverTime();
 		getClicksOverTime();
@@ -817,298 +782,354 @@ public class AdDashboard extends Application {
 		getConversionsOverTime();
 		getBounceRatesOverTime();
 		getCPCHistogramsOverTime();
-
+		
 		dm.fetchData(fromDate, toDate);
-
+		
 		fromDatePicker.setOnAction(event -> {
-			LocalDate localDate = fromDatePicker.getValue();
-			fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-		});
-
+            LocalDate localDate = fromDatePicker.getValue();
+            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+        });
+		
 		toDatePicker.setOnAction(event -> {
-			LocalDate localDate = toDatePicker.getValue();
-			toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			System.out.println("localDate is" + localDate.toString());
-			System.out.println("toDate is" + toDate.toString());
-		});
-
+            LocalDate localDate = toDatePicker.getValue();
+            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println("localDate is" + localDate.toString());
+            System.out.println("toDate is" + toDate.toString());
+        });
+		
 		graphViewBorderPane.setDisable(false);
 		selectCampaignBorderPane.setVisible(false);
-
+		
 		updateOverview();
-
+		
+		preventDatePickerDoubleClick();
+		
+		
 	}
-
+	
 	public void bounceDefinitionDataEntered() {
 		int bounceChoiceIndex = bounceDefinitionChoiceBox.getSelectionModel().getSelectedIndex();
-		if (!bounceDefinitionTextField.getText().matches("[0-9]+")) {
+		if(!bounceDefinitionTextField.getText().matches("[0-9]+")) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Invalid Input");
 			alert.setHeaderText("Error. Please enter a valid bounce definition number");
 			alert.setContentText("Only positive numbers are valid inputs");
-
+			
 			alert.showAndWait();
-		} else {
-
+		}else {
+			
 			int bounceSeconds = Integer.parseInt(bounceDefinitionTextField.getText());
 			int bouncePages = Integer.parseInt(bounceDefinitionTextField.getText());
-
-			if (bounceChoiceIndex == 0) {
+			
+	
+			if(bounceChoiceIndex == 0) {
 				dm.bounceSeconds(bounceSeconds);
 				System.out.println(1);
-			} else if (bounceChoiceIndex == 1) {
+			}else if(bounceChoiceIndex == 1) {
 				System.out.println(2);
 				dm.bouncePages(bouncePages);
 			}
-
+			
 			getBouncesOverTime();
 			getBounceRatesOverTime();
 		}
 	}
-
+	
 	public void datePickerButtonClicked() {
-		System.out.println("inpicker toDate is" + toDate.toString());
-		dm.fetchData(fromDate, toDate);
-
-		getTotalCostOverTime();
-		getImpressionsOverTime();
-		getClicksOverTime();
-		getUniquesOverTime();
-		getBouncesOverTime();
-		getCPMsOverTime();
-		getTotalCostOverTime();
-		getCTRsOverTime();
-		getCPCsOverTime();
-		getCPAsOverTime();
-		getConversionsOverTime();
-		getBounceRatesOverTime();
-		getCPCHistogramsOverTime();
+		
+		if(fromPickerChanged || toPickerChanged) {
+	        System.out.println("inpicker toDate is" + toDate.toString());
+			dm.fetchData(fromDate, toDate);
+			
+			getTotalCostOverTime();
+			getImpressionsOverTime();
+			getClicksOverTime();
+			getUniquesOverTime();
+			getBouncesOverTime();
+			getCPMsOverTime();
+			getTotalCostOverTime();
+			getCTRsOverTime();
+			getCPCsOverTime();
+			getCPAsOverTime();
+			getConversionsOverTime();
+			getBounceRatesOverTime();
+			getCPCHistogramsOverTime();
+		}
 	}
-
-	public void impressionLogFilePickerClicked() {
+	
+	public void impressionLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Impression Log");
-		impressionLogFile = fileChooser.showOpenDialog(stage);
-		impressionLogTextField.setText(impressionLogFile.getName());
+		  impressionLogFile = fileChooser.showOpenDialog(stage);
+		  impressionLogTextField.setText(impressionLogFile.getName());
 	}
-
-	public void clickLogFilePickerClicked() {
+	
+	public void clickLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Click Log");
-		clickLogFile = fileChooser.showOpenDialog(stage);
-		clickLogTextField.setText(clickLogFile.getName());
+		  clickLogFile = fileChooser.showOpenDialog(stage);
+		  clickLogTextField.setText(clickLogFile.getName());
 	}
-
-	public void serverLogFilePickerClicked() {
+	
+	public void serverLogFilePickerClicked(){
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Select Server Log");
-		serverLogFile = fileChooser.showOpenDialog(stage);
-		serverLogTextField.setText(serverLogFile.getName());
+		  serverLogFile = fileChooser.showOpenDialog(stage);
+		  serverLogTextField.setText(serverLogFile.getName());
 	}
-
-	public void divideByZeroError() {
-
-		Alert alert = new Alert(AlertType.ERROR);
+	
+	public void divideByZeroError(){
+        
+        Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("CSV Data Error");
 		alert.setHeaderText("Negative Number or Divide by Zero error");
 		alert.setContentText("A divide by zero error occurred");
-
+		
 		alert.showAndWait();
 	}
-
+	
 	public static double round(double value, int scale) {
-		return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
+	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}
-
-	public void getImpressionsOverTime() {
-
-		impressionSeries = dm.getSeries(Metric.IMPRESSIONS);
+	
+	public void getImpressionsOverTime(){
+		
+		//impressionSeries = dm.getSeries(Metric.IMPRESSIONS);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
+		impressionSeries = dm.getSeries(df);
 		impressionGraph.setLegendVisible(false);
 		impressionYAxis.setLabel("Impressions");
 		impressionXAxis.setLabel("Time (Date)");
-
-		// impressionXAxis.setAutoRanging(false);
-		// double lowerBound = (double)1420130859000L;
-		// double upperBound = (double)1421227547000L;
-		// impressionXAxis.setLowerBound(lowerBound);
-		// impressionXAxis.setUpperBound(upperBound);
-		// impressionXAxis.setTickUnit(100000000);
-
-		// impressionXAxis.setTickLabelFormatter(new StringConverter<Number>() {
-		// @Override
-		// public String toString(Number number) {
-		// Long l = number.longValue();
-		// Date date = new Date(l);
-		// Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		// String stringDate = formatter.format(date);
-		// return stringDate;
-		// }
-		// @Override
-		// public Number fromString(String string) {
-		// return null;
-		// }
-		// });
+		
+//		impressionXAxis.setAutoRanging(false);
+//		double lowerBound = (double)1420130859000L;
+//		double upperBound = (double)1421227547000L;
+//		impressionXAxis.setLowerBound(lowerBound);
+//		impressionXAxis.setUpperBound(upperBound);
+//		impressionXAxis.setTickUnit(100000000);
+		
+//		impressionXAxis.setTickLabelFormatter(new StringConverter<Number>() {
+//	        @Override
+//	        public String toString(Number number) {
+//	        	Long l = number.longValue();
+//	        	Date date = new Date(l);
+//	        	Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	        	String stringDate = formatter.format(date);
+//	            return stringDate;
+//	        }
+//	        @Override
+//	        public Number fromString(String string) {
+//                return null;
+//            }
+//	    });
 		impressionGraph.getData().clear();
 		impressionGraph.getData().add(impressionSeries);
 	}
-
-	public void getClicksOverTime() {
-
-		clickSeries = dm.getSeries(Metric.CLICKS);
-		clickGraph.setLegendVisible(false);
-		clickYAxis.setLabel("Clicks");
-		clickXAxis.setLabel("Time (Date)");
-		clickGraph.getData().clear();
-		clickGraph.getData().add(clickSeries);
+	
+	public void getClicksOverTime(){
+		
+//	clickSeries = dm.getSeries(Metric.CLICKS);
+	ArrayList<Gender> genders = new ArrayList<>();
+	genders.add(Gender.MALE);
+	DataFilter df = new DataFilter(Metric.CLICKS,genders,null,null,null);
+	clickSeries = dm.getSeries(df);
+	clickGraph.setLegendVisible(false);
+	clickYAxis.setLabel("Clicks");
+	clickXAxis.setLabel("Time (Date)");
+	clickGraph.getData().clear();
+	clickGraph.getData().add(clickSeries);
 	}
-
+	
 	public void printClicked() {
 		Scene currentScene = stage.getScene();
-		WritableImage img = new WritableImage((int) currentScene.getWidth(), (int) currentScene.getHeight());
-		WritableImage snap = currentScene.snapshot(img);
+		WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
+		WritableImage snap = currentScene.snapshot(img); 
 		ImageView printNode = new ImageView(snap);
 		printNode.setFitWidth(500);
 		printNode.setFitHeight(500);
 		PrinterJob job = PrinterJob.createPrinterJob();
-		if (job != null) {
-			job.showPrintDialog(stage);
+		if(job != null){
+			job.showPrintDialog(stage); 
 			job.printPage(printNode);
 			job.endJob();
 		}
 	}
-
+	
 	public void saveAsImageClicked() {
-
-		Scene currentScene = stage.getScene();
-		WritableImage img = new WritableImage((int) currentScene.getWidth(), (int) currentScene.getHeight());
-		currentScene.snapshot(img);
-		FileChooser saveDialog = new FileChooser();
-		saveDialog.setTitle("Save image");
-		File file = saveDialog.showSaveDialog(stage);
-
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		
+			Scene currentScene = stage.getScene();
+			WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
+			currentScene.snapshot(img);   
+			FileChooser saveDialog = new FileChooser();
+			saveDialog.setTitle("Save image");
+			File file = saveDialog.showSaveDialog(stage);
+			
+			try {
+				ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 	}
-
-	public void getCPMsOverTime() {
-
-		CPMSeries = dm.getSeries(Metric.CPM);
+	
+	public void getCPMsOverTime(){
+		
+//		CPMSeries = dm.getSeries(Metric.CPM);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.CPM,genders,null,null,null);
+		CPMSeries = dm.getSeries(df);
 		CPMGraph.setLegendVisible(false);
 		CPMYAxis.setLabel("CPM");
 		CPMXAxis.setLabel("Time (Date)");
-
+		
 		CPMYAxis.setAutoRanging(false);
 		CPMYAxis.setLowerBound(0);
 		CPMYAxis.setUpperBound(2.0);
 		CPMYAxis.setTickUnit(0.05);
 		CPMGraph.getData().clear();
 		CPMGraph.getData().add(CPMSeries);
-
+	
 	}
-
-	public void getCPCsOverTime() {
-
-		CPCSeries = dm.getSeries(Metric.CPC);
+	
+	public void getCPCsOverTime(){
+		
+//		CPCSeries = dm.getSeries(Metric.CPC);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.CPC,genders,null,null,null);
+		CPCSeries = dm.getSeries(df);
 		CPCGraph.setLegendVisible(false);
 		CPCYAxis.setLabel("CPC");
 		CPCXAxis.setLabel("Time (Date)");
 		CPCGraph.getData().clear();
 		CPCGraph.getData().add(CPCSeries);
-
+	
 	}
-
-	public void getCTRsOverTime() {
-
-		CTRSeries = dm.getSeries(Metric.CTR);
+	
+	public void getCTRsOverTime(){
+		
+//		CTRSeries = dm.getSeries(Metric.CTR);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.CTR,genders,null,null,null);
+		CTRSeries = dm.getSeries(df);
 		CTRGraph.setLegendVisible(false);
 		CTRYAxis.setLabel("CTR");
 		CTRXAxis.setLabel("Time (Date)");
 		CTRGraph.getData().clear();
 		CTRGraph.getData().add(CTRSeries);
-
+	
 	}
-
-	public void getCPAsOverTime() {
-
-		CPASeries = dm.getSeries(Metric.CPA);
+	
+	public void getCPAsOverTime(){
+		
+//		CPASeries = dm.getSeries(Metric.CPA);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.CPA,genders,null,null,null);
+		CPASeries = dm.getSeries(df);
 		CPAGraph.setLegendVisible(false);
 		CPAYAxis.setLabel("CPA");
 		CPAXAxis.setLabel("Time (Date)");
 		CPAGraph.getData().clear();
 		CPAGraph.getData().add(CPASeries);
-
+	
 	}
-
-	public void getConversionsOverTime() {
-
-		conversionsSeries = dm.getSeries(Metric.CONVERSIONS);
-		conversionsGraph.setLegendVisible(false);
-		conversionsYAxis.setLabel("Conversions");
-		conversionsXAxis.setLabel("Time (Date)");
-		conversionsGraph.getData().clear();
-		conversionsGraph.getData().add(conversionsSeries);
-
+	
+	public void getConversionsOverTime(){
+		
+//	conversionsSeries = dm.getSeries(Metric.CONVERSIONS);
+	ArrayList<Gender> genders = new ArrayList<>();
+	genders.add(Gender.MALE);
+	DataFilter df = new DataFilter(Metric.CONVERSIONS,genders,null,null,null);
+	conversionsSeries = dm.getSeries(df);
+	conversionsGraph.setLegendVisible(false);
+	conversionsYAxis.setLabel("Conversions");
+	conversionsXAxis.setLabel("Time (Date)");
+	conversionsGraph.getData().clear();
+	conversionsGraph.getData().add(conversionsSeries);
+	
 	}
-
-	public void getTotalCostOverTime() {
-
-		totalCostSeries = dm.getSeries(Metric.TOTAL_COST);
+	
+	public void getTotalCostOverTime(){
+		
+//		totalCostSeries = dm.getSeries(Metric.TOTAL_COST);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.TOTAL_COST,genders,null,null,null);
+		totalCostSeries = dm.getSeries(df);
 		totalCostGraph.setLegendVisible(false);
 		totalCostYAxis.setLabel("Total Cost");
 		totalCostXAxis.setLabel("Time (Date)");
 		totalCostGraph.getData().clear();
 		totalCostGraph.getData().add(totalCostSeries);
-
+	
 	}
-
-	public void getUniquesOverTime() {
-		uniqueSeries = dm.getSeries(Metric.UNIQUES);
+	
+	public void getUniquesOverTime(){
+//		uniqueSeries = dm.getSeries(Metric.UNIQUES);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.UNIQUES,genders,null,null,null);
+		uniqueSeries = dm.getSeries(df);
 		uniqueGraph.setLegendVisible(false);
 		uniqueYAxis.setLabel("Uniques");
 		uniqueXAxis.setLabel("Time (Date)");
 		uniqueGraph.getData().clear();
 		uniqueGraph.getData().add(uniqueSeries);
 	}
-
-	public void getBouncesOverTime() {
-		bounceSeries = dm.getSeries(Metric.BOUNCES);
+	
+	public void getBouncesOverTime(){
+//		bounceSeries = dm.getSeries(Metric.BOUNCES);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.BOUNCES,genders,null,null,null);
+		bounceSeries = dm.getSeries(df);
 		bounceGraph.setLegendVisible(false);
 		bounceYAxis.setLabel("Bounces");
 		bounceXAxis.setLabel("Time (Date)");
 		bounceGraph.getData().clear();
 		bounceGraph.getData().add(bounceSeries);
-
+		
 	}
-
-	public void getBounceRatesOverTime() {
-		bounceRateSeries = dm.getSeries(Metric.BOUNCE_RATE);
+	
+	public void getBounceRatesOverTime(){
+//		bounceRateSeries = dm.getSeries(Metric.BOUNCE_RATE);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.BOUNCE_RATE,genders,null,null,null);
+		bounceRateSeries = dm.getSeries(df);
 		bounceRateGraph.setLegendVisible(false);
 		bounceRateYAxis.setLabel("Bounce Rate");
 		bounceRateXAxis.setLabel("Time (Date)");
 		bounceRateGraph.getData().clear();
 		bounceRateGraph.getData().add(bounceRateSeries);
 	}
-
-	public void getCPCHistogramsOverTime() {
-
-		CPCSeries = dm.getSeries(Metric.CPC);
+	
+	public void getCPCHistogramsOverTime(){
+		
+//		CPCSeries = dm.getSeries(Metric.CPC);
+		ArrayList<Gender> genders = new ArrayList<>();
+		genders.add(Gender.MALE);
+		DataFilter df = new DataFilter(Metric.CPC,genders,null,null,null);
+		CPCSeries = dm.getSeries(df);
 		CPCHistogram.setLegendVisible(false);
 		CPCHistogramYAxis.setLabel("Frequency Density");
 		CPCHistogramXAxis.setLabel("Time (Date)");
 		CPCHistogram.getData().clear();
 		CPCHistogram.getData().add(CPCSeries);
-
+	
 	}
+	
 
 }
