@@ -13,7 +13,10 @@ public class Calculator {
 	private MetricStorage metrics;
 	private ArrayList<ImpressionEntry> impressions;
 	private ArrayList<ClickEntry> clicks;
-	DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	DateFormat dfDay = new SimpleDateFormat("d MMM HH:mmaaa");
+	DateFormat dfWeek = new SimpleDateFormat("d MMM HH:mmaaa");
+	DateFormat dfMonth = new SimpleDateFormat("d MMM");
+	DateFormat dfYear = new SimpleDateFormat("MMM-yyyy");
 	private int range;
 	private int bounceSeconds = -1;
 	private int bouncePages = -1;
@@ -43,6 +46,16 @@ public class Calculator {
 	
 	
 	public String[] calcDates(int range, Date date) {
+		DateFormat df = null;
+		if(range < 24 * 2) {
+			df = dfDay;
+		} else if (range < 24 * 7 * 2) {
+			df = dfWeek;
+		} else if (range < 24 * 7 * 4 * 24) {
+			df = dfMonth;
+		} else {
+			df = dfYear;
+		}
 		String[] dates = new String[range];
 		long startTime = date.getTime();
 		for(int i = 0; i < range; i++) {
@@ -265,6 +278,8 @@ public class Calculator {
 			return calcCPM(calcImpressions(i), i);
 		case CTR:
 			return calcCTR(calcClicks(f.filterClicks(clicks)), calcImpressions(f.filterImpressions(impressions)));
+		case TOTAL_COST:
+			return calcCosts(f.filterImpressions(impressions), f.filterClicks(clicks));
 		default:
 			break;
 		}

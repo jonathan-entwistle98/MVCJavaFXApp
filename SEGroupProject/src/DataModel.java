@@ -62,7 +62,7 @@ public class DataModel {
 		dates = calc.calcDates(range, startD);
 	}
 
-	public XYChart.Series getSeries(DataFilter f) {
+	public XYChart.Series getSeries(DataFilter f, Granularity g) {
 		XYChart.Series series = new XYChart.Series();
 		switch (f.getMetric()) {
 		case UNIQUES:
@@ -70,69 +70,114 @@ public class DataModel {
 		case CLICKS:
 		case BOUNCES:
 		case IMPRESSIONS:
-			populateSeries(series, calc.calcFilterInt(f));
+			populateSeries(series, calc.calcFilterInt(f), g);
 			return series;
 		case BOUNCE_RATE:
 		case CPC:
 		case CPA:
 		case CPM:
 		case CTR:
-			populateSeries(series, calc.calcFilter(f));
+		case TOTAL_COST:
+			populateSeries(series, calc.calcFilter(f), g);
 			return series;
 		default:
 			return series;
 		}
 	}
 	
-	public XYChart.Series getSeries(Metric m) {
+	public XYChart.Series getSeries(Metric m, Granularity g) {
 		XYChart.Series series = new XYChart.Series();
 		switch (m) {
 		case IMPRESSIONS:
-			populateSeries(series, metrics.getImpressions());
+			populateSeries(series, metrics.getImpressions(), g);
 			return series;
 		case CLICKS:
-			populateSeries(series, metrics.getClicks());
+			populateSeries(series, metrics.getClicks(), g);
 			return series;
 		case UNIQUES:
-			populateSeries(series, metrics.getUniques());
+			populateSeries(series, metrics.getUniques(), g);
 			return series;
 		case BOUNCES:
-			populateSeries(series, metrics.getBounces());
+			populateSeries(series, metrics.getBounces(), g);
 			return series;
 		case CONVERSIONS:
-			populateSeries(series, metrics.getConversions());
+			populateSeries(series, metrics.getConversions(), g);
 			return series;
 		case TOTAL_COST:
-			populateSeries(series, metrics.getCosts());
+			populateSeries(series, metrics.getCosts(), g);
 			return series;
 		case CTR:
-			populateSeries(series, metrics.getCtr());
+			populateSeries(series, metrics.getCtr(), g);
 			return series;
 		case CPA:
-			populateSeries(series, metrics.getCpa());
+			populateSeries(series, metrics.getCpa(), g);
 			return series;
 		case CPC:
-			populateSeries(series, metrics.getCpc());
+			populateSeries(series, metrics.getCpc(), g);
 			return series;
 		case CPM:
-			populateSeries(series, metrics.getCpm());
+			populateSeries(series, metrics.getCpm(), g);
 			return series;
 		case BOUNCE_RATE:
-			populateSeries(series, metrics.getBounceRate());
+			populateSeries(series, metrics.getBounceRate(), g);
 			return series;
 		}
 		return null;
 	}
 	
-	private void populateSeries(XYChart.Series series, float[] met) {
+	private void populateSeries(XYChart.Series series, float[] met, Granularity g) {
+		int step = 1; // Number of hours between data points.
+		switch (g) {
+		case HOURLY:
+			step = 1;
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24*7;
+			break;
+		default:
+			break;
+		}
+		float acc = 0;
 		for(int i = 0; i < dates.length; i++) {
-			series.getData().add(new XYChart.Data(dates[i], met[i]));
+			acc += met[i];
+			if(step == 1 || (i%step == 0 && i != 0)) {
+				series.getData().add(new XYChart.Data(dates[i - step], acc));
+				acc = 0;
+			}
+		}
+		if(acc != 0) {
+			series.getData().add(new XYChart.Data(dates[dates.length - 1], acc));
 		}
 	}
 	
-	private void populateSeries (XYChart.Series series, int[] met) {
+	private void populateSeries (XYChart.Series series, int[] met, Granularity g) {
+		int step = 1; // Number of hours between data points.
+		switch (g) {
+		case HOURLY:
+			step = 1;
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24*7;
+			break;
+		default:
+			break;
+		}
+		float acc = 0;
 		for(int i = 0; i < dates.length; i++) {
-			series.getData().add(new XYChart.Data(dates[i], met[i]));
+			if(i != 0 && i%step == 0) {
+				series.getData().add(new XYChart.Data(dates[i - step], acc));
+				acc = 0;
+			}
+			acc += met[i];
+		}
+		if(acc != 0) {
+			series.getData().add(new XYChart.Data(dates[dates.length - 1], acc));
 		}
 	}
 
