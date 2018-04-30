@@ -101,7 +101,7 @@
                       </Menu>
                     </menus>
                   </MenuBar>
-                  <ToolBar id="menu" prefHeight="136.0" prefWidth="1268.0">
+                  <ToolBar id="menu" fx:id="toolbar" prefHeight="136.0" prefWidth="1268.0">
                      <items>
                         <Label id="menuLabel" prefHeight="21.0" prefWidth="43.0" text="From:" />
                         <DatePicker fx:id="fromDatePicker" prefHeight="31.0" prefWidth="130.0" />
@@ -144,7 +144,7 @@
             </VBox>
          </top>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" StackPane.alignment="CENTER">
+            <StackPane fx:id="mainStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" StackPane.alignment="CENTER">
                <children>
                   <VBox>
                      <children>
@@ -309,7 +309,7 @@
                   </VBox>
                   <Accordion pickOnBounds="false">
                     <panes>
-                      <TitledPane alignment="CENTER" animated="false" contentDisplay="CENTER" prefHeight="688.0" prefWidth="1268.0" text="Overview" textAlignment="CENTER">
+                      <TitledPane fx:id="overviewTitle" alignment="CENTER" animated="false" contentDisplay="CENTER" prefHeight="688.0" prefWidth="1268.0" text="Overview" textAlignment="CENTER">
                            <content>
                               <VBox id="overview" prefHeight="200.0" prefWidth="100.0">
                                  <children>
@@ -454,18 +454,18 @@
             </StackPane>
          </center>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="151.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="filterPane" alignment="CENTER" prefHeight="151.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" prefHeight="157.0" prefWidth="489.0">
                      <children>
-                        <Label text="Existing filters" />
+                        <Label text="Existing graphs" />
                         <ScrollPane prefHeight="136.0">
                            <content>
                               <VBox prefHeight="310.0">
                                  <children>
                                     <HBox fx:id="filterHBox1" alignment="CENTER_LEFT" prefHeight="31.0">
                                        <children>
-                                          <Label fx:id="filterLabel1" maxWidth="1000.0" text="zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="filterLabel1" maxWidth="1000.0" text="Original graph - no filters" HBox.hgrow="ALWAYS" />
                                           <Button fx:id="deleteFilter1" mnemonicParsing="false" text="x">
                                              <HBox.margin>
                                                 <Insets left="10.0" />
