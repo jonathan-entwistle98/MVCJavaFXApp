@@ -1,3 +1,5 @@
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -54,6 +56,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -72,6 +75,16 @@ import javafx.util.Callback;
 public class AdDashboard extends Application{
 	
 	private volatile boolean finished = false;
+	
+	@FXML
+	private ToolBar toolbar;
+	
+	@FXML 
+	private StackPane mainStackPane;
+	
+	@FXML
+	private HBox filterPane;
+	
 	@FXML
 	private AnchorPane mainAnchorPane;
 
@@ -1621,22 +1634,43 @@ public void resetDefaultsClicked(){
 		}
 	}
 	
-	public void saveAsImageClicked() {
-		
-		Scene currentScene = stage.getScene();
-		WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
-		currentScene.snapshot(img);   
-		FileChooser saveDialog = new FileChooser();
-		saveDialog.setTitle("Save image");
-		File file = saveDialog.showSaveDialog(stage);
-		
-		try {
-			ImageIO.write(SwingFXUtils.fromFXImage(img, null), "png", file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-			
-	}
+public void saveAsImageClicked() {
+        
+        
+        WritableImage img1 = new WritableImage((int)toolbar.getWidth(),(int)toolbar.getHeight());
+        toolbar.snapshot(null, img1);
+        
+        WritableImage img2 = new WritableImage((int)mainStackPane.getWidth(),(int)mainStackPane.getHeight());
+        mainStackPane.snapshot(null,img2);
+        
+        WritableImage img3 = new WritableImage((int)filterPane.getWidth(),(int)filterPane.getHeight());
+        filterPane.snapshot(null, img3);
+        
+        int totalHeight = (int) (img1.getHeight() + img2.getHeight() + img3.getHeight());
+        int totalWidth = (int) img1.getWidth();
+        
+        BufferedImage fullImage = new BufferedImage(totalWidth, totalHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = fullImage.createGraphics();
+        
+        g2d.drawImage(SwingFXUtils.fromFXImage(img1, null), 0, 0, null);
+        g2d.drawImage(SwingFXUtils.fromFXImage(img2, null), 0, (int)img1.getHeight(), null);
+        g2d.drawImage(SwingFXUtils.fromFXImage(img3, null), 0, (int)(img1.getHeight()+img2.getHeight()), null);
+        g2d.dispose();
+        
+        FileChooser saveDialog = new FileChooser();
+        FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("PNG image", "*.png");
+        saveDialog.getExtensionFilters().add(extension);
+        saveDialog.setTitle("Save image");
+        File file = saveDialog.showSaveDialog(stage);
+        
+        try {
+            ImageIO.write(fullImage, "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+            
+    }
 	
 
 }
