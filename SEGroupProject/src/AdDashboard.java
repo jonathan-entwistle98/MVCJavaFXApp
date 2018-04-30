@@ -65,6 +65,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 
 public class AdDashboard extends Application{
@@ -625,9 +626,6 @@ public class AdDashboard extends Application{
 		ObservableList<String> campaignChoices = FXCollections.observableArrayList(campaignNames);
 		selectCampaignChoiceBox.setItems(campaignChoices);
 		
-		appearanceMenuItem.setDisable(true);
-		terminologyMenuItem.setDisable(true);
-		aboutMenuItem.setDisable(true);
 		
 		filterHBox1.setVisible(false);	
 		filterHBox2.setVisible(false);	
@@ -777,6 +775,80 @@ public class AdDashboard extends Application{
 		selectCampaignChoiceBox.setItems(campaignChoices);
 		
 	}
+	
+public void resetDefaultsClicked(){
+        
+    }
+    
+    public void applyChangesClicked(){
+        
+    }
+    
+    public void terminologyClicked() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("terminologyView.fxml"));
+        loader.setController(this);
+        Parent termRoot = loader.load();
+        
+        Stage termStage = new Stage();
+        
+        termStage.setTitle("Terminology");
+        
+        Scene termScene = new Scene(termRoot,800,600);
+        
+        termStage.setScene(termScene);
+        termStage.initModality(Modality.WINDOW_MODAL);
+        termStage.initOwner(stage);
+        termStage.show();
+        
+
+    }
+    
+    public void aboutClicked() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("aboutView.fxml"));
+        loader.setController(this);
+        Parent aboutRoot = loader.load();
+        
+        Stage aboutStage = new Stage();
+        
+        aboutStage.setTitle("About");
+        
+        Scene aboutScene = new Scene(aboutRoot,700,400);
+        
+        aboutStage.setScene(aboutScene);
+        aboutStage.initModality(Modality.WINDOW_MODAL);
+        aboutStage.initOwner(stage);
+        aboutStage.show();
+        
+    }
+    
+public void customizeAppearanceClicked() throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("appearanceView.fxml"));
+        loader.setController(this);
+        Parent appRoot = loader.load();
+        
+        Stage appStage = new Stage();
+        
+        appStage.setTitle("Appearance");
+        
+        Scene appScene = new Scene(appRoot,800,400);
+        
+        appStage.setScene(appScene);
+        appStage.initModality(Modality.WINDOW_MODAL);
+        appStage.initOwner(stage);
+        appStage.show();
+        graphViewBorderPane.setDisable(true);
+        
+        appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+             @Override
+             public void handle(WindowEvent event) {
+                 graphViewBorderPane.setDisable(false);
+             }
+         });
+        
+    }
+    
 	
 	public void loadNewCampaignClicked(){
 

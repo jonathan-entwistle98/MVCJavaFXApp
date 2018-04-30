@@ -73,7 +73,7 @@
                       </Menu>
                       <Menu id="menuItem" mnemonicParsing="false" text="Settings">
                         <items>
-                          <MenuItem id="menuItem" fx:id="appearanceMenuItem" mnemonicParsing="false" text="Appearance">
+                          <MenuItem id="menuItem" fx:id="appearanceMenuItem" mnemonicParsing="false" onAction="#customizeAppearanceClicked" text="Appearance">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -86,7 +86,7 @@
                       </Menu>
                       <Menu id="menuItem" mnemonicParsing="false" text="Help">
                         <items>
-                          <MenuItem id="menuItem" fx:id="terminologyMenuItem" mnemonicParsing="false" text="Terminology">
+                          <MenuItem id="menuItem" fx:id="terminologyMenuItem" mnemonicParsing="false" onAction="#terminologyClicked" text="Terminology">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -96,7 +96,7 @@
                                  </graphic>
                               </MenuItem>
                               <SeparatorMenuItem mnemonicParsing="false" />
-                              <MenuItem id="menuItem" fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
+                              <MenuItem id="menuItem" fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#aboutClicked" text="About" />
                         </items>
                       </Menu>
                     </menus>

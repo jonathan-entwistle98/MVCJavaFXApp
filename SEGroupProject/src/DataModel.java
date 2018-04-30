@@ -143,11 +143,11 @@ public class DataModel {
 		}
 		float acc = 0;
 		for(int i = 0; i < dates.length; i++) {
-			acc += met[i];
-			if(step == 1 || (i%step == 0 && i != 0)) {
+			if(i != 0 && i%step == 0) {
 				series.getData().add(new XYChart.Data(dates[i - step], acc));
 				acc = 0;
 			}
+			acc += met[i];
 		}
 		if(acc != 0) {
 			series.getData().add(new XYChart.Data(dates[dates.length - 1], acc));
