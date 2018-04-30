@@ -629,6 +629,17 @@ public class AdDashboard extends Application{
 		terminologyMenuItem.setDisable(true);
 		aboutMenuItem.setDisable(true);
 		
+		filterHBox1.setVisible(false);	
+		filterHBox2.setVisible(false);	
+		filterHBox3.setVisible(false);	
+		filterHBox4.setVisible(false);	
+		filterHBox5.setVisible(false);	
+		filterHBox6.setVisible(false);	
+		filterHBox7.setVisible(false);	
+		filterHBox8.setVisible(false);	
+		filterHBox9.setVisible(false);	
+		filterHBox10.setVisible(false);	
+		
 		graphViewBorderPane.setDisable(true);
 		impressionSeries = new Series<String, Integer>();
 		dm.bounceSeconds(1);
@@ -1030,49 +1041,117 @@ public class AdDashboard extends Application{
 	}
 	
 	public void addFilterClicked() {
+		if(!filterHBox1.isVisible()) {
+			filterHBox1.setVisible(true);
+		}else if(!filterHBox2.isVisible()) {
+			filterHBox2.setVisible(true);
+		}else if(!filterHBox3.isVisible()) {
+			filterHBox3.setVisible(true);
+		}else if(!filterHBox4.isVisible()) {
+			filterHBox4.setVisible(true);
+		}else if(!filterHBox5.isVisible()) {
+			filterHBox5.setVisible(true);
+		}else if(!filterHBox6.isVisible()) {
+			filterHBox6.setVisible(true);
+		}else if(!filterHBox7.isVisible()) {
+			filterHBox7.setVisible(true);
+		}else if(!filterHBox8.isVisible()) {
+			filterHBox8.setVisible(true);
+		}else if(!filterHBox9.isVisible()) {
+			filterHBox9.setVisible(true);
+		}else if(!filterHBox10.isVisible()) {
+			filterHBox10.setVisible(true);
+		}
 		ArrayList<Gender> genderList = new ArrayList<Gender>();
 		ArrayList<Income> incomeList = new ArrayList<Income>();
 		ArrayList<Age> ageList = new ArrayList<Age>();
 		ArrayList<Context> contextList = new ArrayList<Context>();
+		
+		ArrayList<String> genderListString = new ArrayList<String>();
+		ArrayList<String> incomeListString = new ArrayList<String>();
+		ArrayList<String> ageListString = new ArrayList<String>();
+		ArrayList<String> contextListString = new ArrayList<String>();
+		
 		if(genderMaleCheckbox.isSelected()) {
 			genderList.add(Gender.MALE);
+			genderListString.add("Male");
 		}if(genderFemaleCheckbox.isSelected()) {
 			genderList.add(Gender.FEMALE);
+			genderListString.add("Female");
 		}if(incomeLowCheckbox.isSelected()) {
 			incomeList.add(Income.LOW);
+			incomeListString.add("Low");
 		}if(incomeMediumCheckbox.isSelected()) {
 			incomeList.add(Income.MEDIUM);
+			incomeListString.add("Medium");
 		}if(incomeHighCheckbox.isSelected()) {
 			incomeList.add(Income.HIGH);
+			incomeListString.add("High");
 		}if(ageUnder25Checkbox.isSelected()) {
 			ageList.add(Age.L25);
+			ageListString.add("Under 25");
 		}if(age25To34Checkbox.isSelected()) {
 			ageList.add(Age.A25TO34);
+			ageListString.add("25-34");
 		}if(age35To44Checkbox.isSelected()) {
 			ageList.add(Age.A35TO44);
+			ageListString.add("35-44");
 		}if(age45To54Checkbox.isSelected()) {
 			ageList.add(Age.A45TO54);
+			ageListString.add("45-54");
 		}if(ageOver54Checkbox.isSelected()) {
 			ageList.add(Age.M54);
+			ageListString.add("Over 54");
 		}if(contextNewsCheckbox.isSelected()) {
 			contextList.add(Context.NEWS);
+			contextListString.add("News");
 		}if(contextShoppingCheckbox.isSelected()) {
 			contextList.add(Context.SHOPPING);
+			contextListString.add("Shopping");
 		}if(contextSocialMediaCheckbox.isSelected()) {
 			contextList.add(Context.SOCIAL_MEDIA);
+			contextListString.add("Social Media");
 		}if(contextBlogCheckbox.isSelected()) {
 			contextList.add(Context.BLOG);
+			contextListString.add("Blog");
 		}if(contextHobbiesCheckbox.isSelected()) {
 			contextList.add(Context.HOBBIES);
+			contextListString.add("Hobbies");
 		}if(contextTravelCheckbox.isSelected()) {
 			contextList.add(Context.TRAVEL);
+			contextListString.add("Travel");
 		}
 		String genderFilterString ="";
 		String incomeFilterString ="";
 		String ageFilterString ="";
 		String contextFilterString ="";
+		if(genderListString.size()==2) {
+		} else if(genderListString.size()>0) {
+			genderFilterString += "Gender: ";
+			for(int i=0;i<genderListString.size(); i++) {
+				genderFilterString += genderListString.get(i).toString();
+			}
+		}if(incomeListString.size() == 3) {
+		}else if(incomeListString.size()>0) {
+			incomeFilterString += "Income: ";
+			for(int i=0;i<incomeListString.size(); i++) {
+				incomeFilterString += (" "+incomeListString.get(i).toString());
+			}
+		}if(ageListString.size() == 5) {
+		}else if(ageListString.size()>0) {
+			ageFilterString += "Age: ";
+			for(int i=0;i<ageListString.size(); i++) {
+				ageFilterString += (" "+ageListString.get(i).toString());
+			}
+		}if(contextListString.size() == 6) {
+		}else if(contextListString.size()>0) {
+			contextFilterString += "Context: ";
+			for(int i=0;i<contextListString.size(); i++) {
+				contextFilterString += (" "+contextListString.get(i).toString());
+			}
+		}
 		
-		String filterText = genderFilterString+", "+incomeFilterString+", "+ageFilterString+", "+contextFilterString;
+		String filterText = genderFilterString+" | "+incomeFilterString+" | "+ageFilterString+" | "+contextFilterString;
 		filterLabel1.setText(filterText);
 	}
 	
