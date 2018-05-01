@@ -368,6 +368,9 @@ public class AdDashboard extends Application{
 	private ChoiceBox selectCampaignChoiceBox;
 	
 	@FXML
+	private ChoiceBox timeUnitChoiceBox;
+	
+	@FXML
 	private TextField campaignNameTextField;
 	
 	@FXML
@@ -530,6 +533,8 @@ public class AdDashboard extends Application{
 	private CheckBox contextTravelCheckbox;
 	
 	
+	
+	
 	private Stage stage;
 	
 	private File impressionLogFile;
@@ -592,8 +597,29 @@ public class AdDashboard extends Application{
 	
 	private DatePicker maxDate = null;
 	
-	ArrayList<String> allFilterTexts = new ArrayList<String>();
+	private ArrayList<String> allFilterTexts = new ArrayList<String>();
 	
+	private int selectedTimeUnitIndex = 0;
+	
+	private String timeUnitIndexString = "HOURLY";	
+	
+	private ArrayList<Gender> genderList;
+	
+	private ArrayList<Income> incomeList;
+	
+	private ArrayList<Age> ageList;
+	
+	private ArrayList<Context> contextList;
+	
+	private ArrayList<ArrayList<Gender>> allGenderLists = new ArrayList<ArrayList<Gender>>();
+	
+	private ArrayList<ArrayList<Income>> allIncomeLists = new ArrayList<ArrayList<Income>>();
+	
+	private ArrayList<ArrayList<Age>> allAgeLists = new ArrayList<ArrayList<Age>>();
+	
+	private ArrayList<ArrayList<Context>> allContextLists = new ArrayList<ArrayList<Context>>();
+	
+	private ArrayList<String> granularityArrayList = new ArrayList<String>();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -633,6 +659,10 @@ public class AdDashboard extends Application{
 		
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
+		
+		ObservableList<String> timescaleChoices = FXCollections.observableArrayList("Hours", "Days", "Weeks", "Months"); 
+		timeUnitChoiceBox.setItems(timescaleChoices);
+		timeUnitChoiceBox.getSelectionModel().select(0);
 		
 		ArrayList<String> campaignNames = new ArrayList<String>();
 		campaignNamesArrayList = dm.getCampaignNamesAndIds();
@@ -921,13 +951,12 @@ public void resetDefaultsClicked(){
 					
 					Platform.runLater(() -> {
 						restrictDatePicker();
-						getTotalCostOverTime(false, null, null, null, null);
+						getTotalCostOverTime(false, null, null, null, null, true);
 						getImpressionsOverTime(false, null, null, null, null);
 						getClicksOverTime(false, null, null, null, null);
 						getUniquesOverTime(false, null, null, null, null);
 						getBouncesOverTime(false, null, null, null, null);
 						getCPMsOverTime(false, null, null, null, null);
-						getTotalCostOverTime(false, null, null, null, null);
 						getCTRsOverTime(false, null, null, null, null);
 						getCPCsOverTime(false, null, null, null, null);
 						getCPAsOverTime(false, null, null, null, null);
@@ -958,10 +987,13 @@ public void resetDefaultsClicked(){
 						
 						updateOverview();
 					});
-					finished = true;					
+					finished = true;	
+					deleteAllFiltersClicked();
+					addFilterClicked(false);
 					
 		        }
 	    	});
+	    	
 	    	preventDatePickerDoubleClick();
 	    	t2.start();
 		}
@@ -1015,13 +1047,12 @@ public void resetDefaultsClicked(){
 		dm.fetchData(fromDate, toDate);
 		restrictDatePicker();
 		
-		getTotalCostOverTime(false, null, null, null, null);
+		getTotalCostOverTime(false, null, null, null, null, true);
 		getImpressionsOverTime(false, null, null, null, null);
 		getClicksOverTime(false, null, null, null, null);
 		getUniquesOverTime(false, null, null, null, null);
 		getBouncesOverTime(false, null, null, null, null);
 		getCPMsOverTime(false, null, null, null, null);
-		getTotalCostOverTime(false, null, null, null, null);
 		getCTRsOverTime(false, null, null, null, null);
 		getCPCsOverTime(false, null, null, null, null);
 		getCPAsOverTime(false, null, null, null, null);
@@ -1054,7 +1085,7 @@ public void resetDefaultsClicked(){
 		
 		preventDatePickerDoubleClick();
 		deleteAllFiltersClicked();
-		addFilterClicked();
+		addFilterClicked(false);
 		
 	}
 	
@@ -1091,13 +1122,12 @@ public void resetDefaultsClicked(){
 	        System.out.println("inpicker toDate is" + toDate.toString());
 			dm.fetchData(fromDate, toDate);
 			
-			getTotalCostOverTime(false, null, null, null, null);
+			getTotalCostOverTime(false, null, null, null, null, true);
 			getImpressionsOverTime(false, null, null, null, null);
 			getClicksOverTime(false, null, null, null, null);
 			getUniquesOverTime(false, null, null, null, null);
 			getBouncesOverTime(false, null, null, null, null);
 			getCPMsOverTime(false, null, null, null, null);
-			getTotalCostOverTime(false, null, null, null, null);
 			getCTRsOverTime(false, null, null, null, null);
 			getCPCsOverTime(false, null, null, null, null);
 			getCPAsOverTime(false, null, null, null, null);
@@ -1105,6 +1135,66 @@ public void resetDefaultsClicked(){
 			getBounceRatesOverTime(false, null, null, null, null);
 			getCPCHistogramsOverTime(false, null, null, null, null);
 		}
+	}
+	
+	public void timeUnitButtonClicked() {
+		selectedTimeUnitIndex = timeUnitChoiceBox.getSelectionModel().getSelectedIndex();
+		if(selectedTimeUnitIndex == 0) {
+			timeUnitIndexString = "HOURLY";
+		}else if(selectedTimeUnitIndex == 1) {
+			timeUnitIndexString = "DAILY";
+		}else if(selectedTimeUnitIndex == 2) {
+			timeUnitIndexString = "WEEKLY";
+		}else if(selectedTimeUnitIndex == 3) {
+			timeUnitIndexString = "MONTHLY";
+		}
+		//checking if the granularity selected from dropdown is same as granularity stored for each data series
+		for(int i=0; i<granularityArrayList.size(); i++) {
+			String choiceBoxText = timeUnitChoiceBox.getSelectionModel().getSelectedItem().toString();
+			String compare1 = null;
+			if(choiceBoxText=="Days") {
+				compare1 = "DAILY";
+			}else if(choiceBoxText=="Hours") {
+				compare1 = "HOURLY";
+			}else if(choiceBoxText=="Weeks") {
+				compare1 = "WEEKLY";
+			}else if(choiceBoxText=="Months") {
+				compare1 = "MONTHLY";
+			}else {
+				System.out.println("Choicebox text error");
+			}
+			String compare2 = granularityArrayList.get(i).toString();
+			if(compare1!=compare2) {
+				totalCostGraph.getData().remove(0);
+				impressionGraph.getData().remove(0);
+				clickGraph.getData().remove(0);
+				uniqueGraph.getData().remove(0);
+				conversionsGraph.getData().remove(0);
+				bounceGraph.getData().remove(0);
+				bounceRateGraph.getData().remove(0);
+				CPMGraph.getData().remove(0);
+				CTRGraph.getData().remove(0);
+				CPAGraph.getData().remove(0);
+				CPCGraph.getData().remove(0);
+//				CPCHistogram.getData().remove(0);
+				granularityArrayList.set(i, compare1);
+			}
+		}
+		for(int i=0; i<allContextLists.size(); i++) {
+			getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
+			getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+		}
+		
 	}
 	
 	public void impressionLogFilePickerClicked(){
@@ -1135,6 +1225,9 @@ public void resetDefaultsClicked(){
 	}
 	
 	public void addFilterClicked() {
+		addFilterClicked(true);
+	}
+	public void addFilterClicked(boolean setStringTimeUnit) {
 		if(!filterHBox1.isVisible()) {
 			filterHBox1.setVisible(true);
 		}else if(!filterHBox2.isVisible()) {
@@ -1156,10 +1249,10 @@ public void resetDefaultsClicked(){
 		}else if(!filterHBox10.isVisible()) {
 			filterHBox10.setVisible(true);
 		}
-		ArrayList<Gender> genderList = new ArrayList<Gender>();
-		ArrayList<Income> incomeList = new ArrayList<Income>();
-		ArrayList<Age> ageList = new ArrayList<Age>();
-		ArrayList<Context> contextList = new ArrayList<Context>();
+		genderList = new ArrayList<Gender>();
+		incomeList = new ArrayList<Income>();
+		ageList = new ArrayList<Age>();
+		contextList = new ArrayList<Context>();
 		
 		ArrayList<String> genderListString = new ArrayList<String>();
 		ArrayList<String> incomeListString = new ArrayList<String>();
@@ -1268,7 +1361,12 @@ public void resetDefaultsClicked(){
 		}else if(allFilterTexts.size()==10) {
 			filterLabel10.setText(filterText);
 		}
-		getTotalCostOverTime(true, genderList, ageList, incomeList, contextList);
+		allGenderLists.add(genderList);
+		allAgeLists.add(ageList);
+		allIncomeLists.add(incomeList);
+		allContextLists.add(contextList);
+		
+		getTotalCostOverTime(true, genderList, ageList, incomeList, contextList, setStringTimeUnit);
 		getImpressionsOverTime(true, genderList, ageList, incomeList, contextList);
 		getClicksOverTime(true, genderList, ageList, incomeList, contextList);
 		getUniquesOverTime(true, genderList, ageList, incomeList, contextList);
@@ -1393,34 +1491,54 @@ public void resetDefaultsClicked(){
 	    return Math.round(value * Math.pow(10, scale)) / Math.pow(10, scale);
 	}
 	
+	public void getTotalCostOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context, boolean setStringTimeUnit){
+		if(!isFilter) {
+			DataFilter df = new DataFilter(Metric.TOTAL_COST,null,null,null,null);
+			totalCostSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
+			totalCostGraph.setLegendVisible(false);
+			totalCostYAxis.setLabel("Total Cost");
+			totalCostXAxis.setLabel("Time (Date)");
+		}else {
+			DataFilter df = new DataFilter(Metric.TOTAL_COST,gender,age,income,context);
+			totalCostSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
+			totalCostGraph.setLegendVisible(false);
+			totalCostYAxis.setLabel("Total Cost");
+			totalCostXAxis.setLabel("Time (Date)");
+		}
+		if(setStringTimeUnit) {
+			granularityArrayList.add(timeUnitIndexString);
+		}
+		totalCostGraph.getData().add(totalCostSeries);
+	
+	}
+	
 	public void getImpressionsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.IMPRESSIONS,null,null,null,null);
-			impressionSeries = dm.getSeries(df, Granularity.HOURLY);
+			impressionSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			impressionGraph.setLegendVisible(false);
 			impressionYAxis.setLabel("Impressions");
 			impressionXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.IMPRESSIONS,gender,age,income,context);
-			impressionSeries = dm.getSeries(df, Granularity.HOURLY);
+			impressionSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			impressionGraph.setLegendVisible(false);
 			impressionYAxis.setLabel("Impressions");
 			impressionXAxis.setLabel("Time (Date)");
 		}
-		
 		impressionGraph.getData().add(impressionSeries);
 	}
 	
 	public void getClicksOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CLICKS,null,null,null,null);
-			clickSeries = dm.getSeries(df, Granularity.HOURLY);
+			clickSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			clickGraph.setLegendVisible(false);
 			clickYAxis.setLabel("Clicks");
 			clickXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CLICKS,gender,age,income,context);
-			clickSeries = dm.getSeries(df, Granularity.HOURLY);
+			clickSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			clickGraph.setLegendVisible(false);
 			clickYAxis.setLabel("Clicks");
 			clickXAxis.setLabel("Time (Date)");
@@ -1434,13 +1552,13 @@ public void resetDefaultsClicked(){
 	public void getCPMsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPM,null,null,null,null);
-			CPMSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPMSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPMGraph.setLegendVisible(false);
 			CPMYAxis.setLabel("CPM");
 			CPMXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPM,gender,age,income,context);
-			CPMSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPMSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPMGraph.setLegendVisible(false);
 			CPMYAxis.setLabel("CPM");
 			CPMXAxis.setLabel("Time (Date)");
@@ -1457,18 +1575,17 @@ public void resetDefaultsClicked(){
 	public void getCPCsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPC,null,null,null,null);
-			CPCSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPCGraph.setLegendVisible(false);
 			CPCYAxis.setLabel("CPC");
 			CPCXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPC,gender,age,income,context);
-			CPCSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPCGraph.setLegendVisible(false);
 			CPCYAxis.setLabel("CPC");
 			CPCXAxis.setLabel("Time (Date)");
 		}
-		
 		CPCGraph.getData().add(CPCSeries);
 	
 	}
@@ -1476,13 +1593,13 @@ public void resetDefaultsClicked(){
 	public void getCTRsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CTR,null,null,null,null);
-			CTRSeries = dm.getSeries(df, Granularity.HOURLY);
+			CTRSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CTRGraph.setLegendVisible(false);
 			CTRYAxis.setLabel("CTR");
 			CTRXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CTR,gender,age,income,context);
-			CTRSeries = dm.getSeries(df, Granularity.HOURLY);
+			CTRSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CTRGraph.setLegendVisible(false);
 			CTRYAxis.setLabel("CTR");
 			CTRXAxis.setLabel("Time (Date)");
@@ -1495,13 +1612,13 @@ public void resetDefaultsClicked(){
 	public void getCPAsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPA,null,null,null,null);
-			CPASeries = dm.getSeries(df, Granularity.HOURLY);
+			CPASeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPAGraph.setLegendVisible(false);
 			CPAYAxis.setLabel("CPA");
 			CPAXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPA,gender,age,income,context);
-			CPASeries = dm.getSeries(df, Granularity.HOURLY);
+			CPASeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPAGraph.setLegendVisible(false);
 			CPAYAxis.setLabel("CPA");
 			CPAXAxis.setLabel("Time (Date)");
@@ -1513,13 +1630,13 @@ public void resetDefaultsClicked(){
 	public void getConversionsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 	if(!isFilter) {
 		DataFilter df = new DataFilter(Metric.CONVERSIONS,null,null,null,null);
-		conversionsSeries = dm.getSeries(df, Granularity.HOURLY);
+		conversionsSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 		conversionsGraph.setLegendVisible(false);
 		conversionsYAxis.setLabel("Conversions");
 		conversionsXAxis.setLabel("Time (Date)");
 	}else {
 		DataFilter df = new DataFilter(Metric.CONVERSIONS,gender,age,income,context);
-		conversionsSeries = dm.getSeries(df, Granularity.HOURLY);
+		conversionsSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 		conversionsGraph.setLegendVisible(false);
 		conversionsYAxis.setLabel("Conversions");
 		conversionsXAxis.setLabel("Time (Date)");
@@ -1529,35 +1646,16 @@ public void resetDefaultsClicked(){
 	
 	}
 	
-	public void getTotalCostOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
-		if(!isFilter) {
-			DataFilter df = new DataFilter(Metric.TOTAL_COST,null,null,null,null);
-			totalCostSeries = dm.getSeries(df, Granularity.HOURLY);
-			totalCostGraph.setLegendVisible(false);
-			totalCostYAxis.setLabel("Total Cost");
-			totalCostXAxis.setLabel("Time (Date)");
-		}else {
-			DataFilter df = new DataFilter(Metric.TOTAL_COST,gender,age,income,context);
-			totalCostSeries = dm.getSeries(df, Granularity.HOURLY);
-			totalCostGraph.setLegendVisible(false);
-			totalCostYAxis.setLabel("Total Cost");
-			totalCostXAxis.setLabel("Time (Date)");
-		}
-		
-		totalCostGraph.getData().add(totalCostSeries);
-	
-	}
-	
 	public void getUniquesOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.UNIQUES,null,null,null,null);
-			uniqueSeries = dm.getSeries(df, Granularity.HOURLY);
+			uniqueSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			uniqueGraph.setLegendVisible(false);
 			uniqueYAxis.setLabel("Uniques");
 			uniqueXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.UNIQUES,gender,age,income,context);
-			uniqueSeries = dm.getSeries(df, Granularity.HOURLY);
+			uniqueSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			uniqueGraph.setLegendVisible(false);
 			uniqueYAxis.setLabel("Uniques");
 			uniqueXAxis.setLabel("Time (Date)");
@@ -1568,13 +1666,13 @@ public void resetDefaultsClicked(){
 	public void getBouncesOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.BOUNCES,null,null,null,null);
-			bounceSeries = dm.getSeries(df, Granularity.HOURLY);
+			bounceSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			bounceGraph.setLegendVisible(false);
 			bounceYAxis.setLabel("Bounces");
 			bounceXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.BOUNCES,gender,age,income,context);
-			bounceSeries = dm.getSeries(df, Granularity.HOURLY);
+			bounceSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			bounceGraph.setLegendVisible(false);
 			bounceYAxis.setLabel("Bounces");
 			bounceXAxis.setLabel("Time (Date)");
@@ -1586,13 +1684,13 @@ public void resetDefaultsClicked(){
 	public void getBounceRatesOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.BOUNCE_RATE,null,null,null,null);
-			bounceRateSeries = dm.getSeries(df, Granularity.HOURLY);
+			bounceRateSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			bounceRateGraph.setLegendVisible(false);
 			bounceRateYAxis.setLabel("Bounce Rate");
 			bounceRateXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.BOUNCE_RATE,gender,age,income,context);
-			bounceRateSeries = dm.getSeries(df, Granularity.HOURLY);
+			bounceRateSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			bounceRateGraph.setLegendVisible(false);
 			bounceRateYAxis.setLabel("Bounce Rate");
 			bounceRateXAxis.setLabel("Time (Date)");
@@ -1603,13 +1701,13 @@ public void resetDefaultsClicked(){
 	public void getCPCHistogramsOverTime(boolean isFilter, List<Gender> gender, List<Age> age, List<Income> income, List<Context> context){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPC,null,null,null,null);
-			CPCSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPCHistogram.setLegendVisible(false);
 			CPCHistogramYAxis.setLabel("Frequency Density");
 			CPCHistogramXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPC,gender,age,income,context);
-			CPCSeries = dm.getSeries(df, Granularity.HOURLY);
+			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
 			CPCHistogram.setLegendVisible(false);
 			CPCHistogramYAxis.setLabel("Frequency Density");
 			CPCHistogramXAxis.setLabel("Time (Date)");

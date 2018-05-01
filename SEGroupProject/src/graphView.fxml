@@ -138,6 +138,7 @@
                            </padding>
                         </Label>
                         <ChoiceBox fx:id="timeUnitChoiceBox" prefWidth="130.0" />
+                        <Button layoutX="978.0" layoutY="12.0" mnemonicParsing="false" onAction="#timeUnitButtonClicked" style="-fx-min-width: 50;" text="✓" />
                      </items>
                   </ToolBar>
                </children>
