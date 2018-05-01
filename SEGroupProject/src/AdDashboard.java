@@ -1027,7 +1027,16 @@ public void resetDefaultsClicked(){
 	
 	public void loadExistingCampaignClicked(){
 		
-		if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+		
+		if(selectCampaignChoiceBox.getValue()==null || selectCampaignChoiceBox.getValue()==""){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Empty Campaign");
+			alert.setHeaderText("Error, please select an existing campaign.");
+			alert.setContentText("Campaign not selected.");
+			alert.showAndWait();
+
+		}
+		else {
 			String campaignName = selectCampaignChoiceBox.getValue().toString();
 			int campaignId = 0;
 			ArrayList<String> campaignNames = new ArrayList<String>();
