@@ -995,7 +995,15 @@ public void resetDefaultsClicked(){
 	
 	public void loadExistingCampaignClicked(){
 		
-		if(selectCampaignChoiceBox.getValue().toString()!="" || selectCampaignChoiceBox.getValue().toString()!=null) {
+		if(selectCampaignChoiceBox.getValue()==null || selectCampaignChoiceBox.getValue()==""){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Empty Campaign");
+			alert.setHeaderText("Error, please select an existing campaign.");
+			alert.setContentText("Campaign not selected.");
+			alert.showAndWait();
+	
+		}
+		else {
 			String campaignName = selectCampaignChoiceBox.getValue().toString();
 			int campaignId = 0;
 			ArrayList<String> campaignNames = new ArrayList<String>();
@@ -1007,54 +1015,61 @@ public void resetDefaultsClicked(){
 				}
 			}
 			overview = dm.selectCampaign(campaignId);
-		}	
+			
+			dm.fetchData(fromDate, toDate);
+			restrictDatePicker();
+			
+			getTotalCostOverTime(false, null, null, null, null);
+			getImpressionsOverTime(false, null, null, null, null);
+			getClicksOverTime(false, null, null, null, null);
+			getUniquesOverTime(false, null, null, null, null);
+			getBouncesOverTime(false, null, null, null, null);
+			getCPMsOverTime(false, null, null, null, null);
+			getTotalCostOverTime(false, null, null, null, null);
+			getCTRsOverTime(false, null, null, null, null);
+			getCPCsOverTime(false, null, null, null, null);
+			getCPAsOverTime(false, null, null, null, null);
+			getConversionsOverTime(false, null, null, null, null);
+			getBounceRatesOverTime(false, null, null, null, null);
+			getCPCHistogramsOverTime(false, null, null, null, null);
+			
+			allFilterTexts.clear();
+			filterLabel1.setText("Original Graph - No Filters");
+			allFilterTexts.add("Original Graph - No Filters");
+			filterHBox1.setVisible(true);
+			
+			fromDatePicker.setOnAction(event -> {
+	            LocalDate localDate = fromDatePicker.getValue();
+	            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	            
+	        });
+			
+			toDatePicker.setOnAction(event -> {
+	            LocalDate localDate = toDatePicker.getValue();
+	            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	            System.out.println("localDate is" + localDate.toString());
+	            System.out.println("toDate is" + toDate.toString());
+	        });
+			
+			graphViewBorderPane.setDisable(false);
+			selectCampaignBorderPane.setVisible(false);
+			
+			updateOverview();
+			
+			preventDatePickerDoubleClick();
+			deleteAllFiltersClicked();
+			addFilterClicked();
+			
+			
+			
+		}
+		
+			
 		
 		// Gets data with set date range and stores it in DataModel.
 		// Must pass two Date objects (start and end) as parameters.
 		
-		dm.fetchData(fromDate, toDate);
-		restrictDatePicker();
 		
-		getTotalCostOverTime(false, null, null, null, null);
-		getImpressionsOverTime(false, null, null, null, null);
-		getClicksOverTime(false, null, null, null, null);
-		getUniquesOverTime(false, null, null, null, null);
-		getBouncesOverTime(false, null, null, null, null);
-		getCPMsOverTime(false, null, null, null, null);
-		getTotalCostOverTime(false, null, null, null, null);
-		getCTRsOverTime(false, null, null, null, null);
-		getCPCsOverTime(false, null, null, null, null);
-		getCPAsOverTime(false, null, null, null, null);
-		getConversionsOverTime(false, null, null, null, null);
-		getBounceRatesOverTime(false, null, null, null, null);
-		getCPCHistogramsOverTime(false, null, null, null, null);
-		
-		allFilterTexts.clear();
-		filterLabel1.setText("Original Graph - No Filters");
-		allFilterTexts.add("Original Graph - No Filters");
-		filterHBox1.setVisible(true);
-		
-		fromDatePicker.setOnAction(event -> {
-            LocalDate localDate = fromDatePicker.getValue();
-            fromDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            
-        });
-		
-		toDatePicker.setOnAction(event -> {
-            LocalDate localDate = toDatePicker.getValue();
-            toDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            System.out.println("localDate is" + localDate.toString());
-            System.out.println("toDate is" + toDate.toString());
-        });
-		
-		graphViewBorderPane.setDisable(false);
-		selectCampaignBorderPane.setVisible(false);
-		
-		updateOverview();
-		
-		preventDatePickerDoubleClick();
-		deleteAllFiltersClicked();
-		addFilterClicked();
 		
 	}
 	
