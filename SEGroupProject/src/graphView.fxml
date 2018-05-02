@@ -33,7 +33,7 @@
 
 <StackPane fx:id="windowStackPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane fx:id="graphViewBorderPane" prefHeight="854.0" prefWidth="1268.0" stylesheets="style.css">
+      <BorderPane fx:id="graphViewBorderPane" prefHeight="854.0" prefWidth="1268.0">
          <top>
             <VBox prefHeight="75.0" prefWidth="969.0" BorderPane.alignment="CENTER">
                <children>
@@ -294,7 +294,7 @@
                               </Tab>
                               <Tab fx:id="CPCHistogramTab" text="CPC - Histogram">
                                  <content>
-                                    <BarChart id="graphbg" fx:id="CPCHistogram">
+                                    <BarChart barGap="0" categoryGap="0" id="graphbg" fx:id="CPCHistogram">
                                       <xAxis>
                                         <CategoryAxis fx:id="CPCHistogramXAxis" side="BOTTOM" />
                                       </xAxis>
