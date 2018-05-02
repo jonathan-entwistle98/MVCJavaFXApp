@@ -532,8 +532,9 @@ public class AdDashboard extends Application{
 	@FXML
 	private CheckBox contextTravelCheckbox;
 	
-	
-	
+	@FXML
+	private TitledPane overviewTitle;
+
 	
 	private Stage stage;
 	
@@ -542,8 +543,6 @@ public class AdDashboard extends Application{
 	private File clickLogFile;
 	
 	private File serverLogFile;
-	
-//	private Model model;
 	
 	private DataModel dm;
 	
@@ -621,6 +620,8 @@ public class AdDashboard extends Application{
 	
 	private ArrayList<String> granularityArrayList = new ArrayList<String>();
 	
+	private String currentSeries = "";
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -660,7 +661,7 @@ public class AdDashboard extends Application{
 		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
 		bounceDefinitionChoiceBox.setItems(availableChoices);
 		
-		ObservableList<String> timescaleChoices = FXCollections.observableArrayList("Hours", "Days", "Weeks", "Months"); 
+		ObservableList<String> timescaleChoices = FXCollections.observableArrayList("Hours", "Days", "Weeks"); 
 		timeUnitChoiceBox.setItems(timescaleChoices);
 		timeUnitChoiceBox.getSelectionModel().select(0);
 		
@@ -985,6 +986,7 @@ public void resetDefaultsClicked(){
 						graphViewBorderPane.setDisable(false);
 						selectCampaignBorderPane.setVisible(false);
 						
+						overviewTitle.setText("Overview - "+campaignNameTextField.getText());
 						updateOverview();
 					});
 					finished = true;	
@@ -1090,6 +1092,7 @@ public void resetDefaultsClicked(){
 		graphViewBorderPane.setDisable(false);
 		selectCampaignBorderPane.setVisible(false);
 		
+		overviewTitle.setText("Overview - "+selectCampaignChoiceBox.getValue().toString());
 		updateOverview();
 		
 		preventDatePickerDoubleClick();
@@ -1154,8 +1157,6 @@ public void resetDefaultsClicked(){
 			timeUnitIndexString = "DAILY";
 		}else if(selectedTimeUnitIndex == 2) {
 			timeUnitIndexString = "WEEKLY";
-		}else if(selectedTimeUnitIndex == 3) {
-			timeUnitIndexString = "MONTHLY";
 		}
 		//checking if the granularity selected from dropdown is same as granularity stored for each data series
 		for(int i=0; i<granularityArrayList.size(); i++) {
@@ -1167,8 +1168,6 @@ public void resetDefaultsClicked(){
 				compare1 = "HOURLY";
 			}else if(choiceBoxText=="Weeks") {
 				compare1 = "WEEKLY";
-			}else if(choiceBoxText=="Months") {
-				compare1 = "MONTHLY";
 			}else {
 				System.out.println("Choicebox text error");
 			}
@@ -1239,24 +1238,34 @@ public void resetDefaultsClicked(){
 	public void addFilterClicked(boolean setStringTimeUnit) {
 		if(!filterHBox1.isVisible()) {
 			filterHBox1.setVisible(true);
+			currentSeries = "Graph 1";
 		}else if(!filterHBox2.isVisible()) {
 			filterHBox2.setVisible(true);
+			currentSeries = "Graph 2";
 		}else if(!filterHBox3.isVisible()) {
 			filterHBox3.setVisible(true);
+			currentSeries = "Graph 3";
 		}else if(!filterHBox4.isVisible()) {
 			filterHBox4.setVisible(true);
+			currentSeries = "Graph 4";
 		}else if(!filterHBox5.isVisible()) {
 			filterHBox5.setVisible(true);
+			currentSeries = "Graph 5";
 		}else if(!filterHBox6.isVisible()) {
 			filterHBox6.setVisible(true);
+			currentSeries = "Graph 6";
 		}else if(!filterHBox7.isVisible()) {
 			filterHBox7.setVisible(true);
+			currentSeries = "Graph 7";
 		}else if(!filterHBox8.isVisible()) {
 			filterHBox8.setVisible(true);
+			currentSeries = "Graph 8";
 		}else if(!filterHBox9.isVisible()) {
 			filterHBox9.setVisible(true);
+			currentSeries = "Graph 9";
 		}else if(!filterHBox10.isVisible()) {
 			filterHBox10.setVisible(true);
+			currentSeries = "Graph 10";
 		}
 		genderList = new ArrayList<Gender>();
 		incomeList = new ArrayList<Income>();
@@ -1321,24 +1330,31 @@ public void resetDefaultsClicked(){
 		String incomeFilterString ="";
 		String ageFilterString ="";
 		String contextFilterString ="";
+		
+		
+		
+		
 		if(genderListString.size()==2) {
 		} else if(genderListString.size()>0) {
 			genderFilterString += "Gender: ";
 			for(int i=0;i<genderListString.size(); i++) {
 				genderFilterString += genderListString.get(i).toString();
 			}
+			genderFilterString += " | ";
 		}if(incomeListString.size() == 3) {
 		}else if(incomeListString.size()>0) {
 			incomeFilterString += "Income: ";
 			for(int i=0;i<incomeListString.size(); i++) {
 				incomeFilterString += (" "+incomeListString.get(i).toString());
 			}
+			incomeFilterString += " | ";
 		}if(ageListString.size() == 5) {
 		}else if(ageListString.size()>0) {
 			ageFilterString += "Age: ";
 			for(int i=0;i<ageListString.size(); i++) {
 				ageFilterString += (" "+ageListString.get(i).toString());
 			}
+			ageFilterString += " | ";
 		}if(contextListString.size() == 6) {
 		}else if(contextListString.size()>0) {
 			contextFilterString += "Context: ";
@@ -1347,7 +1363,13 @@ public void resetDefaultsClicked(){
 			}
 		}
 		
-		String filterText = genderFilterString+" | "+incomeFilterString+" | "+ageFilterString+" | "+contextFilterString;
+		String filterText = ""; 
+		if (genderFilterString=="" && incomeFilterString=="" && ageFilterString=="" && contextFilterString==""){
+			filterText = "Original graph - No filters";
+		} else {
+			filterText = genderFilterString+incomeFilterString+ageFilterString+contextFilterString;
+		}
+		
 		allFilterTexts.add(filterText);
 		if(allFilterTexts.size()==1) {
 			filterLabel1.setText(filterText);
@@ -1504,13 +1526,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.TOTAL_COST,null,null,null,null);
 			totalCostSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			totalCostGraph.setLegendVisible(false);
+			totalCostSeries.setName(currentSeries);
+			totalCostGraph.setLegendVisible(true);
 			totalCostYAxis.setLabel("Total Cost");
 			totalCostXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.TOTAL_COST,gender,age,income,context);
 			totalCostSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			totalCostGraph.setLegendVisible(false);
+			totalCostSeries.setName(currentSeries);
+			totalCostGraph.setLegendVisible(true);
 			totalCostYAxis.setLabel("Total Cost");
 			totalCostXAxis.setLabel("Time (Date)");
 		}
@@ -1525,13 +1549,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.IMPRESSIONS,null,null,null,null);
 			impressionSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			impressionGraph.setLegendVisible(false);
+			impressionSeries.setName(currentSeries);
+			impressionGraph.setLegendVisible(true);
 			impressionYAxis.setLabel("Impressions");
 			impressionXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.IMPRESSIONS,gender,age,income,context);
 			impressionSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			impressionGraph.setLegendVisible(false);
+			impressionSeries.setName(currentSeries);
+			impressionGraph.setLegendVisible(true);
 			impressionYAxis.setLabel("Impressions");
 			impressionXAxis.setLabel("Time (Date)");
 		}
@@ -1542,13 +1568,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CLICKS,null,null,null,null);
 			clickSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			clickGraph.setLegendVisible(false);
+			clickSeries.setName(currentSeries);
+			clickGraph.setLegendVisible(true);
 			clickYAxis.setLabel("Clicks");
 			clickXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CLICKS,gender,age,income,context);
 			clickSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			clickGraph.setLegendVisible(false);
+			clickSeries.setName(currentSeries);
+			clickGraph.setLegendVisible(true);
 			clickYAxis.setLabel("Clicks");
 			clickXAxis.setLabel("Time (Date)");
 		}
@@ -1562,13 +1590,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPM,null,null,null,null);
 			CPMSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPMGraph.setLegendVisible(false);
+			CPMSeries.setName(currentSeries);
+			CPMGraph.setLegendVisible(true);
 			CPMYAxis.setLabel("CPM");
 			CPMXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPM,gender,age,income,context);
 			CPMSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPMGraph.setLegendVisible(false);
+			CPMSeries.setName(currentSeries);
+			CPMGraph.setLegendVisible(true);
 			CPMYAxis.setLabel("CPM");
 			CPMXAxis.setLabel("Time (Date)");
 		}
@@ -1585,13 +1615,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPC,null,null,null,null);
 			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPCGraph.setLegendVisible(false);
+			CPCSeries.setName(currentSeries);
+			CPCGraph.setLegendVisible(true);
 			CPCYAxis.setLabel("CPC");
 			CPCXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPC,gender,age,income,context);
 			CPCSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPCGraph.setLegendVisible(false);
+			CPCSeries.setName(currentSeries);
+			CPCGraph.setLegendVisible(true);
 			CPCYAxis.setLabel("CPC");
 			CPCXAxis.setLabel("Time (Date)");
 		}
@@ -1603,13 +1635,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CTR,null,null,null,null);
 			CTRSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CTRGraph.setLegendVisible(false);
+			CTRSeries.setName(currentSeries);
+			CTRGraph.setLegendVisible(true);
 			CTRYAxis.setLabel("CTR");
 			CTRXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CTR,gender,age,income,context);
 			CTRSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CTRGraph.setLegendVisible(false);
+			CTRSeries.setName(currentSeries);
+			CTRGraph.setLegendVisible(true);
 			CTRYAxis.setLabel("CTR");
 			CTRXAxis.setLabel("Time (Date)");
 		}
@@ -1622,13 +1656,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.CPA,null,null,null,null);
 			CPASeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPAGraph.setLegendVisible(false);
+			CPASeries.setName(currentSeries);
+			CPAGraph.setLegendVisible(true);
 			CPAYAxis.setLabel("CPA");
 			CPAXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.CPA,gender,age,income,context);
 			CPASeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			CPAGraph.setLegendVisible(false);
+			CPASeries.setName(currentSeries);
+			CPAGraph.setLegendVisible(true);
 			CPAYAxis.setLabel("CPA");
 			CPAXAxis.setLabel("Time (Date)");
 		}
@@ -1640,13 +1676,15 @@ public void resetDefaultsClicked(){
 	if(!isFilter) {
 		DataFilter df = new DataFilter(Metric.CONVERSIONS,null,null,null,null);
 		conversionsSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-		conversionsGraph.setLegendVisible(false);
+		conversionsSeries.setName(currentSeries);
+		conversionsGraph.setLegendVisible(true);
 		conversionsYAxis.setLabel("Conversions");
 		conversionsXAxis.setLabel("Time (Date)");
 	}else {
 		DataFilter df = new DataFilter(Metric.CONVERSIONS,gender,age,income,context);
 		conversionsSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-		conversionsGraph.setLegendVisible(false);
+		conversionsSeries.setName(currentSeries);
+		conversionsGraph.setLegendVisible(true);
 		conversionsYAxis.setLabel("Conversions");
 		conversionsXAxis.setLabel("Time (Date)");
 	}
@@ -1659,13 +1697,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.UNIQUES,null,null,null,null);
 			uniqueSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			uniqueGraph.setLegendVisible(false);
+			uniqueSeries.setName(currentSeries);
+			uniqueGraph.setLegendVisible(true);
 			uniqueYAxis.setLabel("Uniques");
 			uniqueXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.UNIQUES,gender,age,income,context);
 			uniqueSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			uniqueGraph.setLegendVisible(false);
+			uniqueSeries.setName(currentSeries);
+			uniqueGraph.setLegendVisible(true);
 			uniqueYAxis.setLabel("Uniques");
 			uniqueXAxis.setLabel("Time (Date)");
 		}
@@ -1676,13 +1716,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.BOUNCES,null,null,null,null);
 			bounceSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			bounceGraph.setLegendVisible(false);
+			bounceSeries.setName(currentSeries);
+			bounceGraph.setLegendVisible(true);
 			bounceYAxis.setLabel("Bounces");
 			bounceXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.BOUNCES,gender,age,income,context);
 			bounceSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			bounceGraph.setLegendVisible(false);
+			bounceSeries.setName(currentSeries);
+			bounceGraph.setLegendVisible(true);
 			bounceYAxis.setLabel("Bounces");
 			bounceXAxis.setLabel("Time (Date)");
 		}
@@ -1694,13 +1736,15 @@ public void resetDefaultsClicked(){
 		if(!isFilter) {
 			DataFilter df = new DataFilter(Metric.BOUNCE_RATE,null,null,null,null);
 			bounceRateSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			bounceRateGraph.setLegendVisible(false);
+			bounceRateSeries.setName(currentSeries);
+			bounceRateGraph.setLegendVisible(true);
 			bounceRateYAxis.setLabel("Bounce Rate");
 			bounceRateXAxis.setLabel("Time (Date)");
 		}else {
 			DataFilter df = new DataFilter(Metric.BOUNCE_RATE,gender,age,income,context);
 			bounceRateSeries = dm.getSeries(df, Granularity.valueOf(timeUnitIndexString));
-			bounceRateGraph.setLegendVisible(false);
+			bounceRateSeries.setName(currentSeries);
+			bounceRateGraph.setLegendVisible(true);
 			bounceRateYAxis.setLabel("Bounce Rate");
 			bounceRateXAxis.setLabel("Time (Date)");
 		}
@@ -1741,8 +1785,7 @@ public void resetDefaultsClicked(){
 		}
 	}
 	
-public void saveAsImageClicked() {
-        
+	public void saveAsImageClicked() {
         
         WritableImage img1 = new WritableImage((int)toolbar.getWidth(),(int)toolbar.getHeight());
         toolbar.snapshot(null, img1);
