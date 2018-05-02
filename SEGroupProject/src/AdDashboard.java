@@ -1122,9 +1122,34 @@ public void resetDefaultsClicked(){
 				System.out.println(2);
 				dm.bouncePages(bouncePages);
 			}
+
+			totalCostGraph.getData().clear();
+			impressionGraph.getData().clear();
+			clickGraph.getData().clear();
+			uniqueGraph.getData().clear();
+			conversionsGraph.getData().clear();
+			bounceGraph.getData().clear();
+			bounceRateGraph.getData().clear();
+			CPMGraph.getData().clear();
+			CTRGraph.getData().clear();
+			CPAGraph.getData().clear();
+			CPCGraph.getData().clear();
 			
-			getBouncesOverTime(false, null, null, null, null);
-			getBounceRatesOverTime(false, null, null, null, null);
+			for(int i=0; i<allContextLists.size(); i++) {
+				getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
+				getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			}
+
 		}
 	}
 	
