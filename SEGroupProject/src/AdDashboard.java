@@ -791,8 +791,8 @@ public class AdDashboard extends Application{
 		bounces.setText("" + overview.getBounces());
 		bounceRate.setText("" + round(overview.getBounceRate(),4));
 		
-		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
-		bounceDefinitionChoiceBox.setItems(availableChoices);
+//		ObservableList<String> availableChoices = FXCollections.observableArrayList("Time(seconds)", "Pages Visited"); 
+//		bounceDefinitionChoiceBox.setItems(availableChoices);
 		
 //		if(overview.getBounceRate()==0 || overview.getBounces()==0 || overview.getCPM()==0 || overview.getCPC()==0 || overview.getCPA()==0 || overview.getCTR()==0){
 //			divideByZeroError();
@@ -1016,9 +1016,15 @@ public class AdDashboard extends Application{
 						overviewTitle.setText("Overview - "+campaignNameTextField.getText());
 						updateOverview();
 					});
-					finished = true;	
+					
+					// Set default bounce calculation.
+					dm.bounceSeconds(5);
+					bounceDefinitionChoiceBox.getSelectionModel().selectFirst();
+					bounceDefinitionTextField.setText("5");
+					
 					deleteAllFiltersClicked();
 					addFilterClicked(false);
+					finished = true;	
 					
 		        }
 	    	});
@@ -1120,6 +1126,12 @@ public class AdDashboard extends Application{
 		selectCampaignBorderPane.setVisible(false);
 		
 		overviewTitle.setText("Overview - "+selectCampaignChoiceBox.getValue().toString());
+		
+		// Set default bounce calculation.
+		dm.bounceSeconds(5);
+		bounceDefinitionChoiceBox.getSelectionModel().selectFirst();
+		bounceDefinitionTextField.setText("5");
+		
 		updateOverview();
 		
 		preventDatePickerDoubleClick();
@@ -1149,6 +1161,9 @@ public class AdDashboard extends Application{
 				System.out.println(2);
 				dm.bouncePages(bouncePages);
 			}
+			
+			bounces.setText("" + overview.getBounces());
+			bounceRate.setText("" + round(overview.getBounceRate(),4));
 
 			totalCostGraph.getData().clear();
 			impressionGraph.getData().clear();

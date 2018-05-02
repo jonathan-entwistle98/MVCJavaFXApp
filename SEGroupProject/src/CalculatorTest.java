@@ -93,7 +93,7 @@ public class CalculatorTest{
 
 		float[] expectedCTRDateArray = {1.0f,1.0f,1.0f};
 
-		assertArrayEquals(expectedCTRDateArray, metricStorage.getCtr(), 0.001f);
+		assertArrayEquals(expectedCTRDateArray, metricStorage.getCtr(Granularity.HOURLY), 0.001f);
 	}
 	@Test
 	public void testcalcCPAOverTime() {
@@ -103,7 +103,7 @@ public class CalculatorTest{
 
 		float[] expectedCPADateArray = {0.0005f,0.000625f,0.000235f};
 
-		assertArrayEquals(expectedCPADateArray, metricStorage.getCpa(), 0.001f);
+		assertArrayEquals(expectedCPADateArray, metricStorage.getCpa(Granularity.HOURLY), 0.001f);
 	}
 	@Test
 	public void testcalcCPCOverTime() {
@@ -113,7 +113,7 @@ public class CalculatorTest{
 
 		float[] expectedCPCDateArray = {0.0005f,0.000625f,0.000235f};
 
-		assertArrayEquals(expectedCPCDateArray, metricStorage.getCpc(), 0.001f);
+		assertArrayEquals(expectedCPCDateArray, metricStorage.getCpc(Granularity.HOURLY), 0.001f);
 	}
 	@Test
 	public void testcalcCPMOverTime() {
@@ -123,7 +123,7 @@ public class CalculatorTest{
 
 		float[] expectedCPMDateArray = {0.5f,0.625f,0.235f};
 
-		assertArrayEquals(expectedCPMDateArray, metricStorage.getCpm(), 0.001f);
+		assertArrayEquals(expectedCPMDateArray, metricStorage.getCpm(Granularity.HOURLY), 0.001f);
 	}
 	
 }

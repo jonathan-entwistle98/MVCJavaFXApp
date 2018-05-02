@@ -200,6 +200,7 @@ public class DataModel {
 	 * @param n - max number of pages for bounce to be registered.
 	 */
 	public void bouncePages(int n) {
+		dbm.updateBounces(false, n, overview);
 		calc.bouncePages(n);
 	}
 	
@@ -209,6 +210,7 @@ public class DataModel {
 	 * @param n - max number of seconds for bounce to be registered.
 	 */
 	public void bounceSeconds(int n) {
+		dbm.updateBounces(true, n, overview);
 		calc.bounceSeconds(n);
 	}
 	
