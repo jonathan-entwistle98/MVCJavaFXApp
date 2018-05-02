@@ -455,25 +455,25 @@
             </StackPane>
          </center>
          <bottom>
-            <HBox fx:id="filterPane" alignment="CENTER" prefHeight="151.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
+            <HBox id="menu" fx:id="filterPane" alignment="CENTER" prefHeight="151.0" prefWidth="1268.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" prefHeight="157.0" prefWidth="489.0">
                      <children>
-                        <Label text="Existing graphs" />
+                        <Label id="menuLabel" style="-fx-font-weight: bold;" text="Existing graphs" />
                         <ScrollPane prefHeight="136.0">
                            <content>
                               <VBox prefHeight="310.0">
                                  <children>
                                     <HBox fx:id="filterHBox1" alignment="CENTER_LEFT" prefHeight="31.0">
                                        <children>
-                                          <Label fx:id="filterLabel1" maxWidth="1000.0" text="Original graph - no filters" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="filterLabel1" prefHeight="21.0" text="Original graph - no filters" HBox.hgrow="ALWAYS" />
                                           <Button fx:id="deleteFilter1" mnemonicParsing="false" onAction="#deleteFilter1Clicked" text="x">
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox2" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox2" alignment="CENTER_LEFT">
                                        <children>
                                           <Label fx:id="filterLabel2" text="Filter 2" />
                                           <Button fx:id="deleteFilter2" mnemonicParsing="false" onAction="#deleteFilter2Clicked" text="x">
@@ -482,7 +482,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox3" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox3" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel3" text="Filter 3" />
                                           <Button fx:id="deleteFilter3" mnemonicParsing="false" onAction="#deleteFilter3Clicked" text="x">
@@ -491,7 +491,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox4" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox4" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel4" text="Filter 4" />
                                           <Button fx:id="deleteFilter4" mnemonicParsing="false" onAction="#deleteFilter4Clicked" text="x">
@@ -501,7 +501,7 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox5" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox5" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel5" text="Filter 5" />
                                           <Button fx:id="deleteFilter5" mnemonicParsing="false" onAction="#deleteFilter5Clicked" text="x">
@@ -510,7 +510,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox6" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox6" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel6" text="Filter 6" />
                                           <Button fx:id="deleteFilter6" mnemonicParsing="false" onAction="#deleteFilter6Clicked" text="x">
@@ -519,7 +519,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox7" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox7" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel7" text="Filter 7" />
                                           <Button fx:id="deleteFilter7" mnemonicParsing="false" onAction="#deleteFilter7Clicked" text="x">
@@ -528,7 +528,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox8" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox8" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel8" text="Filter 8" />
                                           <Button fx:id="deleteFilter8" mnemonicParsing="false" onAction="#deleteFilter8Clicked" text="x">
@@ -537,7 +537,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox9" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox9" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel9" text="Filter 9" />
                                           <Button fx:id="deleteFilter9" mnemonicParsing="false" onAction="#deleteFilter9Clicked" text="x">
@@ -546,7 +546,7 @@
                                              </HBox.margin></Button>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="filterHBox10" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="filterHBox10" alignment="CENTER_LEFT" prefHeight="100.0">
                                        <children>
                                           <Label fx:id="filterLabel10" text="Filter 10" />
                                           <Button fx:id="deleteFilter10" mnemonicParsing="false" onAction="#deleteFilter10Clicked" text="x">
@@ -569,15 +569,17 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <Label text="Gender">
+                        <Label id="menuLabel" style="-fx-font-weight: 900;" text="Gender">
                            <VBox.margin>
                               <Insets bottom="10.0" />
-                           </VBox.margin></Label>
-                        <CheckBox fx:id="genderMaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Male">
+                           </VBox.margin>
+                        </Label>
+                        <CheckBox id="menuLabel" fx:id="genderMaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Male">
                            <VBox.margin>
                               <Insets />
-                           </VBox.margin></CheckBox>
-                        <CheckBox fx:id="genderFemaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Female" />
+                           </VBox.margin>
+                        </CheckBox>
+                        <CheckBox id="menuLabel" fx:id="genderFemaleCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Female" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="125.0">
@@ -585,14 +587,14 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <Label text="Income">
+                        <Label id="menuLabel" style="-fx-font-weight: 900;" text="Income">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Label>
-                        <CheckBox fx:id="incomeLowCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Low" />
-                        <CheckBox fx:id="incomeMediumCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Medium" />
-                        <CheckBox fx:id="incomeHighCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="High" />
+                        <CheckBox id="menuLabel" fx:id="incomeLowCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Low" />
+                        <CheckBox id="menuLabel" fx:id="incomeMediumCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="Medium" />
+                        <CheckBox id="menuLabel" fx:id="incomeHighCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="100.0" selected="true" text="High" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="170.0">
@@ -600,15 +602,15 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <Label text="Age">
+                        <Label id="menuLabel" style="-fx-font-weight: 900;" text="Age">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin></Label>
-                        <CheckBox fx:id="ageUnder25Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&lt; 25 years old" />
-                        <CheckBox fx:id="age25To34Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="25-34 years old" />
-                        <CheckBox fx:id="age35To44Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="35-44 years old" />
-                        <CheckBox fx:id="age45To54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="45-54 years old" />
-                        <CheckBox fx:id="ageOver54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&gt; 55 years old" />
+                        <CheckBox id="menuLabel" fx:id="ageUnder25Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&lt; 25 years old" />
+                        <CheckBox id="menuLabel" fx:id="age25To34Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="25-34 years old" />
+                        <CheckBox id="menuLabel" fx:id="age35To44Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="35-44 years old" />
+                        <CheckBox id="menuLabel" fx:id="age45To54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="45-54 years old" />
+                        <CheckBox id="menuLabel" fx:id="ageOver54Checkbox" alignment="CENTER" mnemonicParsing="false" prefWidth="135.0" selected="true" text="&gt; 55 years old" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="170.0">
@@ -616,26 +618,26 @@
                         <Insets right="20.0" />
                      </padding>
                      <children>
-                        <Label text="Context">
+                        <Label id="menuLabel" style="-fx-font-weight: 900;" text="Context">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin></Label>
-                        <CheckBox fx:id="contextBlogCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" selected="true" text="Blog" />
-                        <CheckBox fx:id="contextNewsCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="News" />
-                        <CheckBox fx:id="contextTravelCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Travel" />
-                        <CheckBox fx:id="contextHobbiesCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Hobbies" />
-                        <CheckBox fx:id="contextShoppingCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" selected="true" text="Shopping" />
-                        <CheckBox fx:id="contextSocialMediaCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Social media" />
+                        <CheckBox id="menuLabel" fx:id="contextBlogCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" selected="true" text="Blog" />
+                        <CheckBox id="menuLabel" fx:id="contextNewsCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="News" />
+                        <CheckBox id="menuLabel" fx:id="contextTravelCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Travel" />
+                        <CheckBox id="menuLabel" fx:id="contextHobbiesCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Hobbies" />
+                        <CheckBox id="menuLabel" fx:id="contextShoppingCheckbox" alignment="CENTER" mnemonicParsing="false" prefHeight="21.0" prefWidth="130.0" selected="true" text="Shopping" />
+                        <CheckBox id="menuLabel" fx:id="contextSocialMediaCheckbox" alignment="CENTER" mnemonicParsing="false" prefWidth="130.0" selected="true" text="Social media" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="149.0" prefWidth="171.0">
                      <children>
-                        <Button fx:id="addFilter" mnemonicParsing="false" onAction="#addFilterClicked" prefHeight="84.0" prefWidth="130.0" text="Add filter">
+                        <Button id="filterButton" fx:id="addFilter" mnemonicParsing="false" onAction="#addFilterClicked" prefHeight="84.0" prefWidth="130.0" text="Add filter">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="deleteAllFilters" mnemonicParsing="false" onAction="#deleteAllFiltersClicked" prefHeight="31.0" prefWidth="130.0" text="Delete all filters" />
+                        <Button id="deleteButton" fx:id="deleteAllFilters" mnemonicParsing="false" onAction="#deleteAllFiltersClicked" prefHeight="31.0" prefWidth="130.0" text="Delete all filters" />
                      </children>
                   </VBox>
                </children>
@@ -646,26 +648,26 @@
          <center>
             <VBox alignment="CENTER" prefHeight="412.0" prefWidth="863.0" BorderPane.alignment="CENTER">
                <children>
-                  <BorderPane prefHeight="65.0" prefWidth="846.0" style="-fx-background-color: #e4e6e7;">
+                  <BorderPane id="campaignLoaderBox" prefHeight="65.0" prefWidth="846.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                      <left>
-                        <Button fx:id="backButton" minHeight="40.0" mnemonicParsing="false" onAction="#returnToGraphView" prefHeight="40.0" prefWidth="83.0" text="Back" BorderPane.alignment="CENTER">
+                        <Button id="backButton" fx:id="backButton" minHeight="40.0" mnemonicParsing="false" onAction="#returnToGraphView" prefHeight="40.0" prefWidth="83.0" text="Back" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets left="10.0" />
                            </BorderPane.margin>
                         </Button>
                      </left>
                      <center>
-                        <Label style="-fx-font-size: 30;" text="Campaign Loader" BorderPane.alignment="CENTER">
+                        <Label id="campaignLoaderLabel" style="-fx-font-size: 30;" text="Campaign Loader" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets right="80.0" />
                            </BorderPane.margin>
                         </Label>
                      </center>
                   </BorderPane>
-                  <SplitPane dividerPositions="0.5" prefHeight="267.0" prefWidth="863.0">
+                  <SplitPane id="campaignLoaderBox" dividerPositions="0.5" prefHeight="267.0" prefWidth="863.0">
                      <items>
                         <BorderPane prefHeight="180.0" prefWidth="435.0">
                            <top>
@@ -737,17 +739,17 @@
                   </SplitPane>
                   <SplitPane dividerPositions="0.5">
                      <items>
-                        <BorderPane prefHeight="55.0" prefWidth="427.0">
+                        <BorderPane id="campaignLoaderLowerBox" prefHeight="55.0" prefWidth="427.0">
                            <center>
-                              <Button fx:id="loadNewCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadNewCampaignClicked" text="Load New Campaign" />
+                              <Button id="loadCampaign" fx:id="loadNewCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadNewCampaignClicked" text="Load New Campaign" />
                            </center>
                            <bottom>
                               <ProgressBar fx:id="progressBarNewCampaign" prefWidth="200.0" progress="0.0" visible="false" BorderPane.alignment="CENTER" />
                            </bottom>
                         </BorderPane>
-                        <BorderPane prefHeight="55.0">
+                        <BorderPane id="campaignLoaderLowerBox" prefHeight="55.0">
                            <center>
-                              <Button fx:id="loadExistingCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadExistingCampaignClicked" text="Load Existing Campaign" />
+                              <Button id="loadCampaign" fx:id="loadExistingCampaignButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadExistingCampaignClicked" text="Load Existing Campaign" />
                            </center>
                            <bottom>
                               <ProgressBar fx:id="progressBarExistingCampaign" prefWidth="200.0" progress="0.0" visible="false" BorderPane.alignment="CENTER" />

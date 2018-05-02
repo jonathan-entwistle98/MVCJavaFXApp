@@ -79,7 +79,7 @@ public class Example {
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
 		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
-		dm.getSeries(df, Granularity.MONTHLY);
+		dm.getSeries(df, Granularity.HOURLY);
 		
 		
 		// Returns XYChart.Series for defined metric.

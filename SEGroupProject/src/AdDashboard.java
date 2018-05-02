@@ -534,6 +534,9 @@ public class AdDashboard extends Application{
 	
 	@FXML
 	private TitledPane overviewTitle;
+	
+	@FXML
+	private ChoiceBox themeDropdown;
 
 	
 	private Stage stage;
@@ -622,6 +625,8 @@ public class AdDashboard extends Application{
 	
 	private String currentSeries = "";
 	
+	private int theme = 0;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -648,6 +653,7 @@ public class AdDashboard extends Application{
 		Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
 		
 		//scene.getStylesheets().add("style.css");
+		scene.getStylesheets().add("defaultstyle.css");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		this.stage = primaryStage;
@@ -823,11 +829,28 @@ public class AdDashboard extends Application{
 		
 	}
 	
-public void resetDefaultsClicked(){
-        
+	public void resetDefaultsClicked(){
+        Scene primaryScene = stage.getScene();
+        primaryScene.getStylesheets().clear();
+        primaryScene.getStylesheets().add("defaultstyle.css");
     }
     
     public void applyChangesClicked(){
+    	
+    	Scene primaryScene = stage.getScene();
+        primaryScene.getStylesheets().clear();
+        if (themeDropdown.getValue().toString() == "Default"){
+        	primaryScene.getStylesheets().add("defaultstyle.css");
+        	theme = 0;
+        } else if (themeDropdown.getValue().toString() == "Zero"){
+        	theme = 1;
+        } else if (themeDropdown.getValue().toString() == "Dark"){
+        	primaryScene.getStylesheets().add("darkstyle.css");
+        	theme = 2;
+        } else if (themeDropdown.getValue().toString() == "Feisty"){
+        	primaryScene.getStylesheets().add("style.css");
+        	theme = 3;
+        } 
         
     }
     
@@ -840,7 +863,7 @@ public void resetDefaultsClicked(){
         
         termStage.setTitle("Terminology");
         
-        Scene termScene = new Scene(termRoot,800,600);
+        Scene termScene = new Scene(termRoot,1400,700);
         
         termStage.setScene(termScene);
         termStage.initModality(Modality.WINDOW_MODAL);
@@ -868,7 +891,7 @@ public void resetDefaultsClicked(){
         
     }
     
-    public void customizeAppearanceClicked() throws IOException{
+	public void customizeAppearanceClicked() throws IOException{
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("appearanceView.fxml"));
         loader.setController(this);
@@ -878,7 +901,7 @@ public void resetDefaultsClicked(){
         
         appStage.setTitle("Appearance");
         
-        Scene appScene = new Scene(appRoot,800,400);
+        Scene appScene = new Scene(appRoot,500,300);
         
         appStage.setScene(appScene);
         appStage.initModality(Modality.WINDOW_MODAL);
@@ -886,6 +909,10 @@ public void resetDefaultsClicked(){
         appStage.show();
         graphViewBorderPane.setDisable(true);
         
+        ObservableList<String> themeChoices = FXCollections.observableArrayList("Default", "Zero", "Dark", "Feisty"); 
+		themeDropdown.setItems(themeChoices);
+		themeDropdown.getSelectionModel().select(theme);
+		
         appStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
              @Override
@@ -1159,18 +1186,33 @@ public void resetDefaultsClicked(){
 	        System.out.println("inpicker toDate is" + toDate.toString());
 			dm.fetchData(fromDate, toDate);
 			
-			getTotalCostOverTime(false, null, null, null, null, true);
-			getImpressionsOverTime(false, null, null, null, null);
-			getClicksOverTime(false, null, null, null, null);
-			getUniquesOverTime(false, null, null, null, null);
-			getBouncesOverTime(false, null, null, null, null);
-			getCPMsOverTime(false, null, null, null, null);
-			getCTRsOverTime(false, null, null, null, null);
-			getCPCsOverTime(false, null, null, null, null);
-			getCPAsOverTime(false, null, null, null, null);
-			getConversionsOverTime(false, null, null, null, null);
-			getBounceRatesOverTime(false, null, null, null, null);
-			getCPCHistogramsOverTime(false, null, null, null, null);
+			totalCostGraph.getData().clear();
+			impressionGraph.getData().clear();
+			clickGraph.getData().clear();
+			uniqueGraph.getData().clear();
+			conversionsGraph.getData().clear();
+			bounceGraph.getData().clear();
+			bounceRateGraph.getData().clear();
+			CPMGraph.getData().clear();
+			CTRGraph.getData().clear();
+			CPAGraph.getData().clear();
+			CPCGraph.getData().clear();
+			CPCHistogram.getData().clear();
+			
+			for(int i=0; i<allContextLists.size(); i++) {
+				getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
+				getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			}
 		}
 	}
 	
@@ -1846,6 +1888,8 @@ public void resetDefaultsClicked(){
         
             
     }
+	
+
 	
 
 }

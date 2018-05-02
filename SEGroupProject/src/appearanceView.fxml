@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -25,37 +25,33 @@
       </HBox>
    </bottom>
    <center>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="210.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <VBox alignment="TOP_CENTER" prefHeight="260.0" prefWidth="105.0">
                <children>
-                  <Label alignment="CENTER" text="Theme">
-                     <HBox.margin>
-                        <Insets right="87.0" />
-                     </HBox.margin>
+                  <Label text="Theme">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
                   </Label>
-                  <ChoiceBox fx:id="themeDropdown" prefHeight="31.0" prefWidth="160.0" />
-               </children></HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="349.0" prefWidth="159.0">
                <children>
-                  <Label prefHeight="21.0" prefWidth="63.0" text="Text size">
-                     <HBox.margin>
-                        <Insets right="70.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="textSizeDropdown" prefWidth="160.0" />
-               </children></HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="21.0" prefWidth="72.0" text="Text color">
-                     <HBox.margin>
-                        <Insets right="60.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ChoiceBox fx:id="textColorDropdown" prefWidth="160.0" />
-               </children></HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <ChoiceBox fx:id="themeDropdown" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </center>
 </BorderPane>
