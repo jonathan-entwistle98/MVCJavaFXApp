@@ -168,70 +168,221 @@ public class Calculator {
 		return totalCost;
 	}
 	private void calcCTR() {
-		metrics.setCtr(calcCTR(metrics.getClicks(), metrics.getImpressions()));
+		metrics.setCtr(calcCTR(metrics.getClicks(), metrics.getImpressions(), Granularity.HOURLY), Granularity.HOURLY);
+		metrics.setCtr(calcCTR(metrics.getClicks(), metrics.getImpressions(), Granularity.DAILY), Granularity.DAILY);
+		metrics.setCtr(calcCTR(metrics.getClicks(), metrics.getImpressions(), Granularity.WEEKLY), Granularity.WEEKLY);
 	}
-	private float[] calcCTR(int[] cl, int[] im) {
+	private float[] calcCTR(int[] cl, int[] im, Granularity g) {
 		float[] arr = new float[range];
+		int step = 1;
+		switch (g) {
+		case HOURLY:
+			step = 1;
+//			for(int i = 0; i < range; i++) {
+//				if(im[i] != 0) {
+//					arr[i] = cl[i] / (float)im[i];
+//				}
+//			}
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24 * 7;
+			break;
+		}
+		float accA = 0;
+		float accB = 0;
 		for(int i = 0; i < range; i++) {
-			if(im[i] != 0) {
-				arr[i] = cl[i] / (float)im[i];
+			if(i != 0 && i%step == 0) {
+				if(accB != 0) {
+					arr[i - step] = accA / accB;
+				}
+				accA = 0;
+				accB = 0;
 			}
+			accA += cl[i];
+			accB += im[i];
+		}
+		if(accA != 0 && accB != 0) {
+			
+			arr[Math.max(range - step, 0)] = accA / accB;
 		}
 		return arr;
 	}
 	private void calcCPA() {
-		metrics.setCpa(calcCPA(metrics.getCosts(), metrics.getConversions()));
+		metrics.setCpa(calcCPA(metrics.getCosts(), metrics.getConversions(), Granularity.HOURLY), Granularity.HOURLY);
+		metrics.setCpa(calcCPA(metrics.getCosts(), metrics.getConversions(), Granularity.DAILY), Granularity.DAILY);
+		metrics.setCpa(calcCPA(metrics.getCosts(), metrics.getConversions(), Granularity.WEEKLY), Granularity.WEEKLY);
 	}
-	private float[] calcCPA(float[] costs, int[] conv) {
+	private float[] calcCPA(float[] costs, int[] conv, Granularity g) {
 		float[] arr = new float[range];
+		int step = 1;
+		switch (g) {
+		case HOURLY:
+			step = 1;
+//			for(int i = 0; i < range; i++) {
+//				if(conv[i] != 0) {
+//					arr[i] = costs[i] / conv[i];
+//				}
+//			}
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24 * 7;
+			break;
+		}
+		float accA = 0;
+		float accB = 0;
 		for(int i = 0; i < range; i++) {
-			if(conv[i] != 0) {
-				arr[i] = costs[i] / conv[i];
+			if(i != 0 && i%step == 0) {
+				if(accB != 0) {
+					arr[i - step] = accA / accB;
+				}
+				accA = 0;
+				accB = 0;
 			}
+			accA += costs[i];
+			accB += conv[i];
+		}
+		if(accA != 0 && accB != 0) {
+			arr[Math.max(range - step, 0)] = accA / accB;
 		}
 		return arr;
 	}
 	private void calcCPC() {
-		metrics.setCpc(calcCPC(metrics.getClicks(), impressions));
+		metrics.setCpc(calcCPC(metrics.getClicks(), impressions, Granularity.HOURLY), Granularity.HOURLY);
+		metrics.setCpc(calcCPC(metrics.getClicks(), impressions, Granularity.DAILY), Granularity.DAILY);
+		metrics.setCpc(calcCPC(metrics.getClicks(), impressions, Granularity.WEEKLY), Granularity.WEEKLY);
 	}
-	private float[] calcCPC(int[] clicks, ArrayList<ImpressionEntry> impressions) {
+	private float[] calcCPC(int[] clicks, ArrayList<ImpressionEntry> impressions, Granularity g) {
 		float[] arr = new float[range];
 		float[] costs = new float[range];
+		int step = 1;
 		for(ImpressionEntry e : impressions) {
 			costs[(int) e.getDate()] += e.getImpressionCost();
 		}
+		switch (g) {
+		case HOURLY:
+			step = 1;
+//			for(int i = 0; i < range; i++) {
+//				if(clicks[i] != 0) {
+//					arr[i] = costs[i] / clicks[i];
+//				}
+//			}
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24 * 7;
+			break;
+		}
+		float accA = 0;
+		float accB = 0;
 		for(int i = 0; i < range; i++) {
-			if(clicks[i] != 0) {
-				arr[i] = costs[i] / clicks[i];
+			if(i != 0 && i%step == 0) {
+				if(accB != 0) {
+					arr[i - step] = accA / accB;
+				}
+				accA = 0;
+				accB = 0;
 			}
+			accA += costs[i];
+			accB += clicks[i];
+		}
+		if(accA != 0 && accB != 0) {
+			arr[Math.max(range - step, 0)] = accA / accB;
 		}
 		return arr;
 	}
 	private void calcCPM() {
-		metrics.setCpm(calcCPM(metrics.getImpressions(), impressions));
+		metrics.setCpm(calcCPM(metrics.getImpressions(), impressions, Granularity.HOURLY), Granularity.HOURLY);
+		metrics.setCpm(calcCPM(metrics.getImpressions(), impressions, Granularity.DAILY), Granularity.DAILY);
+		metrics.setCpm(calcCPM(metrics.getImpressions(), impressions, Granularity.WEEKLY), Granularity.WEEKLY);
 	}
-	private float[] calcCPM(int[] impr, ArrayList<ImpressionEntry> impressions) {
+	private float[] calcCPM(int[] impr, ArrayList<ImpressionEntry> impressions, Granularity g) {
 		float[] arr = new float[range];
 		float[] costs = new float[range];
+		int step = 1;
 		for(ImpressionEntry e : impressions) {
 			costs[(int) e.getDate()] += e.getImpressionCost();
 		}
+		switch (g) {
+		case HOURLY:
+			step = 1;
+//			for(int i = 0; i < range; i++) {
+//				arr[i] = costs[i] / (impr[i] / 1000.0f);
+//			}
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24 * 7;
+			break;
+		default:
+			break;
+		}
+		float accA = 0;
+		float accB = 0;
 		for(int i = 0; i < range; i++) {
-			arr[i] = costs[i] / (impr[i] / 1000.0f);
+			if(i != 0 && i%step == 0) {
+				if(accB != 0) {
+					arr[i - step] = accA / (accB / 1000.0f);
+				}
+				accA = 0;
+				accB = 0;
+			}
+			accA += costs[i];
+			accB += impr[i];
+		}
+		if(accA != 0 && accB != 0) {
+			arr[Math.max(range - step, 0)] = accA / accB;
 		}
 		return arr;
 	}
 	private void calcBounceRate() {
-		metrics.setBounceRate(calcBounceRate(metrics.getBounces(), metrics.getClicks()));
+		metrics.setBounceRate(calcBounceRate(metrics.getBounces(), metrics.getClicks(), Granularity.HOURLY), Granularity.HOURLY);
+		metrics.setBounceRate(calcBounceRate(metrics.getBounces(), metrics.getClicks(), Granularity.DAILY), Granularity.DAILY);
+		metrics.setBounceRate(calcBounceRate(metrics.getBounces(), metrics.getClicks(), Granularity.WEEKLY), Granularity.WEEKLY);
 	}
-	private float[] calcBounceRate(int[] bounces, int[] clicks) {
+	private float[] calcBounceRate(int[] bounces, int[] clicks, Granularity g) {
 		float[] arr = new float[range];
+		int step = 1;
+		switch (g) {
+		case HOURLY:
+			step = 1;
+//			for(int i = 0; i < range; i++) {
+//				if(clicks[i] != 0) {
+//					arr[i] = bounces[i] / (float) clicks[i];
+//				}
+//			}
+			break;
+		case DAILY:
+			step = 24;
+			break;
+		case WEEKLY:
+			step = 24 * 7;
+			break;
+		}
+		float accA = 0;
+		float accB = 0;
 		for(int i = 0; i < range; i++) {
-			if(clicks[i] != 0) {
-				arr[i] = bounces[i] / (float) clicks[i];
-			} else {
-				arr[i] = 0;
+			if(i != 0 && i%step == 0) {
+				if(accB != 0) {
+					arr[i - step] = accA / accB;
+				}
+				accA = 0;
+				accB = 0;
 			}
+			accA += bounces[i];
+			accB += clicks[i];
+		}
+		if(accA != 0 && accB != 0) {
+			arr[Math.max(range - step, 0)] = accA / accB;
 		}
 		return arr;
 	}
@@ -254,22 +405,22 @@ public class Calculator {
 		return new int[]{0};
 	}
 	
-	public float[] calcFilter(DataFilter f) {
+	public float[] calcFilter(DataFilter f, Granularity g) {
 		ArrayList<ClickEntry> c;
 		switch(f.getMetric()) {
 		case BOUNCE_RATE:
 			c = f.filterClicks(clicks);
-			return calcBounceRate(calcBounces(crit, c), calcClicks(c));
+			return calcBounceRate(calcBounces(crit, c), calcClicks(c), g);
 		case CPA:
 			c = f.filterClicks(clicks);
-			return calcCPA(calcCosts(f.filterImpressions(impressions), c), calcConversions(c));
+			return calcCPA(calcCosts(f.filterImpressions(impressions), c), calcConversions(c), g);
 		case CPC:
-			return calcCPC(calcClicks(f.filterClicks(clicks)), f.filterImpressions(impressions));
+			return calcCPC(calcClicks(f.filterClicks(clicks)), f.filterImpressions(impressions), g);
 		case CPM:
 			ArrayList<ImpressionEntry> i = f.filterImpressions(impressions);
-			return calcCPM(calcImpressions(i), i);
+			return calcCPM(calcImpressions(i), i, g);
 		case CTR:
-			return calcCTR(calcClicks(f.filterClicks(clicks)), calcImpressions(f.filterImpressions(impressions)));
+			return calcCTR(calcClicks(f.filterClicks(clicks)), calcImpressions(f.filterImpressions(impressions)), g);
 		case TOTAL_COST:
 			return calcCosts(f.filterImpressions(impressions), f.filterClicks(clicks));
 		default:

@@ -79,7 +79,7 @@ public class DataModel {
 		case CPM:
 		case CTR:
 		case TOTAL_COST:
-			populateSeries(series, calc.calcFilter(f), g);
+			populateSeries(series, calc.calcFilter(f, g), g);
 			return series;
 		default:
 			return series;
@@ -108,19 +108,19 @@ public class DataModel {
 			populateSeries(series, metrics.getCosts(), g);
 			return series;
 		case CTR:
-			populateSeries(series, metrics.getCtr(), g);
+			populateSeries(series, metrics.getCtr(g), g);
 			return series;
 		case CPA:
-			populateSeries(series, metrics.getCpa(), g);
+			populateSeries(series, metrics.getCpa(g), g);
 			return series;
 		case CPC:
-			populateSeries(series, metrics.getCpc(), g);
+			populateSeries(series, metrics.getCpc(g), g);
 			return series;
 		case CPM:
-			populateSeries(series, metrics.getCpm(), g);
+			populateSeries(series, metrics.getCpm(g), g);
 			return series;
 		case BOUNCE_RATE:
-			populateSeries(series, metrics.getBounceRate(), g);
+			populateSeries(series, metrics.getBounceRate(g), g);
 			return series;
 		}
 		return null;
