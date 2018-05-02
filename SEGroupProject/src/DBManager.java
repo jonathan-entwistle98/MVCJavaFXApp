@@ -637,6 +637,33 @@ public class DBManager {
 		}
 	}
 	
+	public void updateBounces(boolean seconds, int n, OverviewItems overview) {
+		String sql = null;
+		if (seconds) {
+			sql = "SELECT SUM((strftime('%s', EXIT_DATE) - strftime('%s', ENTRY_DATE)) < " + n + ")\n"
+					+ "FROM CLICK_LOG\n"
+					+ "WHERE CAMPAIGN =" + selectedCampaign;
+		} else {
+			sql = "SELECT SUM(PAGES_VIEWED < " + n + ")\n"
+					+ "FROM CLICK_LOG\n"
+					+ "WHERE CAMPAIGN =" + selectedCampaign;
+		}
+				
+		try (
+				Connection conn = DriverManager.getConnection(DBNAME);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				) {
+
+			if ( rs.next() ) {
+				overview.setBounces(rs.getInt(1));
+				overview.setBounceRate(overview.getBounces() / (float) overview.getClicks());
+			}
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		}
+	}
+	
 	public void init() {
 		
 		Connection conn = null;

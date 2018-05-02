@@ -17,7 +17,7 @@ public class Example {
 		Date end = null;
 		try {
 			start = new SimpleDateFormat(dateFormat).parse("2015-01-01 12:00:00");
-			end = new SimpleDateFormat(dateFormat).parse("2015-02-30 13:59:08");
+			end = new SimpleDateFormat(dateFormat).parse("2015-01-02 13:59:08");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class Example {
 	         }
 	    });  
 	    System.out.println("Loading campaign");
-	    t1.start();
+//	    t1.start();
 	    long time = System.currentTimeMillis();
 //		dm.exportCSVs(file1, file2, file3, "SomeCampaign2", progress);
 		t1.stop();
@@ -78,8 +78,9 @@ public class Example {
 		
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
-		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
-		dm.getSeries(df, Granularity.MONTHLY);
+		DataFilter df = new DataFilter(Metric.CPM,genders,null,null,null);
+//		System.out.println(dm.getSeries(df, Granularity.WEEKLY).getData().get(0));
+		System.out.println(dm.getSeries(Metric.CTR, Granularity.HOURLY).getData().get(0));
 		
 		
 		// Returns XYChart.Series for defined metric.
