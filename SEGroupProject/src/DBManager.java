@@ -23,6 +23,9 @@ public class DBManager {
 	public long refDate = 0;
 	public long endDate = 0;
 	private int rowID = 0;
+	volatile long loadTime;
+	volatile boolean finished;
+	
 	
 	/***
 	 * Returns data WITH relative time offset. (first r_date always 0)
@@ -182,18 +185,17 @@ public class DBManager {
 	public void exportData(File impressions, File clicks, File servers, double[] progress , String campaignName) {
 		
 		getRowID();
-		
 		// Dropping and recreating index when inserting data somehow increases performance?
 		setIndex(false);
 		// Set filesize for progress bar.
 		double totalLength = (double)impressions.length() + (double)clicks.length();
-		progress[1] = (75000 / (double)impressions.length()) * ((double)impressions.length() / totalLength);
-		progress[2] = (51000 / (double)clicks.length()) * ((double)clicks.length() / totalLength);
+		progress[1] = ((75000/1.1) / (double)impressions.length()) * ((double)impressions.length() / totalLength);
+		progress[2] = ((51000) / (double)clicks.length()) * ((double)clicks.length() / totalLength);
 		// Parses CSV and updates database.
 		exportImpression(impressions, progress);
 		exportRichClick(clicks, servers, progress);
-		
 		setIndex(true);
+		finished = true;
 		createCampaign(campaignName);
 		
 	}
@@ -220,7 +222,9 @@ public class DBManager {
 
 
 	private void exportImpression(File impressionFile, double[] progress) {
-
+		
+		loadTime = System.currentTimeMillis();
+		
 		// Create SQL statement
 		String SQL = "INSERT INTO IMPRESSION_LOG (CAMPAIGN, R_DATE, ID, GENDER, "
 				+ "AGE, INCOME, CONTEXT, IMPRESSION_COST) "
@@ -273,8 +277,24 @@ public class DBManager {
 			}
 			pstmt.executeBatch();
 
+			finished = false;
+			// Approx time to load.
+			loadTime = System.currentTimeMillis() - loadTime;
+			Thread t1 = new Thread(new Runnable() {
+		         public void run() {
+		        	 while(!finished) {
+		     			try {
+		     				progress[0] += progress[1];
+							Thread.sleep((int) (0.1 * loadTime));
+						} catch (InterruptedException e) {
+						}
+		     		}
+		         }
+		    });
+			t1.start();
 			//Explicitly commit statements to apply changes
 			conn.commit();
+			finished = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -284,6 +304,7 @@ public class DBManager {
 	
 	private void exportRichClick(File clickFile, File serverFile, double[] progress) {
 		
+		loadTime = System.currentTimeMillis();
 		// Create SQL statement
 		String SQL = "INSERT INTO CLICK_LOG (CAMPAIGN, R_DATE, ID, CLICK_COST, ENTRY_DATE, EXIT_DATE,\n"
 				+ "PAGES_VIEWED, CONVERSION)\n"
@@ -343,9 +364,26 @@ public class DBManager {
 
 			pstmt.executeBatch();
 
+			finished = false;
+			// Approx time to load.
+			loadTime = System.currentTimeMillis() - loadTime;
+			System.out.println("cp1");
+			Thread t2 = new Thread(new Runnable() {
+		         public void run() {
+		        	 while(!finished) {
+		     			try {
+		     				progress[0] += progress[1];
+							Thread.sleep((int) (0.1 * loadTime));
+						} catch (InterruptedException e) {
+						}
+		     		}
+		         }
+		    });
+			t2.start();
+			
 			//Explicitly commit statements to apply changes
 			conn.commit();
-			
+			finished = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
