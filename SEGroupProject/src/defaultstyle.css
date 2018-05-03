@@ -1,24 +1,24 @@
 #menu {
-	-fx-background-color: linear-gradient(to top, derive(#FFD700,50%),#FFFACD);
+	-fx-background-color: linear-gradient(to top, #B0C4DE,derive(#E0FFFF,70%));
 	-fx-border-style: solid;
-	-fx-border-color: Goldenrod;
+	-fx-border-color:#5F9EA0;
 }
 
 #menuItem {
-	-fx-background-color: linear-gradient(to top, derive(#FFD700,50%),#FFFACD);
+	-fx-background-color: linear-gradient(to top, #B0C4DE,derive(#E0FFFF,70%));
 }
 
 #menuItem .label {
-	-fx-text-fill: #800000;
+	-fx-text-fill: #000000;
 }
 
 #menuItem:hover {
-	-fx-background-color: linear-gradient(to top, #FFD700,#FFFACD);
-	-fx-text-fill: #800000;
+	-fx-background-color: linear-gradient(to top, #87CEFA,derive(#6495ED,70%));
+	-fx-text-fill: #000000;
 }
 
 #menuLabel {
-	-fx-text-fill: #800000;
+	-fx-text-fill: #000000;
 }
 
 #separator {
@@ -32,7 +32,7 @@
 .titled-pane > .title 
 {
 -fx-font-size: 20px;
--fx-background-color: derive(#FFA500,20%);
+-fx-background-color: derive(#4169E1,30%);
 -fx-text-fill:#FFFFFF;
 -fx-background-insets: 0, 1, 2;
 -fx-background-radius: 5 5 0 0, 4 4 0
@@ -67,23 +67,23 @@
 }
 
 #overview {
-	-fx-background-color: #FFFACD;
+	-fx-background-color: derive(#E0FFFF,50%);
 	-fx-border-radius:10px;
 }
 
 #overviewvbox {
 	-fx-border-style: solid;
 	-fx-border-radius: 20px;
-	-fx-border-color: #006400;
-	-fx-background-color: linear-gradient(to top, derive(#32CD32,50%), derive(#ADFF2F,50%));
+	-fx-border-color: #4682B4;
+	-fx-background-color: linear-gradient(to top, derive(#ADD8E6,90%), derive(#AFEEEE,30%));
 	-fx-background-radius: 20px;
 }
 
 #overviewvbox2 {
-	-fx-border-style: solid;
+	--fx-border-style: solid;
 	-fx-border-radius: 20px;
-	-fx-border-color: #006400;
-	-fx-background-color: derive(#ADFF2F,70%);
+	-fx-border-color: #4682B4;
+	-fx-background-color: linear-gradient(to top, derive(#ADD8E6,90%), derive(#AFEEEE,30%));
 	-fx-background-radius: 20px;
 }
 
@@ -93,14 +93,14 @@
 }
 
 #overviewlabel {
-	-fx-background-color: linear-gradient(to top, derive(#32CD32,50%), derive(#ADFF2F,50%));
+	-fx-background-color: linear-gradient(to top, derive(#ADD8E6,90%), derive(#AFEEEE,30%));
 	-fx-background-radius: 20px;
 }
 
 #overviewmetrictitle{
 	-fx-font-size:17px;
 	-fx-font-weight:900;
-	-fx-text-fill: #006400;
+	-fx-text-fill: #000000;
 }
 
 #overviewmetric {
@@ -108,7 +108,7 @@
 }
 
 .tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: #FFFACD;
+    -fx-background-color: derive(#E0FFFF,50%);
 }
 
 .tab-pane
@@ -121,20 +121,19 @@
 }
 .tab-pane .tab
 {
-    -fx-background-color: #DAA520;
+    -fx-background-color: derive(#6495ED,90%);
 
 }
 
 .tab-pane .tab:selected
 {
-    -fx-background-color: #008000	;
+    -fx-background-color: derive(#4169E1,30%);	;
 }
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #000000;
     -fx-font-size: 16px;
-    -fx-font-weight: bold;
 }
 
 .tab:selected .tab-label { 
@@ -143,31 +142,31 @@
 }
 
 #graphbg {
-	-fx-background-color: #FFFACD;
+	-fx-background-color: derive(#E0FFFF,50%);
 }
 
 #filterButton {
-	-fx-background-color: linear-gradient(#98FB98,#7FFF00) ;
+	-fx-background-color: linear-gradient(to top, #B0C4DE,#E0FFFF);
 	-fx-background-radius: 10px;
 	-fx-border-style: solid;
 	-fx-border-radius: 10px;
-	-fx-border-color: #006400;
+	-fx-border-color:#5F9EA0;
 }
 
 #deleteButton {
-	-fx-background-color: linear-gradient(#FFDAB9,derive(#FA8072,50%)) ;
+	-fx-background-color: linear-gradient(to top, #B0C4DE,#E0FFFF);
 	-fx-background-radius: 10px;
 	-fx-border-style: solid;
 	-fx-border-radius: 10px;
-	-fx-border-color: #CD5C5C;
+	-fx-border-color:#5F9EA0;
 }
 
 #loadCampaign {
-	-fx-background-color: linear-gradient(#98FB98,#7FFF00) ;
+	-fx-background-color: linear-gradient(to top, derive(#B0C4DE,50%),derive(#E0FFFF,50%));
 	-fx-background-radius: 10px;
 	-fx-border-style: solid;
 	-fx-border-radius: 10px;
-	-fx-border-color: #006400;
+	-fx-border-color:#5F9EA0;
 
 }
 
@@ -182,17 +181,17 @@
 }
 
 #campaignLoaderBox {
-	-fx-background-color: #FFFACD;
+	-fx-background-color: derive(#E0FFFF,50%);
 }
 
 #campaignLoaderLowerBox{
-	-fx-background-color: derive(#DEB887,70%);
+	-fx-background-color: derive(#E0FFFF,50%);
 }
 
 #backButton{
-	-fx-background-color: linear-gradient(#FFDAB9,derive(#FA8072,70%)) ;
+	-fx-background-color: linear-gradient(to top, #B0C4DE,derive(#E0FFFF,50%));
 	-fx-background-radius: 10px;
 	-fx-border-style: solid;
 	-fx-border-radius: 10px;
-	-fx-border-color: #CD5C5C;
+	-fx-border-color:#5F9EA0;
 }

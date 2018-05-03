@@ -78,7 +78,9 @@ public class Example {
 		
 		ArrayList<Gender> genders = new ArrayList<>();
 		genders.add(Gender.MALE);
-		DataFilter df = new DataFilter(Metric.CPM,genders,null,null,null);
+		DataFilter df = new DataFilter(Metric.IMPRESSIONS,genders,null,null,null);
+		dm.getSeries(df, Granularity.HOURLY);
+//		DataFilter df = new DataFilter(Metric.CPM,genders,null,null,null);
 //		System.out.println(dm.getSeries(df, Granularity.WEEKLY).getData().get(0));
 		System.out.println(dm.getSeries(Metric.CTR, Granularity.HOURLY).getData().get(0));
 		
