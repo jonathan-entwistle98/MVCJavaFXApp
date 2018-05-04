@@ -613,17 +613,19 @@ public class AdDashboard extends Application{
 	
 	private ArrayList<Context> contextList;
 	
-	private ArrayList<ArrayList<Gender>> allGenderLists = new ArrayList<ArrayList<Gender>>();
+	private ArrayList<ArrayList<Object>> allGenderLists = new ArrayList<ArrayList<Object>>();
 	
-	private ArrayList<ArrayList<Income>> allIncomeLists = new ArrayList<ArrayList<Income>>();
+	private ArrayList<ArrayList<Object>> allIncomeLists = new ArrayList<ArrayList<Object>>();
 	
-	private ArrayList<ArrayList<Age>> allAgeLists = new ArrayList<ArrayList<Age>>();
+	private ArrayList<ArrayList<Object>> allAgeLists = new ArrayList<ArrayList<Object>>();
 	
-	private ArrayList<ArrayList<Context>> allContextLists = new ArrayList<ArrayList<Context>>();
+	private ArrayList<ArrayList<Object>> allContextLists = new ArrayList<ArrayList<Object>>();
 	
 	private ArrayList<String> granularityArrayList = new ArrayList<String>();
 	
 	private String currentSeries = "";
+	
+	private int currentSeriesIndex;
 	
 	private int theme = 0;
 	
@@ -1178,18 +1180,18 @@ public class AdDashboard extends Application{
 			CPCGraph.getData().clear();
 			
 			for(int i=0; i<allContextLists.size(); i++) {
-				getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
-				getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getTotalCostOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0), false);
+				getImpressionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getClicksOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getUniquesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getBouncesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPMsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCTRsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPCsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPAsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getConversionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getBounceRatesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPCHistogramsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
 			}
 
 		}
@@ -1215,18 +1217,18 @@ public class AdDashboard extends Application{
 			CPCHistogram.getData().clear();
 			
 			for(int i=0; i<allContextLists.size(); i++) {
-				getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
-				getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-				getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+				getTotalCostOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0), false);
+				getImpressionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getClicksOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getUniquesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getBouncesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPMsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCTRsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPCsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPAsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getConversionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getBounceRatesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+				getCPCHistogramsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
 			}
 		}
 	}
@@ -1240,10 +1242,11 @@ public class AdDashboard extends Application{
 		}else if(selectedTimeUnitIndex == 2) {
 			timeUnitIndexString = "WEEKLY";
 		}
-		//checking if the granularity selected from dropdown is same as granularity stored for each data series
+		//checking if the granularity selected from dropdown is same as granularity stored for a graph
+		String compare1 = null;
 		for(int i=0; i<granularityArrayList.size(); i++) {
 			String choiceBoxText = timeUnitChoiceBox.getSelectionModel().getSelectedItem().toString();
-			String compare1 = null;
+			
 			if(choiceBoxText=="Days") {
 				compare1 = "DAILY";
 			}else if(choiceBoxText=="Hours") {
@@ -1255,35 +1258,42 @@ public class AdDashboard extends Application{
 			}
 			String compare2 = granularityArrayList.get(i).toString();
 			if(compare1!=compare2) {
-				totalCostGraph.getData().remove(0);
-				impressionGraph.getData().remove(0);
-				clickGraph.getData().remove(0);
-				uniqueGraph.getData().remove(0);
-				conversionsGraph.getData().remove(0);
-				bounceGraph.getData().remove(0);
-				bounceRateGraph.getData().remove(0);
-				CPMGraph.getData().remove(0);
-				CTRGraph.getData().remove(0);
-				CPAGraph.getData().remove(0);
-				CPCGraph.getData().remove(0);
-//				CPCHistogram.getData().remove(0);
-				granularityArrayList.set(i, compare1);
+				totalCostGraph.getData().clear();
+				impressionGraph.getData().clear();
+				clickGraph.getData().clear();
+				uniqueGraph.getData().clear();
+				conversionsGraph.getData().clear();
+				bounceGraph.getData().clear();
+				bounceRateGraph.getData().clear();
+				CPMGraph.getData().clear();
+				CTRGraph.getData().clear();
+				CPAGraph.getData().clear();
+				CPCGraph.getData().clear();
+				CPCHistogram.getData().clear();
+				
 			}
 		}
+		granularityArrayList.clear();
+		granularityArrayList.add(compare1);
+		
+		
 		for(int i=0; i<allContextLists.size(); i++) {
-			getTotalCostOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i), false);
-			getImpressionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getClicksOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getUniquesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getBouncesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getCPMsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getCTRsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getCPCsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getCPAsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getConversionsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getBounceRatesOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
-			getCPCHistogramsOverTime(true, allGenderLists.get(i), allAgeLists.get(i), allIncomeLists.get(i), allContextLists.get(i));
+			getTotalCostOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0), false);
+			getImpressionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getClicksOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getUniquesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getBouncesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getCPMsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getCTRsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getCPCsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getCPAsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getConversionsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getBounceRatesOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
+			getCPCHistogramsOverTime(true, (ArrayList<Gender>) allGenderLists.get(i).get(0), (ArrayList<Age>) allAgeLists.get(i).get(0), (ArrayList<Income>) allIncomeLists.get(i).get(0), (ArrayList<Context>) allContextLists.get(i).get(0));
 		}
+		
+		granularityArrayList.clear();
+		granularityArrayList.add(compare1);
 		
 	}
 	
@@ -1321,33 +1331,43 @@ public class AdDashboard extends Application{
 		if(!filterHBox1.isVisible()) {
 			filterHBox1.setVisible(true);
 			currentSeries = "Graph 1";
+			currentSeriesIndex = 0;
 		}else if(!filterHBox2.isVisible()) {
 			filterHBox2.setVisible(true);
 			currentSeries = "Graph 2";
+			currentSeriesIndex = 1;
 		}else if(!filterHBox3.isVisible()) {
 			filterHBox3.setVisible(true);
 			currentSeries = "Graph 3";
+			currentSeriesIndex = 2;
 		}else if(!filterHBox4.isVisible()) {
 			filterHBox4.setVisible(true);
 			currentSeries = "Graph 4";
+			currentSeriesIndex = 3;
 		}else if(!filterHBox5.isVisible()) {
 			filterHBox5.setVisible(true);
 			currentSeries = "Graph 5";
+			currentSeriesIndex = 4;
 		}else if(!filterHBox6.isVisible()) {
 			filterHBox6.setVisible(true);
 			currentSeries = "Graph 6";
+			currentSeriesIndex = 5;
 		}else if(!filterHBox7.isVisible()) {
 			filterHBox7.setVisible(true);
 			currentSeries = "Graph 7";
+			currentSeriesIndex = 6;
 		}else if(!filterHBox8.isVisible()) {
 			filterHBox8.setVisible(true);
 			currentSeries = "Graph 8";
+			currentSeriesIndex = 7;
 		}else if(!filterHBox9.isVisible()) {
 			filterHBox9.setVisible(true);
 			currentSeries = "Graph 9";
+			currentSeriesIndex = 8;
 		}else if(!filterHBox10.isVisible()) {
 			filterHBox10.setVisible(true);
 			currentSeries = "Graph 10";
+			currentSeriesIndex = 9;
 		}
 		genderList = new ArrayList<Gender>();
 		incomeList = new ArrayList<Income>();
@@ -1447,39 +1467,58 @@ public class AdDashboard extends Application{
 		
 		String filterText = ""; 
 		if (genderFilterString=="" && incomeFilterString=="" && ageFilterString=="" && contextFilterString==""){
-			filterText = "Original graph - No filters";
+			filterText = "No filters";
 		} else {
 			filterText = genderFilterString+incomeFilterString+ageFilterString+contextFilterString;
 		}
 		
 		allFilterTexts.add(filterText);
 		if(allFilterTexts.size()==1) {
-			filterLabel1.setText(filterText);
+			filterLabel1.setText("Graph 1: " + filterText);
 		}else if(allFilterTexts.size()==2) {
-			filterLabel2.setText(filterText);
+			filterLabel2.setText("Graph 2: " + filterText);
 		}else if(allFilterTexts.size()==3) {
-			filterLabel3.setText(filterText);
+			filterLabel3.setText("Graph 3: " + filterText);
 		}else if(allFilterTexts.size()==4) {
-			filterLabel4.setText(filterText);
+			filterLabel4.setText("Graph 4: " + filterText);
 		}else if(allFilterTexts.size()==5) {
-			filterLabel5.setText(filterText);
+			filterLabel5.setText("Graph 5: " + filterText);
 		}else if(allFilterTexts.size()==6) {
-			filterLabel6.setText(filterText);
+			filterLabel6.setText("Graph 6: " + filterText);
 		}else if(allFilterTexts.size()==7) {
-			filterLabel7.setText(filterText);
+			filterLabel7.setText("Graph 7: " + filterText);
 		}else if(allFilterTexts.size()==8) {
-			filterLabel8.setText(filterText);
+			filterLabel8.setText("Graph 8: " + filterText);
 		}else if(allFilterTexts.size()==9) {
-			filterLabel9.setText(filterText);
+			filterLabel9.setText("Graph 9: " + filterText);
 		}else if(allFilterTexts.size()==10) {
-			filterLabel10.setText(filterText);
+			filterLabel10.setText("Graph 10: " + filterText);
 		}
-		allGenderLists.add(genderList);
-		allAgeLists.add(ageList);
-		allIncomeLists.add(incomeList);
-		allContextLists.add(contextList);
+		ArrayList<Object> genderAndCurrentSeriesIndex =  new ArrayList<Object>();
+		ArrayList<Object> ageAndCurrentSeriesIndex =  new ArrayList<Object>();
+		ArrayList<Object> incomeAndCurrentSeriesIndex =  new ArrayList<Object>();
+		ArrayList<Object> contextAndCurrentSeriesIndex =  new ArrayList<Object>();
 		
-		getTotalCostOverTime(true, genderList, ageList, incomeList, contextList, setStringTimeUnit);
+		genderAndCurrentSeriesIndex.add(genderList);
+		genderAndCurrentSeriesIndex.add(currentSeriesIndex);
+		ageAndCurrentSeriesIndex.add(ageList);
+		ageAndCurrentSeriesIndex.add(currentSeriesIndex);
+		incomeAndCurrentSeriesIndex.add(incomeList);
+		incomeAndCurrentSeriesIndex.add(currentSeriesIndex);
+		contextAndCurrentSeriesIndex.add(contextList);
+		contextAndCurrentSeriesIndex.add(currentSeriesIndex);
+		
+		allGenderLists.add(genderAndCurrentSeriesIndex);
+		allAgeLists.add(ageAndCurrentSeriesIndex);
+		allIncomeLists.add(incomeAndCurrentSeriesIndex);
+		allContextLists.add(contextAndCurrentSeriesIndex);
+		
+//		allGenderLists.add(genderList);
+//		allAgeLists.add(ageList);
+//		allIncomeLists.add(incomeList);
+//		allContextLists.add(contextList);
+
+		getTotalCostOverTime(true, genderList, ageList, incomeList, contextList, false);
 		getImpressionsOverTime(true, genderList, ageList, incomeList, contextList);
 		getClicksOverTime(true, genderList, ageList, incomeList, contextList);
 		getUniquesOverTime(true, genderList, ageList, incomeList, contextList);
@@ -1494,70 +1533,145 @@ public class AdDashboard extends Application{
 		
 	}
 	
-	public void removeGraphs(int index) {
-		totalCostGraph.getData().remove(index);
-		impressionGraph.getData().remove(index);
-		clickGraph.getData().remove(index);
-		uniqueGraph.getData().remove(index);
-		conversionsGraph.getData().remove(index);
-		bounceGraph.getData().remove(index);
-		bounceRateGraph.getData().remove(index);
-		CPMGraph.getData().remove(index);
-		CTRGraph.getData().remove(index);
-		CPAGraph.getData().remove(index);
-		CPCGraph.getData().remove(index);
-		CPCHistogram.getData().remove(index);
+//	public void moveFilterGraphs(int filterIndex) {
+//	totalCostGraph.getData().remove(filterIndex);
+//	impressionGraph.getData().remove(filterIndex);
+//	clickGraph.getData().remove(filterIndex);
+//	uniqueGraph.getData().remove(filterIndex);
+//	conversionsGraph.getData().remove(filterIndex);
+//	bounceGraph.getData().remove(filterIndex);
+//	bounceRateGraph.getData().remove(filterIndex);
+//	CPMGraph.getData().remove(filterIndex);
+//	CTRGraph.getData().remove(filterIndex);
+//	CPAGraph.getData().remove(filterIndex);
+//	CPCGraph.getData().remove(filterIndex);
+//	CPCHistogram.getData().remove(filterIndex);
+//}
+
+//public void moveFilterTestUp(int filterIndex) {
+//	if(filterIndex == 0) {
+//		filterHBox1.setVisible(true);
+//	}else if(filterIndex == 1) {
+//		filterHBox2.setVisible(true);
+//	}else if(filterIndex == 2) {
+//		filterHBox3.setVisible(true);
+//	}else if(filterIndex == 3) {
+//		filterHBox4.setVisible(true);
+//	}else if(filterIndex == 4) {
+//		filterHBox5.setVisible(true);
+//	}else if(filterIndex == 5) {
+//		filterHBox6.setVisible(true);
+//	}else if(filterIndex == 6) {
+//		filterHBox7.setVisible(true);
+//	}else if(filterIndex == 7) {
+//		filterHBox8.setVisible(true);
+//	}else if(filterIndex == 8) {
+//		filterHBox9.setVisible(true);
+//	}else if(filterIndex == 9) {
+//		filterHBox10.setVisible(true);
+//	}
+//	
+//}
+	
+	public void removeFilterTexts(int indexPosition) {
+		for(int i=0; i<allGenderLists.size(); i++) {
+			if((int) allGenderLists.get(i).get(1) == indexPosition) {
+				allFilterTexts.remove(i);
+			}
+		}
+	}
+	
+	public void removeGraphs(int indexPosition) {
+		
+		for(int i=0; i<allGenderLists.size(); i++) {
+			if((int) allGenderLists.get(i).get(1) == indexPosition) {
+				totalCostGraph.getData().remove(i);
+				impressionGraph.getData().remove(i);
+				clickGraph.getData().remove(i);
+				uniqueGraph.getData().remove(i);
+				conversionsGraph.getData().remove(i);
+				bounceGraph.getData().remove(i);
+				bounceRateGraph.getData().remove(i);
+				CPMGraph.getData().remove(i);
+				CTRGraph.getData().remove(i);
+				CPAGraph.getData().remove(i);
+				CPCGraph.getData().remove(i);
+			}
+		}
+
+		
+	}
+	
+	public void deleteFilterRecord(int indexPosition){
+		for(int i=0; i<allGenderLists.size(); i++) {
+			if((int) allGenderLists.get(i).get(1) == indexPosition) {
+				allGenderLists.remove(i);
+				allIncomeLists.remove(i);
+				allAgeLists.remove(i);
+				allContextLists.remove(i);
+			}
+		}
 	}
 	
 	public void deleteFilter1Clicked() {
 		filterHBox1.setVisible(false);
-		allFilterTexts.remove(0);
+		removeFilterTexts(0);		
 		removeGraphs(0);
+		deleteFilterRecord(0);
 	}
 	public void deleteFilter2Clicked() {
 		filterHBox2.setVisible(false);
-		allFilterTexts.remove(1);
+		removeFilterTexts(1);
 		removeGraphs(1);
+		deleteFilterRecord(1);
 	}
 	public void deleteFilter3Clicked() {
 		filterHBox3.setVisible(false);
-		allFilterTexts.remove(2);
+		removeFilterTexts(2);
 		removeGraphs(2);
+		deleteFilterRecord(2);
 	}
 	public void deleteFilter4Clicked() {
 		filterHBox4.setVisible(false);
-		allFilterTexts.remove(3);
+		removeFilterTexts(3);
 		removeGraphs(3);
+		deleteFilterRecord(3);
 	}
 	public void deleteFilter5Clicked() {
 		filterHBox5.setVisible(false);
-		allFilterTexts.remove(4);
+		removeFilterTexts(4);
 		removeGraphs(4);
+		deleteFilterRecord(4);
 	}
 	public void deleteFilter6Clicked() {
 		filterHBox6.setVisible(false);
-		allFilterTexts.remove(5);
+		removeFilterTexts(5);
 		removeGraphs(5);
+		deleteFilterRecord(5);
 	}
 	public void deleteFilter7Clicked() {
 		filterHBox7.setVisible(false);
-		allFilterTexts.remove(6);
+		removeFilterTexts(6);
 		removeGraphs(6);
+		deleteFilterRecord(6);
 	}
 	public void deleteFilter8Clicked() {
 		filterHBox8.setVisible(false);
-		allFilterTexts.remove(7);
+		removeFilterTexts(7);
 		removeGraphs(7);
+		deleteFilterRecord(7);
 	}
 	public void deleteFilter9Clicked() {
 		filterHBox9.setVisible(false);
-		allFilterTexts.remove(8);
+		removeFilterTexts(8);
 		removeGraphs(8);
+		deleteFilterRecord(8);
 	}
 	public void deleteFilter10Clicked() {
 		filterHBox10.setVisible(false);
-		allFilterTexts.remove(9);
+		removeFilterTexts(9);
 		removeGraphs(9);
+		deleteFilterRecord(9);
 	}
 	
 	public void deleteAllFiltersClicked() {
@@ -1587,6 +1701,11 @@ public class AdDashboard extends Application{
 		CPAGraph.getData().clear();
 		CPCGraph.getData().clear();
 		CPCHistogram.getData().clear();
+		
+		allGenderLists.clear();
+		allIncomeLists.clear();
+		allAgeLists.clear();
+		allContextLists.clear();
 
 	}
 	
