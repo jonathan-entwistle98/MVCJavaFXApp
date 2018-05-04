@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,6 +31,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -1062,6 +1068,8 @@ public class AdDashboard extends Application{
         });
 	}
 	
+	
+	
 	public void loadExistingCampaignClicked(){
 		
 		
@@ -1972,16 +1980,58 @@ public class AdDashboard extends Application{
 	}
 	
 	public void printClicked() {
-		Scene currentScene = stage.getScene();
-		WritableImage img = new WritableImage((int)currentScene.getWidth(), (int)currentScene.getHeight());
-		WritableImage snap = currentScene.snapshot(img); 
-		ImageView printNode = new ImageView(snap);
-		printNode.setFitWidth(500);
-		printNode.setFitHeight(500);
+		WritableImage img = new WritableImage((int)mainStackPane.getWidth(), (int)mainStackPane.getHeight());
+		mainStackPane.snapshot(null,img); 
+
+
+		BufferedImage textImage = new BufferedImage(2000,600,BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d1 = textImage.createGraphics();
+		g2d1.setColor(Color.WHITE);
+		g2d1.drawRect(0, 0, 2000,2000);
+		g2d1.fillRect(0, 0, 2000, 2000);
+		g2d1.setColor(Color.BLACK);
+
+		Font font1 = g2d1.getFont();
+		Font font2 = font1.deriveFont(font1.getSize() * 2F);
+		g2d1.setFont(font2);
+
+		int stringHeight = 50;
+		int i = 1;
+		g2d1.drawString("Campaign name: "+overviewTitle.getText().split(" - ")[1], 50, 10);
+		g2d1.drawString("Graphs displayed:", 50, stringHeight);
+		for (String txt : allFilterTexts){
+
+			stringHeight += 30;
+			g2d1.drawString("Filter "+i+": "+txt, 50, stringHeight);
+			i += 1;
+		}
+		g2d1.dispose();
+		//      
+		int totalHeight = (int) (img.getHeight() + textImage.getHeight());
+		int totalWidth = (int) img.getWidth();
+		//        
+		BufferedImage fullImage = new BufferedImage(totalWidth, totalHeight, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d2 = fullImage.createGraphics();
+		//      
+		g2d2.drawImage(SwingFXUtils.fromFXImage(img, null), 0, 0, null);
+		g2d2.drawImage(textImage, 0, (int)img.getHeight(), null);
+		g2d2.dispose();
+		//        
+		ImageView printNode = new ImageView(SwingFXUtils.toFXImage(fullImage,null));
+
+
 		PrinterJob job = PrinterJob.createPrinterJob();
 		if(job != null){
+
+
+			Printer printer = job.getPrinter();
+			PageLayout layout = printer.createPageLayout(Paper.A4, PageOrientation.LANDSCAPE, Printer.MarginType.HARDWARE_MINIMUM);
+			printNode.setPreserveRatio(true);
+			printNode.setFitHeight(layout.getPrintableHeight());
+			printNode.setFitWidth(layout.getPrintableWidth());
+
 			job.showPrintDialog(stage); 
-			job.printPage(printNode);
+			job.printPage(layout,printNode);
 			job.endJob();
 		}
 	}
